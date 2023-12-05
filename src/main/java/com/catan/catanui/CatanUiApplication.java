@@ -1,5 +1,6 @@
 package com.catan.catanui;
 
+import javafx.application.Application;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -7,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CatanUiApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(CatanUiApplication.class, args);
+        Application.launch(ClientApplication.class, args);
     }
 
 }
