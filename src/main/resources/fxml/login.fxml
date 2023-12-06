@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.catan.catanui.LoginController">
+    <Padding>
+        <Insets top="20" right="20" bottom="20" left="20" />
+    </Padding>
+
+    <GridPane VBox.vgrow="ALWAYS">
+        <padding>
+            <Insets bottom="10" left="10" right="10" top="10"/>
+        </padding>
+        <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="0">
+            <Label text="Username:" />
+            <TextField fx:id="usernameField" />
+        </HBox>
+        <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="1">
+            <Label text="Password:" />
+            <PasswordField fx:id="passwordField" />
+        </HBox>
+        <HBox spacing="10" alignment="CENTER_RIGHT" GridPane.columnIndex="0" GridPane.rowIndex="2">
+            <Button text="Login" onAction="#handleLogin"/>
+        </HBox>
+    </GridPane>
+</VBox>

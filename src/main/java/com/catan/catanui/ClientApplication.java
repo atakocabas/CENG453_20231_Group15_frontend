@@ -7,25 +7,27 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import javax.swing.*;
-
 public class ClientApplication extends Application {
-    ConfigurableApplicationContext applicationContext;
+    private ConfigurableApplicationContext applicationContext;
 
     @Override
     public void init() throws Exception {
-        applicationContext = new SpringApplicationBuilder(ClientApplication.class).run();
+        String[] args = getParameters().getRaw().toArray(new String[0]);
+        applicationContext = new SpringApplicationBuilder(CatanUiApplication.class).run(args);
+        System.out.println("Application context initialized");
     }
 
     @Override
     public void start(Stage stage) throws Exception {
         applicationContext.publishEvent(new StageReadyEvent(stage));
+        System.out.println("Stage ready event published");
     }
 
     @Override
-    public void stop() throws Exception{
+    public void stop() throws Exception {
         applicationContext.close();
         Platform.exit();
+        System.out.println("Application stopped");
     }
 
     public static class StageReadyEvent extends ApplicationEvent {
@@ -34,7 +36,7 @@ public class ClientApplication extends Application {
         }
 
         public Stage getStage() {
-            return ((Stage) getSource());
+            return (Stage) getSource();
         }
     }
 }

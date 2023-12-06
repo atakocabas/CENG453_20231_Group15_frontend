@@ -1,12 +1,42 @@
 package com.catan.catanui;
 
-import com.catan.catanui.ClientApplication.StageReadyEvent;
+import javafx.geometry.Pos;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
+import org.springframework.stereotype.Component;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import org.springframework.core.io.Resource;
 
-public class StageInitializer implements ApplicationListener<StageReadyEvent> {
+import java.io.IOException;
+
+
+@Component
+public class StageInitializer implements ApplicationListener<ClientApplication.StageReadyEvent> {
+    @Value("classpath:/login.fxml")
+    private Resource resource;
     @Override
-    public void onApplicationEvent(StageReadyEvent event) {
+    public void onApplicationEvent(ClientApplication.StageReadyEvent event) {
         Stage stage = event.getStage();
+
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
+            Parent root = fxmlLoader.load();
+
+            Scene scene = new Scene(root, 300, 275);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
