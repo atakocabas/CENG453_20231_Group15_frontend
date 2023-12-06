@@ -6,10 +6,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.catan.catanui.LoginController">
-    <Padding>
+<VBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.catan.catanui.controller.LoginController">
+    <padding>
         <Insets top="20" right="20" bottom="20" left="20" />
-    </Padding>
+    </padding>
 
     <GridPane VBox.vgrow="ALWAYS">
         <padding>
