@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.catan.catanui.controller.LoginController">
+<VBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.catan.catanui.controller.RegisterController">
     <padding>
         <Insets top="20" right="20" bottom="20" left="20" />
     </padding>
@@ -23,11 +23,19 @@
             <Label text="Password:" />
             <PasswordField fx:id="passwordField" />
         </HBox>
-        <HBox spacing="10" alignment="CENTER_RIGHT" GridPane.columnIndex="0" GridPane.rowIndex="2">
-            <Button text="Login" onAction="#handleLogin"/>
+        <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="2">
+            <Label text="Re-enter Password:" />
+            <PasswordField fx:id="rePasswordField" />
         </HBox>
-        <HBox spacing="10" alignment="CENTER_RIGHT" GridPane.columnIndex="0" GridPane.rowIndex="3">
+        <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="3">
+            <Label text="Email:" />
+            <TextField fx:id="emailField" />
+        </HBox>
+        <HBox spacing="10" alignment="CENTER_RIGHT" GridPane.columnIndex="0" GridPane.rowIndex="4">
             <Button text="Register" onAction="#handleRegister"/>
+        </HBox>
+        <HBox spacing="10" alignment="CENTER_RIGHT" GridPane.columnIndex="0" GridPane.rowIndex="5">
+            <Button text="Back" onAction="#handleBack"/>
         </HBox>
     </GridPane>
 </VBox>
