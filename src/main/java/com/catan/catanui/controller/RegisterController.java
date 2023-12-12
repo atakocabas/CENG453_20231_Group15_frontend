@@ -22,7 +22,7 @@ public class RegisterController {
     @FXML
     public TextField emailField;
 
-    private RegisterService registerService = new RegisterService();
+    private final RegisterService registerService = new RegisterService();
 
     public void handleRegister() {
         String username = usernameField.getText();
