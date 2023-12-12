@@ -1,5 +1,6 @@
 package com.catan.catanui;
 
+import com.catan.catanui.constants.Constant;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -22,14 +23,12 @@ import java.io.IOException;
 
 @Component
 public class StageInitializer implements ApplicationListener<ClientApplication.StageReadyEvent> {
-    @Value("classpath:/login.fxml")
-    private Resource resource;
     @Override
     public void onApplicationEvent(ClientApplication.StageReadyEvent event) {
         Stage stage = event.getStage();
 
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(Constant.LOGIN));
             Parent root = fxmlLoader.load();
 
             Scene scene = new Scene(root, 300, 275);
