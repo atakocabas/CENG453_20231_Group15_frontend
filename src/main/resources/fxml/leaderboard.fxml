@@ -10,5 +10,18 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.catan.catanui.controller.LeaderboardController"
             prefHeight="400.0" prefWidth="600.0">
-
+    <Button fx:id="weeklyButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#weeklyButtonAction"
+            prefHeight="31.0" prefWidth="75.0" text="Weekly"/>
+    <Button fx:id="monthlyButton" layoutX="94.0" layoutY="14.0" mnemonicParsing="false" onAction="#monthlyButtonAction"
+            prefHeight="31.0" prefWidth="75.0" text="Monthly"/>
+    <Button fx:id="alltimeButton" layoutX="174.0" layoutY="14.0" mnemonicParsing="false" onAction="#alltimeButtonAction"
+            prefHeight="31.0" prefWidth="75.0" text="All-Time"/>
+    <Button fx:id="backButton" layoutX="264.0" layoutY="14.0"  mnemonicParsing="false" onAction="#backButtonAction"
+            prefHeight="31.0" prefWidth="75.0" text="Back"/>
+    <TableView fx:id="leaderboardTable" layoutX="20.0" layoutY="50.0" prefHeight="336.0" prefWidth="572.0">
+        <columns>
+            <TableColumn fx:id="usernameColumn" prefWidth="75.0" text="Username"/>
+            <TableColumn fx:id="scoreColumn" prefWidth="75.0" text="Score"/>
+        </columns>
+    </TableView>
 </AnchorPane>
