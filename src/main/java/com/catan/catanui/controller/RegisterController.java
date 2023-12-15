@@ -2,7 +2,7 @@ package com.catan.catanui.controller;
 
 import com.catan.catanui.constants.Constant;
 import com.catan.catanui.service.RegisterService;
-import com.catan.catanui.utils.Navigate;
+import com.catan.catanui.utils.Utility;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -43,6 +43,6 @@ public class RegisterController {
     }
 
     public void handleBack() {
-        Navigate.navigate((Stage) usernameField.getScene().getWindow(), getClass().getResource(Constant.LOGIN));
+        Utility.navigate((Stage) usernameField.getScene().getWindow(), getClass().getResource(Constant.LOGIN));
     }
 }

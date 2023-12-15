@@ -29,5 +29,8 @@
         <HBox spacing="10" alignment="CENTER_RIGHT" GridPane.columnIndex="0" GridPane.rowIndex="3">
             <Button text="Register" onAction="#handleRegister"/>
         </HBox>
+        <HBox spacing="10" alignment="CENTER_RIGHT" GridPane.columnIndex="0" GridPane.rowIndex="4">
+            <Button text="Forgot Password" onAction="#handleForgotPassword"/>
+        </HBox>
     </GridPane>
 </VBox>
