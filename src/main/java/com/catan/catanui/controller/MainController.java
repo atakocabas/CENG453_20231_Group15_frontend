@@ -5,7 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import com.catan.catanui.utils.Navigate;
+import com.catan.catanui.utils.Utility;
 
 public class MainController {
     @FXML
@@ -14,10 +14,10 @@ public class MainController {
     public Button leaderboardButton;
 
     public void handlePlayButtonAction(ActionEvent actionEvent) {
-
+        Utility.navigate((Stage) leaderboardButton.getScene().getWindow(), getClass().getResource(Constant.GAME));
     }
 
     public void handleLeaderboardButtonAction() {
-        Navigate.navigate((Stage) leaderboardButton.getScene().getWindow(), getClass().getResource(Constant.LEADERBOARD));
+        Utility.navigate((Stage) leaderboardButton.getScene().getWindow(), getClass().getResource(Constant.LEADERBOARD));
     }
 }

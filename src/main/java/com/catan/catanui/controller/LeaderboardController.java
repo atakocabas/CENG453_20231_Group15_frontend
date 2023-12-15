@@ -3,17 +3,14 @@ package com.catan.catanui.controller;
 import com.catan.catanui.constants.Constant;
 import com.catan.catanui.entity.LeaderboardEntry;
 import com.catan.catanui.service.LeaderboardService;
-import com.catan.catanui.utils.Navigate;
-import javafx.event.ActionEvent;
+import com.catan.catanui.utils.Utility;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class LeaderboardController {
@@ -67,6 +64,6 @@ public class LeaderboardController {
     }
 
     public void backButtonAction() {
-        Navigate.navigate((Stage) weeklyButton.getScene().getWindow(), getClass().getResource(Constant.MAIN));
+        Utility.navigate((Stage) weeklyButton.getScene().getWindow(), getClass().getResource(Constant.MAIN));
     }
 }

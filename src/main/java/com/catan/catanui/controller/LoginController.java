@@ -2,7 +2,8 @@ package com.catan.catanui.controller;
 
 import com.catan.catanui.constants.Constant;
 import com.catan.catanui.service.LoginService;
-import com.catan.catanui.utils.Navigate;
+import com.catan.catanui.utils.Utility;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -30,13 +31,17 @@ public class LoginController {
         ResponseEntity<HttpStatus> response = loginService.login(username, password);
         if (response.getStatusCode().is2xxSuccessful()) {
             URL mainUrl = getClass().getResource(Constant.MAIN);
-            Navigate.navigate((Stage) usernameField.getScene().getWindow(), mainUrl);
+            Utility.navigate((Stage) usernameField.getScene().getWindow(), mainUrl);
         } else {
             System.err.println("Login unsuccessful");
         }
     }
 
     public void handleRegister() {
-        Navigate.navigate((Stage) usernameField.getScene().getWindow(), getClass().getResource(Constant.REGISTER));
+        Utility.navigate((Stage) usernameField.getScene().getWindow(), getClass().getResource(Constant.REGISTER));
+    }
+
+    public void handleForgotPassword(ActionEvent actionEvent) {
+        Utility.navigate((Stage) usernameField.getScene().getWindow(), getClass().getResource(Constant.FORGOT_PASSWORD));
     }
 }

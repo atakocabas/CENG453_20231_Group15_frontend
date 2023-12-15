@@ -1,15 +1,17 @@
 package com.catan.catanui.utils;
 
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.LoadException;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.springframework.core.io.Resource;
 
 import java.io.IOException;
 import java.net.URL;
 
-public class Navigate {
+public class Utility {
+    private Utility() {
+    }
     public static Scene navigate(Stage stage, URL resourceUrl) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
@@ -19,9 +21,12 @@ public class Navigate {
             stage.setScene(scene);
             stage.show();
             return scene;
-        } catch (IOException e) {
+        } catch (LoadException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            throw new IllegalArgumentException(e);
         }
         return null;
     }
+
 }
