@@ -39,46 +39,53 @@ public class HexagonController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Shuffle the hexagon colors and numbers lists to randomize the order
+        // Remove Color.BURLYWOOD from the list
+        HEXAGON_COLORS.remove(Color.BURLYWOOD);
+
+        // Shuffle the remaining colors
         Collections.shuffle(HEXAGON_COLORS);
+
+        // Add Color.BURLYWOOD back to the middle of the list
+        HEXAGON_COLORS.add(HEXAGON_COLORS.size() / 2, Color.BURLYWOOD);
         Collections.shuffle(HEXAGON_NUMBERS);
 
-        int numRows = 5; // Number of rows in the honeycomb pattern
-
-        for (int row = 0; row < numRows; row++) {
-            int numHexagons = getNumHexagonsInRow(row, numRows);
-
-            // Adjust the starting position for each row to create the honeycomb pattern
-
-            double startX = 80.0;
+        double startX = 200;
+        double startY = 100.0;
+        double radius = 60;
 
 
-            // Adjust the starting position for the 4th row to align with the 2nd row and move it a bit to the right
-            if ((row == 3) || (row == 1)) {
-                startX += 60.0; // You can adjust this value as needed
-            }
+        // Define the number of hexagons in each row
+        int[] hexagonsInRow = {3, 4, 5, 4, 3};
 
-            if ((row == 4) || (row == 0)) {
-                startX += 120.0; // You can adjust this value as needed
-            }
-
-            for (int col = 0; col < numHexagons; col++) {
+        for (int row = 0; row < hexagonsInRow.length; row++) {
+            for (int col = 0; col < hexagonsInRow[row]; col++) {
                 Color color = HEXAGON_COLORS.remove(0);
                 int number = (color.equals(Color.BURLYWOOD)) ? 0 : HEXAGON_NUMBERS.remove(0);
 
-                Polygon hexagon = createHexagon(color);
-                hexagon.setLayoutX(startX + 100 + 125.0 * col);
-                hexagon.setLayoutY(100.0 + 100.0 * row);
+                Polygon hexagon = createHexagon(color, radius*0.9);
+                double row_x = row;
+                if (row > 2) {
+                    row_x = Math.abs(row - 4);
+                }
+                hexagon.setLayoutX(startX + col * radius * Math.sqrt(3) - row_x * radius * Math.sqrt(3) / 2);
+                hexagon.setLayoutY(startY + row * radius * 1.5);
                 pane.getChildren().add(hexagon);
 
-                this.tiles.add(new Tile(number, color));
+                System.out.println("Hexagon at row " + row + " and column " + col + "positioned at x=" + hexagon.getLayoutX() + " and y=" + hexagon.getLayoutY());
 
-                // Add the number to the middle of the hexagon (skip if Burlywood)
+                // add selected number to the middle of the hexagon (skip if Burlywood)
                 if (!color.equals(Color.BURLYWOOD)) {
-                    Text numberText = new Text(Integer.toString(number));
-                    numberText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-                    pane.getChildren().add(numberText);
-                    numberText.setLayoutX(hexagon.getLayoutX() + hexagon.getTranslateX() + 50.0);
-                    numberText.setLayoutY(hexagon.getLayoutY() + hexagon.getTranslateY() + 60.0);
+                    System.out.println("Adding number " + number + " to hexagon at row " + row + " and column " + col);
+                    Text text = new Text(String.valueOf(number));
+                    text.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+
+                    double textWidth = text.getLayoutBounds().getWidth();
+                    double textHeight = text.getLayoutBounds().getHeight();
+
+                    text.setX(hexagon.getLayoutX() - textWidth / 2);
+                    text.setY(hexagon.getLayoutY() + textHeight / 4);
+
+                    pane.getChildren().add(text);
                 }
             }
         }
@@ -142,20 +149,14 @@ public class HexagonController implements Initializable {
 
 
 
-    private Polygon createHexagon(Color fill) {
+    private Polygon createHexagon(Color fill, double radius) {
         Polygon hexagon = new Polygon();
 
-        // Define the scale factor for making the hexagon 20% bigger
-        double scaleFactor = 1.2;
-
-        hexagon.getPoints().addAll(
-                50.0 * scaleFactor, 0.0 * scaleFactor,
-                100.0 * scaleFactor, 25.0 * scaleFactor,
-                100.0 * scaleFactor, 75.0 * scaleFactor,
-                50.0 * scaleFactor, 100.0 * scaleFactor,
-                0.0 * scaleFactor, 75.0 * scaleFactor,
-                0.0 * scaleFactor, 25.0 * scaleFactor
-        );
+        for (int i = 0; i < 6; i++) {
+            double x = radius * Math.cos(Math.PI / 6 + Math.PI / 3 * i);
+            double y = radius * Math.sin(Math.PI / 6 + Math.PI / 3 * i);
+            hexagon.getPoints().addAll(x, y);
+        }
 
         hexagon.setFill(fill);
         hexagon.setStroke(Color.BLACK);
