@@ -1,0 +1,112 @@
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Text?>
+
+<?import javafx.scene.layout.HBox?>
+<VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.catan.catanui.controller.GameTablePackage.PlayerController" spacing="10" alignment="TOP_CENTER">
+    <Circle fx:id="player1Circle" radius="25" fill="greenyellow" stroke="black"/>
+    <Text fx:id="player1Text" text="Player 1"/>
+
+    <!-- Resources Boxes for Player 1 -->
+    <VBox spacing="5">
+        <HBox>
+            <Text text="Hills: "/>
+            <Text fx:id="player1Hills" text="0"/>
+        </HBox>
+        <HBox>
+            <Text text="Forest: "/>
+            <Text fx:id="player1Forest" text="0"/>
+        </HBox>
+        <HBox>
+            <Text text="Mountains: "/>
+            <Text fx:id="player1Mountains" text="0"/>
+        </HBox>
+        <HBox>
+            <Text text="Fields: "/>
+            <Text fx:id="player1Fields" text="0"/>
+        </HBox>
+        <HBox>
+            <Text text="Pasture: "/>
+            <Text fx:id="player1Pasture" text="0"/>
+        </HBox>
+    </VBox>
+
+
+    <Circle fx:id="player2Circle" radius="25" fill="orangered" stroke="black"/>
+    <Text fx:id="player2Text" text="Player 2"/>
+    <VBox spacing="5">
+        <HBox>
+            <Text text="Hills: "/>
+            <Text fx:id="player2Hills" text="0"/>
+        </HBox>
+        <HBox>
+            <Text text="Forest: "/>
+            <Text fx:id="player2Forest" text="0"/>
+        </HBox>
+        <HBox>
+            <Text text="Mountains: "/>
+            <Text fx:id="player2Mountains" text="0"/>
+        </HBox>
+        <HBox>
+            <Text text="Fields: "/>
+            <Text fx:id="player2Fields" text="0"/>
+        </HBox>
+        <HBox>
+            <Text text="Pasture: "/>
+            <Text fx:id="player2Pasture" text="0"/>
+        </HBox>
+    </VBox>
+
+
+    <Circle fx:id="player3Circle" radius="25" fill="DARKORANGE" stroke="black"/>
+    <Text fx:id="player3Text" text="Player 3"/>
+    <VBox spacing="5">
+        <HBox>
+            <Text text="Hills: "/>
+            <Text fx:id="player3Hills" text="0"/>
+        </HBox>
+        <HBox>
+            <Text text="Forest: "/>
+            <Text fx:id="player3Forest" text="0"/>
+        </HBox>
+        <HBox>
+            <Text text="Mountains: "/>
+            <Text fx:id="player3Mountains" text="0"/>
+        </HBox>
+        <HBox>
+            <Text text="Fields: "/>
+            <Text fx:id="player3Fields" text="0"/>
+        </HBox>
+        <HBox>
+            <Text text="Pasture: "/>
+            <Text fx:id="player3Pasture" text="0"/>
+        </HBox>
+    </VBox>
+
+
+    <Circle fx:id="player4Circle" radius="25" fill="GOLD" stroke="black"/>
+    <Text fx:id="player4Text" text="Player 4"/>
+    <VBox spacing="5">
+        <HBox>
+            <Text text="Hills: "/>
+            <Text fx:id="player4Hills" text="0"/>
+        </HBox>
+        <HBox>
+            <Text text="Forest: "/>
+            <Text fx:id="player4Forest" text="0"/>
+        </HBox>
+        <HBox>
+            <Text text="Mountains: "/>
+            <Text fx:id="player4Mountains" text="0"/>
+        </HBox>
+        <HBox>
+            <Text text="Fields: "/>
+            <Text fx:id="player4Fields" text="0"/>
+        </HBox>
+        <HBox>
+            <Text text="Pasture: "/>
+            <Text fx:id="player4Pasture" text="0"/>
+        </HBox>
+    </VBox>
+</VBox>
