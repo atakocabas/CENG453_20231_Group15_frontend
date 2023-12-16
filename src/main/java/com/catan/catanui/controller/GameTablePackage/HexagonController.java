@@ -15,6 +15,7 @@ import java.util.*;
 
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
+import javafx.scene.layout.GridPane;
 
 public class HexagonController implements Initializable {
 
@@ -39,38 +40,57 @@ public class HexagonController implements Initializable {
         Collections.shuffle(HEXAGON_COLORS);
         Collections.shuffle(HEXAGON_NUMBERS);
 
-        int row = 0;
-        int column = 0;
+        int numRows = 5; // Number of rows in the honeycomb pattern
 
-        // Iterate through the hexagons and assign colors and numbers
-        for (int i = 0; i < HEXAGON_COLORS.size(); i++) {
-            Color color = HEXAGON_COLORS.get(i);
-            int number = (color.equals(Color.BURLYWOOD)) ? 0 : HEXAGON_NUMBERS.remove(0);
+        for (int row = 0; row < numRows; row++) {
+            int numHexagons = getNumHexagonsInRow(row, numRows);
 
-            Polygon hexagon = createHexagon(color);
-            hexagon.setLayoutX(56.0 + 56.0 * column);
-            hexagon.setLayoutY(66.0 + 66.0 * row);
-            pane.getChildren().add(hexagon);
+            // Adjust the starting position for each row to create the honeycomb pattern
+            double startX = 100.0 + (numRows / 2 - row) * 50.0;
 
-            // Add the number to the middle of the hexagon (skip if Burlywood)
-//            if (!color.equals(Color.BURLYWOOD)) {
-//                Text numberText = new Text(Integer.toString(number));
-//                numberText.setFont(Font.font("Arial", FontWeight.BOLD, 16)); // Adjust font and thickness
-//                pane.add(numberText, column, row);
-//                GridPane.setHalignment(numberText, HPos.CENTER);
-//                GridPane.setValignment(numberText, VPos.CENTER);
-//            }
+            // Adjust the starting position for the 4th row to align with the 2nd row and move it a bit to the right
+            if (row == 3) {
+                startX += 100.0; // You can adjust this value as needed
+            }
 
-            // Increment row and column based on the grid pattern
-            column++;
-            if ((row % 2 == 0 && column > 4) || (row % 2 != 0 && column > 3)) {
-                column = 0;
-                row++;
+            if (row == 4) {
+                startX += 200.0; // You can adjust this value as needed
+            }
+
+            for (int col = 0; col < numHexagons; col++) {
+                Color color = HEXAGON_COLORS.remove(0);
+                int number = (color.equals(Color.BURLYWOOD)) ? 0 : HEXAGON_NUMBERS.remove(0);
+
+                Polygon hexagon = createHexagon(color);
+                hexagon.setLayoutX(startX + 100.0 * col);
+                hexagon.setLayoutY(100.0 + 87.0 * row);
+                pane.getChildren().add(hexagon);
+
+                // Add the number to the middle of the hexagon (skip if Burlywood)
+                if (!color.equals(Color.BURLYWOOD)) {
+                    Text numberText = new Text(Integer.toString(number));
+                    numberText.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+                    pane.getChildren().add(numberText);
+                    numberText.setLayoutX(hexagon.getLayoutX() + hexagon.getTranslateX() + 25.0);
+                    numberText.setLayoutY(hexagon.getLayoutY() + hexagon.getTranslateY() + 35.0);
+                }
             }
         }
-//        GridPane.setHalignment(hexGridPane, HPos.CENTER);
-//        GridPane.setValignment(hexGridPane, VPos.CENTER);
     }
+
+    private int getNumHexagonsInRow(int currentRow, int totalRows) {
+        if (currentRow == 1 || currentRow == 3) {
+            return 4;
+        } else if (currentRow < totalRows / 2) {
+            return 3 + currentRow;
+        } else {
+            return 3 + totalRows - 1 - currentRow;
+        }
+    }
+
+
+
+
 
     private Polygon createHexagon(Color fill) {
         Polygon hexagon = new Polygon();
