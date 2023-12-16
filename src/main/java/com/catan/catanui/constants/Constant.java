@@ -8,4 +8,5 @@ public class Constant {
     public static final String REGISTER = FXML_PATH + "register.fxml";
     public static final String GAME = FXML_PATH + "game.fxml";
     public static final String FORGOT_PASSWORD = FXML_PATH + "forgotPassword.fxml";
+    public static final String GAME_TABLE = FXML_PATH + "GameTable.fxml";
 }
