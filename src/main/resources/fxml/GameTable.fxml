@@ -1,10 +1,6 @@
 <?import javafx.scene.paint.Color?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.text.Text?>
-
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.geometry.Insets?>
 
 <?import javafx.scene.layout.VBox?>
@@ -20,17 +16,8 @@
     </center>
 
     <right>
-        <!-- Player Circles -->
-        <VBox spacing="10" alignment="TOP_CENTER">
-            <Circle fx:id="player1Circle" radius="25" fill="white" stroke="black"/>
-            <Text fx:id="player1Text" text="Player 1"/>
-            <Circle fx:id="player2Circle" radius="25" fill="white" stroke="black"/>
-            <Text fx:id="player2Text" text="Player 2"/>
-            <Circle fx:id="player3Circle" radius="25" fill="white" stroke="black"/>
-            <Text fx:id="player3Text" text="Player 3"/>
-            <Circle fx:id="player4Circle" radius="25" fill="white" stroke="black"/>
-            <Text fx:id="player4Text" text="Player 4"/>
-        </VBox>
+        <!-- Player Layout -->
+        <fx:include source="playerLayout.fxml" fx:id="playerLayout" />
     </right>
 </BorderPane>
 
