@@ -1,10 +1,12 @@
 package com.catan.catanui.controller.GameTablePackage;
 
+import com.catan.catanui.entity.SettlementButton;
+import com.catan.catanui.entity.Tile;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -12,15 +14,15 @@ import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.*;
-
-import javafx.geometry.HPos;
-import javafx.geometry.VPos;
-import javafx.scene.layout.GridPane;
+import java.util.List;
 
 public class HexagonController implements Initializable {
 
     @FXML
     private Pane pane;
+
+    private List<SettlementButton> settlementButtons = new ArrayList<>();
+    private List<Tile> tiles = new ArrayList<>();
 
     private static final List<Color> HEXAGON_COLORS = new ArrayList<>(List.of(
             Color.DARKGREEN, Color.DARKGREEN, Color.DARKGREEN, Color.DARKGREEN, // 4 dark green hexagons
@@ -68,6 +70,8 @@ public class HexagonController implements Initializable {
                 hexagon.setLayoutY(100.0 + 100.0 * row);
                 pane.getChildren().add(hexagon);
 
+                this.tiles.add(new Tile(number, color));
+
                 // Add the number to the middle of the hexagon (skip if Burlywood)
                 if (!color.equals(Color.BURLYWOOD)) {
                     Text numberText = new Text(Integer.toString(number));
@@ -89,6 +93,50 @@ public class HexagonController implements Initializable {
             return 3 + totalRows - 1 - currentRow;
         }
     }
+
+    private void initiateSettlementButtons() {
+        double startX = 362.0;
+        double startY = 220.0;
+        for(int i=0; i < 4; ++i){
+            if(i == 1){
+                startX = 302.0;
+                startY += 90;
+            } else if(i == 2){
+                startX = 302.0;
+                startY += 90;
+            } else if(i == 3){
+                startX = 362.0;
+                startY += 90;
+            }
+            for(int j=0; j < getNumSettlementsInRow(i); ++j){
+                SettlementButton settlementButton;
+                if(j % 2 == 0){
+                    settlementButton = new SettlementButton(10, startX + 60 * j, startY, createAdjacentTiles(null));
+                } else {
+                    if(i == 2 || i == 3){
+                        settlementButton = new SettlementButton(10, startX + 60 * j, startY + 25, createAdjacentTiles(null));
+                    } else {
+                        settlementButton = new SettlementButton(10, startX + 60 * j, startY - 25, createAdjacentTiles(null));
+                    }
+                }
+                this.settlementButtons.add(settlementButton);
+            }
+        }
+        pane.getChildren().addAll(this.settlementButtons);
+    }
+
+    private int getNumSettlementsInRow(int currentRow) {
+        if (currentRow == 0 || currentRow == 3) {
+            return 5;
+        } else {
+            return 7;
+        }
+    }
+
+    private List<Tile> createAdjacentTiles(SettlementButton settlementButton) {
+        return null;
+    }
+
 
 
 
