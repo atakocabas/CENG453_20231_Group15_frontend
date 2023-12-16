@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Polygon?>
+
+<VBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.catan.catanui.controller.GameTableController">
+    <padding>
+        <javafx.geometry.Insets top="20" right="20" bottom="20" left="20" />
+    </padding>
+
+    <GridPane VBox.vgrow="ALWAYS" fx:id="hexGridPane" style="-fx-background-color: cornflowerblue;">
+
+    </GridPane>
+</VBox>
+
