@@ -1,4 +1,4 @@
-package com.catan.catanui.controller;
+package com.catan.catanui.controller.GameTablePackage;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,7 +9,10 @@ import javafx.scene.shape.Polygon;
 import java.net.URL;
 import java.util.*;
 
-public class GameTableController implements Initializable {
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
+
+public class HexagonController implements Initializable {
 
     @FXML
     private GridPane hexGridPane;
@@ -28,8 +31,8 @@ public class GameTableController implements Initializable {
         // Shuffle the hexagon colors list to randomize the order
         Collections.shuffle(HEXAGON_COLORS);
 
-        int row = 2;
-        int column = 2;
+        int row = 0;
+        int column = 0;
 
         // Iterate through the hexagons and assign colors
         for (Color color : HEXAGON_COLORS) {
@@ -38,12 +41,16 @@ public class GameTableController implements Initializable {
 
             // Increment row and column based on the grid pattern
             column++;
-            if ( (row == 2 && column > 4) || (row == 3 && column > 5) || (row == 5 && column > 5) || (column > 6) )  {
-                column = 2;
+            if ((row == 0 && column > 2) || (row == 1 && column > 3) || (row == 3 && column > 3) || (column > 4)) {
+                column = 0;
                 row++;
             }
         }
+        GridPane.setHalignment(hexGridPane, HPos.CENTER);
+        GridPane.setValignment(hexGridPane, VPos.CENTER);
     }
+
+
 
     private Polygon createHexagon(Color fill) {
         Polygon hexagon = new Polygon();
