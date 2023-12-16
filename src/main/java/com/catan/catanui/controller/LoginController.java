@@ -28,7 +28,7 @@ public class LoginController {
     private void handleLogin() {
         String username = usernameField.getText();
         String password = passwordField.getText();
-        ResponseEntity<HttpStatus> response = loginService.login(username, password);
+        ResponseEntity<String> response = loginService.login(username, password);
         if (response.getStatusCode().is2xxSuccessful()) {
             URL mainUrl = getClass().getResource(Constant.MAIN);
             Utility.navigate((Stage) usernameField.getScene().getWindow(), mainUrl);
@@ -44,4 +44,6 @@ public class LoginController {
     public void handleForgotPassword(ActionEvent actionEvent) {
         Utility.navigate((Stage) usernameField.getScene().getWindow(), getClass().getResource(Constant.FORGOT_PASSWORD));
     }
+
+
 }
