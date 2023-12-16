@@ -46,15 +46,17 @@ public class HexagonController implements Initializable {
             int numHexagons = getNumHexagonsInRow(row, numRows);
 
             // Adjust the starting position for each row to create the honeycomb pattern
-            double startX = 100.0 + (numRows / 2 - row) * 50.0;
+
+            double startX = 80.0;
+
 
             // Adjust the starting position for the 4th row to align with the 2nd row and move it a bit to the right
-            if (row == 3) {
-                startX += 100.0; // You can adjust this value as needed
+            if ((row == 3) || (row == 1)) {
+                startX += 60.0; // You can adjust this value as needed
             }
 
-            if (row == 4) {
-                startX += 200.0; // You can adjust this value as needed
+            if ((row == 4) || (row == 0)) {
+                startX += 120.0; // You can adjust this value as needed
             }
 
             for (int col = 0; col < numHexagons; col++) {
@@ -62,17 +64,17 @@ public class HexagonController implements Initializable {
                 int number = (color.equals(Color.BURLYWOOD)) ? 0 : HEXAGON_NUMBERS.remove(0);
 
                 Polygon hexagon = createHexagon(color);
-                hexagon.setLayoutX(startX + 100.0 * col);
-                hexagon.setLayoutY(100.0 + 87.0 * row);
+                hexagon.setLayoutX(startX + 100 + 125.0 * col);
+                hexagon.setLayoutY(100.0 + 100.0 * row);
                 pane.getChildren().add(hexagon);
 
                 // Add the number to the middle of the hexagon (skip if Burlywood)
                 if (!color.equals(Color.BURLYWOOD)) {
                     Text numberText = new Text(Integer.toString(number));
-                    numberText.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+                    numberText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
                     pane.getChildren().add(numberText);
-                    numberText.setLayoutX(hexagon.getLayoutX() + hexagon.getTranslateX() + 25.0);
-                    numberText.setLayoutY(hexagon.getLayoutY() + hexagon.getTranslateY() + 35.0);
+                    numberText.setLayoutX(hexagon.getLayoutX() + hexagon.getTranslateX() + 50.0);
+                    numberText.setLayoutY(hexagon.getLayoutY() + hexagon.getTranslateY() + 60.0);
                 }
             }
         }
@@ -94,10 +96,23 @@ public class HexagonController implements Initializable {
 
     private Polygon createHexagon(Color fill) {
         Polygon hexagon = new Polygon();
-        hexagon.getPoints().addAll(50.0, 0.0, 100.0, 25.0, 100.0, 75.0, 50.0, 100.0, 0.0, 75.0, 0.0, 25.0);
+
+        // Define the scale factor for making the hexagon 20% bigger
+        double scaleFactor = 1.2;
+
+        hexagon.getPoints().addAll(
+                50.0 * scaleFactor, 0.0 * scaleFactor,
+                100.0 * scaleFactor, 25.0 * scaleFactor,
+                100.0 * scaleFactor, 75.0 * scaleFactor,
+                50.0 * scaleFactor, 100.0 * scaleFactor,
+                0.0 * scaleFactor, 75.0 * scaleFactor,
+                0.0 * scaleFactor, 25.0 * scaleFactor
+        );
+
         hexagon.setFill(fill);
         hexagon.setStroke(Color.BLACK);
         hexagon.setStrokeWidth(2.0);
+
         return hexagon;
     }
 }
