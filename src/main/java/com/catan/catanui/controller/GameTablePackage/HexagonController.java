@@ -51,7 +51,6 @@ public class HexagonController implements Initializable {
     }
 
 
-
     private Polygon createHexagon(Color fill) {
         Polygon hexagon = new Polygon();
         hexagon.getPoints().addAll(50.0, 0.0, 100.0, 25.0, 100.0, 75.0, 50.0, 100.0, 0.0, 75.0, 0.0, 25.0);
