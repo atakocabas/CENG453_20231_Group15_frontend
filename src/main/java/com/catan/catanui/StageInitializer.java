@@ -28,10 +28,11 @@ public class StageInitializer implements ApplicationListener<ClientApplication.S
         Stage stage = event.getStage();
 
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(Constant.LOGIN));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(Constant.GAME_TABLE));
+            // FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(Constant.LOGIN));
             Parent root = fxmlLoader.load();
 
-            Scene scene = new Scene(root, 300, 275);
+            Scene scene = new Scene(root, 700, 700);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
