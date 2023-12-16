@@ -1,19 +1,36 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
-<?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.catan.catanui.controller.GameTableController">
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.Insets?>
+
+<?import javafx.scene.layout.VBox?>
+<BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.catan.catanui.controller.GameTablePackage.HexagonController" style="-fx-background-color: cornflowerblue;">
     <padding>
-        <javafx.geometry.Insets top="20" right="20" bottom="20" left="20" />
+        <Insets top="1" right="1" bottom="1" left="1" />
     </padding>
 
-    <GridPane VBox.vgrow="ALWAYS" fx:id="hexGridPane" style="-fx-background-color: cornflowerblue;">
+    <center>
+        <!-- Hexagon Grid -->
+        <GridPane fx:id="hexGridPane" style="-fx-background-color: transparent;">
+        </GridPane>
+    </center>
 
-    </GridPane>
-</VBox>
+    <right>
+        <!-- Player Circles -->
+        <VBox spacing="10" alignment="TOP_CENTER">
+            <Circle fx:id="player1Circle" radius="25" fill="white" stroke="black"/>
+            <Text fx:id="player1Text" text="Player 1"/>
+            <Circle fx:id="player2Circle" radius="25" fill="white" stroke="black"/>
+            <Text fx:id="player2Text" text="Player 2"/>
+            <Circle fx:id="player3Circle" radius="25" fill="white" stroke="black"/>
+            <Text fx:id="player3Text" text="Player 3"/>
+            <Circle fx:id="player4Circle" radius="25" fill="white" stroke="black"/>
+            <Text fx:id="player4Text" text="Player 4"/>
+        </VBox>
+    </right>
+</BorderPane>
 
