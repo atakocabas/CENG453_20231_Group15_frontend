@@ -1,23 +1,19 @@
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.geometry.Insets?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.VBox?>
-<BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.catan.catanui.controller.GameTablePackage.HexagonController" style="-fx-background-color: cornflowerblue;">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<BorderPane style="-fx-background-color: cornflowerblue;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.catan.catanui.controller.GameTablePackage.HexagonController">
     <padding>
-        <Insets top="1" right="1" bottom="1" left="1" />
+        <Insets bottom="1" left="1" right="1" top="1" />
     </padding>
 
     <center>
-        <!-- Hexagon Grid -->
-        <GridPane fx:id="hexGridPane" style="-fx-background-color: transparent;">
-        </GridPane>
+        <Pane fx:id="pane" prefHeight="500" prefWidth="500">
+        </Pane>
     </center>
-
     <right>
         <!-- Player Layout -->
-        <fx:include source="playerLayout.fxml" fx:id="playerLayout" />
+        <fx:include fx:id="playerLayout" source="playerLayout.fxml" />
     </right>
 </BorderPane>
-

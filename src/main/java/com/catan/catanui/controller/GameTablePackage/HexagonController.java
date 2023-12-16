@@ -3,6 +3,7 @@ package com.catan.catanui.controller.GameTablePackage;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
@@ -18,7 +19,7 @@ import javafx.geometry.VPos;
 public class HexagonController implements Initializable {
 
     @FXML
-    private GridPane hexGridPane;
+    private Pane pane;
 
     private static final List<Color> HEXAGON_COLORS = new ArrayList<>(List.of(
             Color.DARKGREEN, Color.DARKGREEN, Color.DARKGREEN, Color.DARKGREEN, // 4 dark green hexagons
@@ -47,26 +48,28 @@ public class HexagonController implements Initializable {
             int number = (color.equals(Color.BURLYWOOD)) ? 0 : HEXAGON_NUMBERS.remove(0);
 
             Polygon hexagon = createHexagon(color);
-            hexGridPane.add(hexagon, column, row);
+            hexagon.setLayoutX(56.0 + 56.0 * column);
+            hexagon.setLayoutY(66.0 + 66.0 * row);
+            pane.getChildren().add(hexagon);
 
             // Add the number to the middle of the hexagon (skip if Burlywood)
-            if (!color.equals(Color.BURLYWOOD)) {
-                Text numberText = new Text(Integer.toString(number));
-                numberText.setFont(Font.font("Arial", FontWeight.BOLD, 16)); // Adjust font and thickness
-                hexGridPane.add(numberText, column, row);
-                GridPane.setHalignment(numberText, HPos.CENTER);
-                GridPane.setValignment(numberText, VPos.CENTER);
-            }
+//            if (!color.equals(Color.BURLYWOOD)) {
+//                Text numberText = new Text(Integer.toString(number));
+//                numberText.setFont(Font.font("Arial", FontWeight.BOLD, 16)); // Adjust font and thickness
+//                pane.add(numberText, column, row);
+//                GridPane.setHalignment(numberText, HPos.CENTER);
+//                GridPane.setValignment(numberText, VPos.CENTER);
+//            }
 
             // Increment row and column based on the grid pattern
             column++;
-            if ((row == 0 && column > 2) || (row == 1 && column > 3) || (row == 3 && column > 3) || (column > 4)) {
+            if ((row % 2 == 0 && column > 4) || (row % 2 != 0 && column > 3)) {
                 column = 0;
                 row++;
             }
         }
-        GridPane.setHalignment(hexGridPane, HPos.CENTER);
-        GridPane.setValignment(hexGridPane, VPos.CENTER);
+//        GridPane.setHalignment(hexGridPane, HPos.CENTER);
+//        GridPane.setValignment(hexGridPane, VPos.CENTER);
     }
 
     private Polygon createHexagon(Color fill) {
