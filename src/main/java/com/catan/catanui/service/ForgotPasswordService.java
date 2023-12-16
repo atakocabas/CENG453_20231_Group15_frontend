@@ -1,10 +1,15 @@
 package com.catan.catanui.service;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class ForgotPasswordService {
@@ -12,20 +17,24 @@ public class ForgotPasswordService {
 
     public void resetPassword(String username) {
         try {
-            // Create a resttemplate object then create a username param then put the username into that parameter
             RestTemplate restTemplate = new RestTemplate();
-            String usernameParam = "?username=" + username;
-            // Send a request to the api with the username param and the forgot password url
-            ResponseEntity<HttpStatus> response = restTemplate.exchange(FORGOT_PASSWORD_URL + usernameParam, HttpMethod.PUT, null, HttpStatus.class);
-            // If the response is successful then print out a message saying that the password has been reset
+
+            Map<String, String> body = new HashMap<>();
+            body.put("username", username);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Content-Type", "application/json");
+
+            HttpEntity<Map<String, String>> entity = new HttpEntity<>(body, headers);
+
+            ResponseEntity<HttpStatus> response = restTemplate.exchange(FORGOT_PASSWORD_URL, HttpMethod.PUT, entity, HttpStatus.class);
+
             if (response.getStatusCode().is2xxSuccessful()) {
                 System.out.println("Password has been reset");
             } else {
-                // If the response is not successful then print out a message saying that the password has not been reset
                 System.out.println("Password has not been reset");
             }
         } catch (Exception e) {
-            // If there is an error then print out the error message
             System.out.println("An error occurred while resetting the password: " + e.getMessage());
         }
     }
