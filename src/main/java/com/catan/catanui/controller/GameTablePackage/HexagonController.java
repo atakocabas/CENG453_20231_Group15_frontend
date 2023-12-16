@@ -17,6 +17,9 @@ import java.util.*;
 import java.util.List;
 
 public class HexagonController implements Initializable {
+    private static final double radius = 50.0;
+    private static final double startX = 362.0;
+    private static final double startY = 220.0;
 
     @FXML
     private Pane pane;
@@ -48,11 +51,6 @@ public class HexagonController implements Initializable {
         // Add Color.BURLYWOOD back to the middle of the list
         HEXAGON_COLORS.add(HEXAGON_COLORS.size() / 2, Color.BURLYWOOD);
         Collections.shuffle(HEXAGON_NUMBERS);
-
-        double startX = 200;
-        double startY = 100.0;
-        double radius = 60;
-
 
         // Define the number of hexagons in each row
         int[] hexagonsInRow = {3, 4, 5, 4, 3};
