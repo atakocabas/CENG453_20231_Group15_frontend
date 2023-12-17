@@ -14,9 +14,17 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
         super(centerX, centerY, radius);
         this.setOnMouseClicked(this);
         this.settlement = new Settlement(null, adjacentTiles);
-        this.setFill(this.settlement.getColor());
-        this.setStroke(Color.BLACK);
+        this.setFill(Color.TRANSPARENT);
+        this.setStroke(Color.TRANSPARENT);
         this.setStrokeWidth(2);
+
+        // Handle Mouse Over Events
+        this.setOnMouseEntered(e -> {
+            this.setStroke(Color.BLACK);
+        });
+        this.setOnMouseExited(e -> {
+            this.setStroke(Color.TRANSPARENT);
+        });
     }
 
     @Override
