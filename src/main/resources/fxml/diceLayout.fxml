@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.layout.StackPane?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<VBox xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.catan.catanui.controller.GameTablePackage.DiceController" spacing="10" alignment="TOP_CENTER" >
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20" />
+    </padding>
+
+    <HBox spacing="10">
+        <Pane fx:id="dice1Pane" onMouseClicked="#rollDice">
+            <Group>
+                <Rectangle fx:id="diceFirst" width="50" height="50" fill="WHITE" stroke="BLACK" strokeWidth="2"/>
+                <!-- Row 1 -->
+                <Text fx:id="dot11" text="•" x="10" y="20" style="-fx-font-size: 25px;"/>
+                <Text fx:id="dot12" text="•" x="30" y="20" style="-fx-font-size: 25px;"/>
+                <!-- Row 2 -->
+                <Text fx:id="dot13" text="•" x="10" y="32" style="-fx-font-size: 25px;"/>
+                <Text fx:id="dot14" text="•" x="30" y="32" style="-fx-font-size: 25px;"/>
+                <!-- Row 4 -->
+                <Text fx:id="dot15" text="•" x="10" y="44" style="-fx-font-size: 25px;"/>
+                <Text fx:id="dot16" text="•" x="30" y="44" style="-fx-font-size: 25px;"/>
+            </Group>
+        </Pane>
+
+        <Pane fx:id="dice2Pane" onMouseClicked="#rollDice">
+            <Group>
+                <Rectangle fx:id="diceSecond" width="50" height="50" fill="WHITE" stroke="BLACK" strokeWidth="2"/>
+                <!-- Row 1 -->
+                <Text fx:id="dot21" text="•" x="10" y="20" style="-fx-font-size: 25px;"/>
+                <Text fx:id="dot22" text="•" x="30" y="20" style="-fx-font-size: 25px;"/>
+                <!-- Row 2 -->
+                <Text fx:id="dot23" text="•" x="10" y="32" style="-fx-font-size: 25px;"/>
+                <Text fx:id="dot24" text="•" x="30" y="32" style="-fx-font-size: 25px;"/>
+                <!-- Row 4 -->
+                <Text fx:id="dot25" text="•" x="10" y="44" style="-fx-font-size: 25px;"/>
+                <Text fx:id="dot26" text="•" x="30" y="44" style="-fx-font-size: 25px;"/>
+            </Group>
+        </Pane>
+    </HBox>
+
+    <!-- Total number -->
+    <Pane>
+        <HBox spacing="0">
+            <Text text="Total: " style="-fx-font-size: 20px; -fx-fill: white;"/>
+            <Text fx:id="totalText" text="0" style="-fx-font-size: 20px; -fx-fill: white;"/>
+        </HBox>
+    </Pane>
+</VBox>
