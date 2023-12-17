@@ -11,6 +11,9 @@ import java.util.ResourceBundle;
 
 public class PlayerController implements Initializable {
 
+    int fontSize = 20;
+
+    String textColor =  "white";
     @FXML
     private VBox playerVBox;
 
@@ -37,6 +40,7 @@ public class PlayerController implements Initializable {
 
     @FXML
     private Text player4Text;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
