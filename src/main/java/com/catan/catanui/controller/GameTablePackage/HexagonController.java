@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -14,7 +13,6 @@ import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.*;
-import java.util.List;
 
 public class HexagonController implements Initializable {
     private static final double radius = 50.0;
@@ -87,6 +85,7 @@ public class HexagonController implements Initializable {
                 }
             }
         }
+        initiateSettlementButtons();
     }
 
     private int getNumHexagonsInRow(int currentRow, int totalRows) {
@@ -100,33 +99,24 @@ public class HexagonController implements Initializable {
     }
 
     private void initiateSettlementButtons() {
-        double startX = 362.0;
-        double startY = 220.0;
-        for(int i=0; i < 4; ++i){
-            if(i == 1){
-                startX = 302.0;
-                startY += 90;
-            } else if(i == 2){
-                startX = 302.0;
-                startY += 90;
-            } else if(i == 3){
-                startX = 362.0;
-                startY += 90;
-            }
-            for(int j=0; j < getNumSettlementsInRow(i); ++j){
-                SettlementButton settlementButton;
-                if(j % 2 == 0){
-                    settlementButton = new SettlementButton(10, startX + 60 * j, startY, createAdjacentTiles(null));
-                } else {
-                    if(i == 2 || i == 3){
-                        settlementButton = new SettlementButton(10, startX + 60 * j, startY + 25, createAdjacentTiles(null));
-                    } else {
-                        settlementButton = new SettlementButton(10, startX + 60 * j, startY - 25, createAdjacentTiles(null));
-                    }
+        double settlementStartY = startY + radius;
+        double xIncrement = radius * Math.sqrt(3) / 2;
+
+        for (int i = 0; i < 4; ++i) {
+            int numSettlementsInRow = getNumSettlementsInRow(i);
+            for (int j = 0; j < numSettlementsInRow; ++j) {
+                double x = startX + j * xIncrement - ((i == 1 || i == 2) ? xIncrement : 0);
+                double y = settlementStartY + i * radius * 3 / 2 - ((j % 2 == 0) ? 0 : radius / 2);
+
+                if (i > 1) {
+                    y = settlementStartY + i * radius * 3 / 2 - ((j % 2 == 0) ? radius / 2 : 0);
                 }
+
+                SettlementButton settlementButton = new SettlementButton(radius / 4, x, y, null);
                 this.settlementButtons.add(settlementButton);
             }
         }
+
         pane.getChildren().addAll(this.settlementButtons);
     }
 

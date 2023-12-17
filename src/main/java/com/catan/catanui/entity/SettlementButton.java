@@ -2,6 +2,7 @@ package com.catan.catanui.entity;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 import java.util.List;
@@ -13,6 +14,9 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
         super(centerX, centerY, radius);
         this.setOnMouseClicked(this);
         this.settlement = new Settlement(null, adjacentTiles);
+        this.setFill(this.settlement.getColor());
+        this.setStroke(Color.BLACK);
+        this.setStrokeWidth(2);
     }
 
     @Override
