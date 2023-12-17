@@ -3,6 +3,13 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.fxml.FXMLLoader?>
+<?import javafx.scene.Parent?>
+
 <BorderPane style="-fx-background-color: cornflowerblue;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.catan.catanui.controller.GameTablePackage.HexagonController">
     <padding>
         <Insets bottom="1" left="1" right="1" top="1" />
@@ -16,4 +23,8 @@
         <!-- Player Layout -->
         <fx:include fx:id="playerLayout" source="playerLayout.fxml" />
     </right>
+    <left>
+        <!-- Dice Layout -->
+        <fx:include fx:id="diceLayout" source="diceLayout.fxml"/>
+    </left>
 </BorderPane>
