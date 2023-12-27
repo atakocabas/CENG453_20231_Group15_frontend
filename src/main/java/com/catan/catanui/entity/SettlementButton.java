@@ -32,6 +32,6 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
 
     @Override
     public void handle(MouseEvent event) {
-        System.out.println("Circle button clicked!");
+        LOGGER.info("Settlement Button Clicked!");
     }
 }
