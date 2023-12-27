@@ -110,6 +110,7 @@ public class GameTableController implements Initializable {
     private void initiateSettlementButtons() {
         double settlementStartY = startY + radius;
         double xIncrement = radius * Math.sqrt(3) / 2;
+        int index = 0;
 
         for (int i = 0; i < 4; ++i) {
             int numSettlementsInRow = getNumSettlementsInRow(i);
@@ -117,7 +118,7 @@ public class GameTableController implements Initializable {
                 double x = calculateXCoordinate(i, j, xIncrement);
                 double y = calculateYCoordinate(i, j, settlementStartY);
 
-                SettlementButton settlementButton = new SettlementButton(radius / 4, x, y, null);
+                SettlementButton settlementButton = new SettlementButton(radius / 4, x, y, null, index++);
                 this.settlementButtons.add(settlementButton);
             }
         }

@@ -13,10 +13,10 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
     private static Logger logger = LoggerFactory.getLogger(SettlementButton.class);
     private Settlement settlement;
 
-    public SettlementButton(double radius, double centerX, double centerY, List<Tile> adjacentTiles) {
+    public SettlementButton(double radius, double centerX, double centerY, List<Tile> adjacentTiles, int index) {
         super(centerX, centerY, radius);
         this.setOnMouseClicked(this);
-        this.settlement = new Settlement(null, adjacentTiles);
+        this.settlement = new Settlement(null, adjacentTiles, index);
         this.setFill(Color.TRANSPARENT);
         this.setStroke(Color.TRANSPARENT);
         this.setStrokeWidth(2);
@@ -32,6 +32,6 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
 
     @Override
     public void handle(MouseEvent event) {
-        logger.info("Settlement Button Clicked!");
+        logger.info("Settlement {} Button Clicked!", this.settlement.getIndex());
     }
 }
