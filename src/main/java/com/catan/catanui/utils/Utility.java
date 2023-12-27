@@ -12,7 +12,7 @@ import java.net.URL;
 public class Utility {
     private Utility() {
     }
-    public static Scene navigate(Stage stage, URL resourceUrl) {
+    public static void navigate(Stage stage, URL resourceUrl) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
             Parent root = fxmlLoader.load();
@@ -20,13 +20,11 @@ public class Utility {
             Scene scene = new Scene(root, 300, 275);
             stage.setScene(scene);
             stage.show();
-            return scene;
         } catch (LoadException e) {
             e.printStackTrace();
         } catch (IOException e) {
             throw new IllegalArgumentException(e);
         }
-        return null;
     }
 
 }

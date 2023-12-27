@@ -2,10 +2,11 @@ package com.catan.catanui.entity;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class Road {
     private Player owner;
-    private Tile tile1;
-    private Tile tile2;
+    private List<Tile> adjacentTiles;
     private int index;
 }
