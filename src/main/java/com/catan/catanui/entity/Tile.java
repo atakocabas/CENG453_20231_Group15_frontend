@@ -1,17 +1,24 @@
 package com.catan.catanui.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.catan.catanui.enums.TileType;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Polygon;
 import lombok.Data;
 
 @Data
 public class Tile {
     private int diceNumber;
     private TileType type;
+    private List<SettlementButton> settlementButtons = new ArrayList<>();
+    private double x;
+    private double y;
 
-    public Tile(int diceNumber, Color color) {
+    public Tile(int diceNumber, Color color, double x, double y) {
         this.diceNumber = diceNumber;
+        this.x = x;
+        this.y = y;
         if(color.equals(Color.DARKGREEN)){
             this.type = TileType.FOREST;
         } else if (color.equals(Color.GREY)){

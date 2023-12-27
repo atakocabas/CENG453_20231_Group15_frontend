@@ -10,9 +10,11 @@ import org.slf4j.LoggerFactory;
 public class RoadButton extends Rectangle implements EventHandler<MouseEvent>{
     private static Logger logger = LoggerFactory.getLogger(RoadButton.class);
     private Road road;
+    private int index;
 
-    public RoadButton(double width, double height, double x, double y) {
+    public RoadButton(double width, double height, double x, double y, int index) {
         super(x, y, width, height);
+        this.index = index;
         this.setOnMouseClicked(this);
         this.road = new Road();
         this.setFill(Color.RED);
@@ -26,6 +28,10 @@ public class RoadButton extends Rectangle implements EventHandler<MouseEvent>{
         this.setOnMouseExited(e -> {
             this.setStroke(null);
         });
+    }
+
+    public int getIndex() {
+        return this.index;
     }
 
     @Override

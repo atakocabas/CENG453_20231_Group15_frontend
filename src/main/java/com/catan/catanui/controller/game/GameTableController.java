@@ -21,9 +21,10 @@ import org.slf4j.LoggerFactory;
 public class GameTableController implements Initializable {
     private static Logger logger = LoggerFactory.getLogger(GameTableController.class);
     public static GameTableController instance;
-    private static final double radius = 75.0;
-    private static final double startX = 362.0;
-    private static final double startY = 220.0;
+    private static final double RADIUS = 75.0;
+    private static final double START_X = 362.0;
+    private static final double START_Y = 220.0;
+    private static final double TILE_COEFFICIENT = 0.9;
 
     @FXML
     private Pane pane;
@@ -52,7 +53,7 @@ public class GameTableController implements Initializable {
         instance = this;
         initializeTiles();
         initiateSettlementButtons();
-        initializeRoadButtons();
+        // initializeRoadButtons();
     }
 
     public static GameTableController getInstance() {
@@ -82,16 +83,18 @@ public class GameTableController implements Initializable {
                 Color color = HEXAGON_COLORS.remove(0);
                 int number = (color.equals(Color.BURLYWOOD)) ? 0 : HEXAGON_NUMBERS.remove(0);
 
-                Polygon hexagon = createHexagon(color, radius * 0.9);
-                double row_x = row;
+                Polygon hexagon = createHexagon(color, RADIUS * TILE_COEFFICIENT);
+                double rowX = row;
                 if (row > 2) {
-                    row_x = Math.abs(row - 4);
+                    rowX = Math.abs(row - 4);
                 }
-                hexagon.setLayoutX(startX + col * radius * Math.sqrt(3) - row_x * radius * Math.sqrt(3) / 2);
-                hexagon.setLayoutY(startY + row * radius * 1.5);
+                double hexagonX = START_X + col * RADIUS * Math.sqrt(3) - rowX * RADIUS * Math.sqrt(3) / 2;
+                double hexagonY = START_Y + row * RADIUS * 1.5;
+                hexagon.setLayoutX(hexagonX);
+                hexagon.setLayoutY(hexagonY);
                 pane.getChildren().add(hexagon);
 
-                Tile tile = new Tile(number, color);
+                Tile tile = new Tile(number, color, hexagonX, hexagonY);
                 tiles.add(tile);
 
                 // add selected number to the middle of the hexagon (skip if Burlywood)
@@ -112,65 +115,90 @@ public class GameTableController implements Initializable {
     }
 
     private void initiateSettlementButtons() {
-        double settlementStartY = startY + radius;
-        double xIncrement = radius * Math.sqrt(3) / 2;
+        double length = RADIUS;
         int index = 0;
 
-        for (int i = 0; i < 4; ++i) {
-            int numSettlementsInRow = getNumSettlementsInRow(i);
-            for (int j = 0; j < numSettlementsInRow; ++j) {
-                double x = calculateXCoordinate(i, j, xIncrement);
-                double y = calculateYCoordinate(i, j, settlementStartY);
-
-                SettlementButton settlementButton = new SettlementButton(radius / 4, x, y, null, index++);
-                this.settlementButtons.add(settlementButton);
+        for (Tile tile : tiles) {
+            double tileX = tile.getX();
+            double tileY = tile.getY();
+            double startAngle = Math.toRadians(-30);
+            for (int i = 0; i < 6; ++i) {
+                double x = tileX + length * Math.cos(startAngle);
+                double y = tileY + length * Math.sin(startAngle);
+                SettlementButton settlementButton = createSettlementButton(x, y, index++);
+                if(settlementButton != null){
+                    settlementButtons.add(settlementButton);
+                    tile.getSettlementButtons().add(settlementButton);
+                }
+                startAngle += Math.toRadians(60);
             }
         }
 
         pane.getChildren().addAll(this.settlementButtons);
     }
 
-    private void initializeRoadButtons() {
-        for (SettlementButton sButton : settlementButtons) {
-            double sButtonX = sButton.getCenterX();
-            double sButtonY = sButton.getCenterY();
-            int sButtonRow = getSettlementButtonRow(sButton);
-            int sButtonIndex = sButton.getIndex();
-            if (sButtonRow == 0 && sButtonIndex % 2 == 0) {
-                createRoadButtonsYShape(sButtonX, sButtonY);
-            }
+    private SettlementButton createSettlementButton(double x, double y, int index) {
+        SettlementButton settlementButton = findSettlementButtonByCoordinates(x, y);
+        if (settlementButton != null) {
+            return null;
         }
-        pane.getChildren().addAll(roadButtons);
+        settlementButton = new SettlementButton(RADIUS / 4, x, y, null, index);
+        return settlementButton;
     }
 
-    private void createRoadButtonsYShape(double sButtonX, double sButtonY) {
-        double startAngle = Math.toRadians(-30);
-        double length = radius / 2;
-        double rectangleRotation = 60;
-
-        for (int i = 0; i < 3; ++i) {
-            double x = sButtonX + length * Math.cos(startAngle);
-            double y = sButtonY + length * Math.sin(startAngle);
-            double width = 8;
-            double height = 18;
-            RoadButton roadButton = new RoadButton(width, height, x, y);
-            roadButton.setRotate(rectangleRotation);
-            roadButtons.add(roadButton);
-            startAngle += Math.toRadians(120);
-            rectangleRotation += 120;
+    private SettlementButton findSettlementButtonByCoordinates(double x, double y) {
+        for (SettlementButton sButton : settlementButtons) {
+            if ((int) sButton.getCenterX() == (int) x && (int) sButton.getCenterY() == (int) y) {
+                return sButton;
+            }
         }
+        return null;
+    }
+
+    private void initializeRoadButtons() {
+        double length = RADIUS;
+        int index = 0;
+        for (Tile tile : tiles) {
+            double tileX = tile.getX();
+            double tileY = tile.getY();
+            double startAngle = Math.toRadians(0);
+            double rectangleRotation = Math.toRadians(30);
+            for (int i = 0; i < 6; ++i) {
+                double x = tileX + length * Math.cos(startAngle);
+                double y = tileY + length * Math.sin(startAngle);
+                RoadButton roadButton = createRoadButton(x, y, index++);
+                roadButtons.add(roadButton);
+                startAngle += Math.toRadians(60);
+                rectangleRotation += Math.toRadians(120);
+            }
+        }
+        pane.getChildren().addAll(this.roadButtons);
+    }
+
+    private RoadButton createRoadButton(double x, double y, int index) {
+        RoadButton roadButton = findRoadButtonByCoordinates(index);
+        if (roadButton == null) {
+            roadButton = new RoadButton(RADIUS / 4, RADIUS / 4, x, y, index);
+        }
+        return roadButton;
+    }
+
+    private RoadButton findRoadButtonByCoordinates(int index) {
+        for (RoadButton rButton : roadButtons) {
+        }
+        return null;
     }
 
     private double calculateXCoordinate(int i, int j, double xIncrement) {
-        return startX + j * xIncrement - ((i == 1 || i == 2) ? xIncrement : 0);
+        return START_X + j * xIncrement - ((i == 1 || i == 2) ? xIncrement : 0);
     }
 
     private double calculateYCoordinate(int i, int j, double settlementStartY) {
         double y;
         if (i > 1) {
-            y = settlementStartY + i * radius * 3 / 2 - ((j % 2 == 0) ? radius / 2 : 0);
+            y = settlementStartY + i * RADIUS * 3 / 2 - ((j % 2 == 0) ? RADIUS / 2 : 0);
         } else {
-            y = settlementStartY + i * radius * 3 / 2 - ((j % 2 == 0) ? 0 : radius / 2);
+            y = settlementStartY + i * RADIUS * 3 / 2 - ((j % 2 == 0) ? 0 : RADIUS / 2);
         }
         return y;
     }
@@ -187,12 +215,12 @@ public class GameTableController implements Initializable {
         return null;
     }
 
-    private Polygon createHexagon(Color fill, double radius) {
+    private Polygon createHexagon(Color fill, double RADIUS) {
         Polygon hexagon = new Polygon();
 
         for (int i = 0; i < 6; i++) {
-            double x = radius * Math.cos(Math.PI / 6 + Math.PI / 3 * i);
-            double y = radius * Math.sin(Math.PI / 6 + Math.PI / 3 * i);
+            double x = RADIUS * Math.cos(Math.PI / 6 + Math.PI / 3 * i);
+            double y = RADIUS * Math.sin(Math.PI / 6 + Math.PI / 3 * i);
             hexagon.getPoints().addAll(x, y);
         }
 
