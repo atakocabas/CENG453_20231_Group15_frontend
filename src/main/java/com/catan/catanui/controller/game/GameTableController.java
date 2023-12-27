@@ -1,5 +1,6 @@
 package com.catan.catanui.controller.game;
 
+import com.catan.catanui.entity.RoadButton;
 import com.catan.catanui.entity.SettlementButton;
 import com.catan.catanui.entity.Tile;
 import javafx.fxml.FXML;
@@ -29,6 +30,7 @@ public class GameTableController implements Initializable {
 
     private static int currentPlayer = 0;
     private List<SettlementButton> settlementButtons = new ArrayList<>();
+    private List<RoadButton> roadButtons = new ArrayList<>();
     private List<Tile> tiles = new ArrayList<>();
 
     private static final List<Color> HEXAGON_COLORS = new ArrayList<>(List.of(
@@ -40,14 +42,17 @@ public class GameTableController implements Initializable {
             Color.BURLYWOOD // 1 sand-colored hexagon
     ));
 
-    // Make sure the number of elements in HEXAGON_COLORS and HEXAGON_NUMBERS are the same
-    private static final List<Integer> HEXAGON_NUMBERS = new LinkedList<>(List.of(2, 3, 11, 12, 4, 5, 6, 7, 8, 9, 10, 4, 5, 6, 7, 8, 9, 10));
+    // Make sure the number of elements in HEXAGON_COLORS and HEXAGON_NUMBERS are
+    // the same
+    private static final List<Integer> HEXAGON_NUMBERS = new LinkedList<>(
+            List.of(2, 3, 11, 12, 4, 5, 6, 7, 8, 9, 10, 4, 5, 6, 7, 8, 9, 10));
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;
         initializeTiles();
         initiateSettlementButtons();
+        initializeRoadButtons();
     }
 
     public static GameTableController getInstance() {
@@ -57,7 +62,7 @@ public class GameTableController implements Initializable {
         return instance;
     }
 
-    private void initializeTiles(){
+    private void initializeTiles() {
         // Shuffle the hexagon colors and numbers lists to randomize the order
         // Remove Color.BURLYWOOD from the list
         HEXAGON_COLORS.remove(Color.BURLYWOOD);
@@ -70,14 +75,14 @@ public class GameTableController implements Initializable {
         Collections.shuffle(HEXAGON_NUMBERS);
 
         // Define the number of hexagons in each row
-        int[] hexagonsInRow = {3, 4, 5, 4, 3};
+        int[] hexagonsInRow = { 3, 4, 5, 4, 3 };
 
         for (int row = 0; row < hexagonsInRow.length; row++) {
             for (int col = 0; col < hexagonsInRow[row]; col++) {
                 Color color = HEXAGON_COLORS.remove(0);
                 int number = (color.equals(Color.BURLYWOOD)) ? 0 : HEXAGON_NUMBERS.remove(0);
 
-                Polygon hexagon = createHexagon(color, radius*0.9);
+                Polygon hexagon = createHexagon(color, radius * 0.9);
                 double row_x = row;
                 if (row > 2) {
                     row_x = Math.abs(row - 4);
@@ -88,7 +93,6 @@ public class GameTableController implements Initializable {
 
                 Tile tile = new Tile(number, color);
                 tiles.add(tile);
-
 
                 // add selected number to the middle of the hexagon (skip if Burlywood)
                 if (!color.equals(Color.BURLYWOOD)) {
@@ -124,6 +128,37 @@ public class GameTableController implements Initializable {
         }
 
         pane.getChildren().addAll(this.settlementButtons);
+    }
+
+    private void initializeRoadButtons() {
+        for (SettlementButton sButton : settlementButtons) {
+            double sButtonX = sButton.getCenterX();
+            double sButtonY = sButton.getCenterY();
+            int sButtonRow = getSettlementButtonRow(sButton);
+            int sButtonIndex = sButton.getIndex();
+            if (sButtonRow == 0 && sButtonIndex % 2 == 0) {
+                createRoadButtonsYShape(sButtonX, sButtonY);
+            }
+        }
+        pane.getChildren().addAll(roadButtons);
+    }
+
+    private void createRoadButtonsYShape(double sButtonX, double sButtonY) {
+        double startAngle = Math.toRadians(-30);
+        double length = radius / 2;
+        double rectangleRotation = 60;
+
+        for (int i = 0; i < 3; ++i) {
+            double x = sButtonX + length * Math.cos(startAngle);
+            double y = sButtonY + length * Math.sin(startAngle);
+            double width = 8;
+            double height = 18;
+            RoadButton roadButton = new RoadButton(width, height, x, y);
+            roadButton.setRotate(rectangleRotation);
+            roadButtons.add(roadButton);
+            startAngle += Math.toRadians(120);
+            rectangleRotation += 120;
+        }
     }
 
     private double calculateXCoordinate(int i, int j, double xIncrement) {
@@ -172,5 +207,14 @@ public class GameTableController implements Initializable {
         currentPlayer = (currentPlayer + 1) % 4;
         logger.info("Current player: {} ", currentPlayer);
         PlayerController.getInstance().updatePlayerCircle(currentPlayer);
+    }
+
+    private int getSettlementButtonRow(SettlementButton settlementButton) {
+        int index = settlementButton.getIndex() - 5;
+        if (index < 0)
+            return 0;
+        else {
+            return (index / 7) + 1;
+        }
     }
 }

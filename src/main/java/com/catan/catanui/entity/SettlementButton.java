@@ -34,4 +34,8 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
     public void handle(MouseEvent event) {
         logger.info("Settlement {} Button Clicked!", this.settlement.getIndex());
     }
+
+    public int getIndex() {
+        return this.settlement.getIndex();
+    }
 }
