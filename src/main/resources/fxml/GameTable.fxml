@@ -20,4 +20,8 @@
         <!-- Dice Layout -->
         <fx:include fx:id="diceLayout" source="diceLayout.fxml"/>
     </left>
+    <bottom>
+        <!-- End Turn Layout -->
+        <fx:include source="endTurn.fxml"/>
+    </bottom>
 </BorderPane>

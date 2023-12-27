@@ -27,6 +27,7 @@ public class GameTableController implements Initializable {
     @FXML
     private Pane pane;
 
+    private static int currentPlayer = 0;
     private List<SettlementButton> settlementButtons = new ArrayList<>();
     private List<Tile> tiles = new ArrayList<>();
 
@@ -85,11 +86,12 @@ public class GameTableController implements Initializable {
                 hexagon.setLayoutY(startY + row * radius * 1.5);
                 pane.getChildren().add(hexagon);
 
-                System.out.println("Hexagon at row " + row + " and column " + col + "positioned at x=" + hexagon.getLayoutX() + " and y=" + hexagon.getLayoutY());
+                Tile tile = new Tile(number, color);
+                tiles.add(tile);
+
 
                 // add selected number to the middle of the hexagon (skip if Burlywood)
                 if (!color.equals(Color.BURLYWOOD)) {
-                    System.out.println("Adding number " + number + " to hexagon at row " + row + " and column " + col);
                     Text text = new Text(String.valueOf(number));
                     text.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
 
@@ -103,17 +105,6 @@ public class GameTableController implements Initializable {
                 }
             }
         }
-        initiateSettlementButtons();
-    }
-
-    private int getNumHexagonsInRow(int currentRow, int totalRows) {
-        if (currentRow == 1 || currentRow == 3) {
-            return 4;
-        } else if (currentRow < totalRows / 2) {
-            return 3 + currentRow;
-        } else {
-            return 3 + totalRows - 1 - currentRow;
-        }
     }
 
     private void initiateSettlementButtons() {
@@ -124,10 +115,12 @@ public class GameTableController implements Initializable {
             int numSettlementsInRow = getNumSettlementsInRow(i);
             for (int j = 0; j < numSettlementsInRow; ++j) {
                 double x = startX + j * xIncrement - ((i == 1 || i == 2) ? xIncrement : 0);
-                double y = settlementStartY + i * radius * 3 / 2 - ((j % 2 == 0) ? 0 : radius / 2);
+                double y;
 
                 if (i > 1) {
                     y = settlementStartY + i * radius * 3 / 2 - ((j % 2 == 0) ? radius / 2 : 0);
+                } else {
+                    y = settlementStartY + i * radius * 3 / 2 - ((j % 2 == 0) ? 0 : radius / 2);
                 }
 
                 SettlementButton settlementButton = new SettlementButton(radius / 4, x, y, null);
@@ -150,11 +143,6 @@ public class GameTableController implements Initializable {
         return null;
     }
 
-
-
-
-
-
     private Polygon createHexagon(Color fill, double radius) {
         Polygon hexagon = new Polygon();
 
@@ -169,5 +157,11 @@ public class GameTableController implements Initializable {
         hexagon.setStrokeWidth(2.0);
 
         return hexagon;
+    }
+
+    public void endTurn() {
+        currentPlayer = (currentPlayer + 1) % 4;
+        LOGGER.info("Current player: {} ", currentPlayer);
+        PlayerController.getInstance().updatePlayerCircle(currentPlayer);
     }
 }
