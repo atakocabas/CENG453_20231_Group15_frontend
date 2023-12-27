@@ -1,4 +1,4 @@
-package com.catan.catanui.controller.GameTablePackage;
+package com.catan.catanui.controller.game;
 
 import com.catan.catanui.entity.SettlementButton;
 import com.catan.catanui.entity.Tile;

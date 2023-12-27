@@ -1,4 +1,4 @@
-package com.catan.catanui.controller.GameTablePackage;
+package com.catan.catanui.controller.game;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
