@@ -44,6 +44,19 @@ public class GameTableController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        instance = this;
+        initializeTiles();
+        initiateSettlementButtons();
+    }
+
+    public static GameTableController getInstance() {
+        if (instance == null) {
+            instance = new GameTableController();
+        }
+        return instance;
+    }
+
+    private void initializeTiles(){
         // Shuffle the hexagon colors and numbers lists to randomize the order
         // Remove Color.BURLYWOOD from the list
         HEXAGON_COLORS.remove(Color.BURLYWOOD);
