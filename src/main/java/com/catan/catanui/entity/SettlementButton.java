@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class SettlementButton extends Circle implements EventHandler<MouseEvent> {
-    private static Logger LOGGER = LoggerFactory.getLogger(SettlementButton.class);
+    private static Logger logger = LoggerFactory.getLogger(SettlementButton.class);
     private Settlement settlement;
 
     public SettlementButton(double radius, double centerX, double centerY, List<Tile> adjacentTiles) {
@@ -32,6 +32,6 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
 
     @Override
     public void handle(MouseEvent event) {
-        LOGGER.info("Settlement Button Clicked!");
+        logger.info("Settlement Button Clicked!");
     }
 }

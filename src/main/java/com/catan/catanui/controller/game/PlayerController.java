@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class PlayerController implements Initializable {
-    private static final Logger LOGGER = LoggerFactory.getLogger(PlayerController.class);
+    private static final Logger logger = LoggerFactory.getLogger(PlayerController.class);
 
     public static PlayerController instance;
 

@@ -18,7 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class GameTableController implements Initializable {
-    private static Logger LOGGER = LoggerFactory.getLogger(GameTableController.class);
+    private static Logger logger = LoggerFactory.getLogger(GameTableController.class);
     public static GameTableController instance;
     private static final double radius = 75.0;
     private static final double startX = 362.0;
@@ -161,7 +161,7 @@ public class GameTableController implements Initializable {
 
     public void endTurn() {
         currentPlayer = (currentPlayer + 1) % 4;
-        LOGGER.info("Current player: {} ", currentPlayer);
+        logger.info("Current player: {} ", currentPlayer);
         PlayerController.getInstance().updatePlayerCircle(currentPlayer);
     }
 }

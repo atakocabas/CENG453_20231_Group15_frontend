@@ -11,7 +11,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class EndTurnController implements Initializable {
-    private static final Logger LOGGER = LoggerFactory.getLogger(EndTurnController.class);
+    private static final Logger logger = LoggerFactory.getLogger(EndTurnController.class);
 
     @FXML
     public Button endTurnButton;
@@ -19,11 +19,11 @@ public class EndTurnController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         endTurnButton.setOnAction(this::endTurn);
-        LOGGER.info("EndTurnController initialized");
+        logger.info("EndTurnController initialized");
     }
 
     private void endTurn(ActionEvent event){
-        LOGGER.info("End Turn Button Clicked!");
+        logger.info("End Turn Button Clicked!");
         GameTableController.getInstance().endTurn();
     }
 }

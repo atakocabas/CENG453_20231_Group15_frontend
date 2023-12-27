@@ -10,27 +10,27 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ClientApplication extends Application {
-    private static Logger LOGGER = LoggerFactory.getLogger(ClientApplication.class);
+    private static Logger logger = LoggerFactory.getLogger(ClientApplication.class);
     private ConfigurableApplicationContext applicationContext;
 
     @Override
     public void init() throws Exception {
         String[] args = getParameters().getRaw().toArray(new String[0]);
         applicationContext = new SpringApplicationBuilder(CatanUiApplication.class).run(args);
-        LOGGER.info("Application initialized.");
+        logger.info("Application initialized.");
     }
 
     @Override
     public void start(Stage stage) throws Exception {
         applicationContext.publishEvent(new StageReadyEvent(stage));
-        LOGGER.info("Application started.");
+        logger.info("Application started.");
     }
 
     @Override
     public void stop() throws Exception {
         applicationContext.close();
         Platform.exit();
-        LOGGER.info("Application stopped.");
+        logger.info("Application stopped.");
     }
 
     public static class StageReadyEvent extends ApplicationEvent {
