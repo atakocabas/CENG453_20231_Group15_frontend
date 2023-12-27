@@ -6,8 +6,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SettlementButton extends Circle implements EventHandler<MouseEvent> {
+    private static Logger LOGGER = LoggerFactory.getLogger(SettlementButton.class);
     private Settlement settlement;
 
     public SettlementButton(double radius, double centerX, double centerY, List<Tile> adjacentTiles) {

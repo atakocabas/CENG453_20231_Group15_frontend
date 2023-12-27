@@ -14,8 +14,13 @@ import javafx.scene.text.Text;
 import java.net.URL;
 import java.util.*;
 
-public class HexagonController implements Initializable {
-    private static final double radius = 50.0;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class GameTableController implements Initializable {
+    private static Logger LOGGER = LoggerFactory.getLogger(GameTableController.class);
+    public static GameTableController instance;
+    private static final double radius = 75.0;
     private static final double startX = 362.0;
     private static final double startY = 220.0;
 

@@ -8,8 +8,13 @@ import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PlayerController implements Initializable {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PlayerController.class);
+
+    public static PlayerController instance;
 
     int fontSize = 20;
 
