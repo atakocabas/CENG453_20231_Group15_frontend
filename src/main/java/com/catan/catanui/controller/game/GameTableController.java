@@ -114,14 +114,8 @@ public class GameTableController implements Initializable {
         for (int i = 0; i < 4; ++i) {
             int numSettlementsInRow = getNumSettlementsInRow(i);
             for (int j = 0; j < numSettlementsInRow; ++j) {
-                double x = startX + j * xIncrement - ((i == 1 || i == 2) ? xIncrement : 0);
-                double y;
-
-                if (i > 1) {
-                    y = settlementStartY + i * radius * 3 / 2 - ((j % 2 == 0) ? radius / 2 : 0);
-                } else {
-                    y = settlementStartY + i * radius * 3 / 2 - ((j % 2 == 0) ? 0 : radius / 2);
-                }
+                double x = calculateXCoordinate(i, j, xIncrement);
+                double y = calculateYCoordinate(i, j, settlementStartY);
 
                 SettlementButton settlementButton = new SettlementButton(radius / 4, x, y, null);
                 this.settlementButtons.add(settlementButton);
@@ -129,6 +123,20 @@ public class GameTableController implements Initializable {
         }
 
         pane.getChildren().addAll(this.settlementButtons);
+    }
+
+    private double calculateXCoordinate(int i, int j, double xIncrement) {
+        return startX + j * xIncrement - ((i == 1 || i == 2) ? xIncrement : 0);
+    }
+
+    private double calculateYCoordinate(int i, int j, double settlementStartY) {
+        double y;
+        if (i > 1) {
+            y = settlementStartY + i * radius * 3 / 2 - ((j % 2 == 0) ? radius / 2 : 0);
+        } else {
+            y = settlementStartY + i * radius * 3 / 2 - ((j % 2 == 0) ? 0 : radius / 2);
+        }
+        return y;
     }
 
     private int getNumSettlementsInRow(int currentRow) {
