@@ -1,5 +1,6 @@
 package com.catan.catanui.controller.game;
 
+import com.catan.catanui.entity.Road;
 import com.catan.catanui.entity.RoadButton;
 import com.catan.catanui.entity.SettlementButton;
 import com.catan.catanui.entity.Tile;
@@ -12,7 +13,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
-
+import java.awt.geom.Point2D;
 import java.net.URL;
 import java.util.*;
 
@@ -54,7 +55,7 @@ public class GameTableController implements Initializable {
         instance = this;
         initializeTiles();
         initiateSettlementButtons();
-        initializeRoadButtons();
+        // initializeRoadButtons();
     }
 
     public static GameTableController getInstance() {
@@ -182,27 +183,54 @@ public class GameTableController implements Initializable {
     }
 
     private RoadButton createRoadButton(double x, double y, int index, double rectangeleRotation) {
-        RoadButton roadButton = findRoadButtonByCoordinates(x, y);
-        if (roadButton != null) {
-            return null;
-        }
         double width = 2 * RADIUS * (1 - TILE_COEFFICIENT);
         double height = RADIUS * TILE_COEFFICIENT;
-        roadButton = new RoadButton(width, height, x, y, index);
+        RoadButton roadButton = new RoadButton(width, height, x, y, index);
         Rotate rotate = new Rotate(-rectangeleRotation);
         rotate.setPivotX(roadButton.getX());
         rotate.setPivotY(roadButton.getY());
         roadButton.getTransforms().add(rotate);
+        RoadButton roadButtonTmp = findRoadButtonByCoordinates(roadButton);
+        if (roadButtonTmp != null) {
+            return null;
+        }
         return roadButton;
     }
 
-    private RoadButton findRoadButtonByCoordinates(double x, double y) {
-        for (RoadButton rButton : roadButtons) {
-            if ((int) rButton.getX() == (int) x && (int) rButton.getY() == (int) y) {
+    private RoadButton findRoadButtonByCoordinates(RoadButton roadButton) {
+        Point2D bottomRightCorner = calculateBottomRightCorner(roadButton);
+        for(RoadButton rButton : roadButtons) {
+            if((int) rButton.getX() == (int) bottomRightCorner.getX() && (int) rButton.getY() == (int) bottomRightCorner.getY()) {
                 return rButton;
             }
         }
         return null;
+        // for (RoadButton rButton : roadButtons) {
+        //     if ((int) rButton.getX() == (int) x && (int) rButton.getY() == (int) y) {
+        //         return rButton;
+        //     }
+        // }
+        // return null;
+    }
+
+    private Point2D calculateBottomRightCorner(RoadButton roadButton) {
+        // Get the Rotate object from the transforms list
+        Rotate rotate = (Rotate) roadButton.getTransforms().get(0);
+
+        // Get the rotation angle
+        double rotationAngle = rotate.getAngle();
+
+        // Convert the rotation angle to radians
+        double angleInRadians = Math.toRadians(rotationAngle);
+        // Calculate the coordinates of the bottom right corner after rotation
+        double width = roadButton.getWidth();
+        double height = roadButton.getHeight();
+        double length = Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2));
+
+        double newX = roadButton.getX() + length * Math.cos(angleInRadians);
+        double newY = roadButton.getY() + length * Math.sin(angleInRadians);
+
+        return new Point2D.Double(newX, newY);
     }
 
     private Polygon createHexagon(Color fill, double RADIUS) {
