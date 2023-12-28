@@ -125,10 +125,11 @@ public class GameTableController implements Initializable {
             for (int i = 0; i < 6; ++i) {
                 double x = tileX + length * Math.cos(startAngle);
                 double y = tileY + length * Math.sin(startAngle);
-                SettlementButton settlementButton = createSettlementButton(x, y, index++);
+                SettlementButton settlementButton = createSettlementButton(x, y, index);
                 if(settlementButton != null){
                     settlementButtons.add(settlementButton);
                     tile.getSettlementButtons().add(settlementButton);
+                    index++;
                 }
                 startAngle += Math.toRadians(60);
             }
