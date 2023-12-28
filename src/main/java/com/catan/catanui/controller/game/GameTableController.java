@@ -53,7 +53,7 @@ public class GameTableController implements Initializable {
         instance = this;
         initializeTiles();
         initiateSettlementButtons();
-        // initializeRoadButtons();
+        initializeRoadButtons();
     }
 
     public static GameTableController getInstance() {
@@ -126,7 +126,7 @@ public class GameTableController implements Initializable {
                 double x = tileX + length * Math.cos(startAngle);
                 double y = tileY + length * Math.sin(startAngle);
                 SettlementButton settlementButton = createSettlementButton(x, y, index);
-                if(settlementButton != null){
+                if (settlementButton != null) {
                     settlementButtons.add(settlementButton);
                     tile.getSettlementButtons().add(settlementButton);
                     index++;
@@ -157,39 +157,49 @@ public class GameTableController implements Initializable {
     }
 
     private void initializeRoadButtons() {
-        double length = RADIUS;
+        double length = RADIUS * TILE_COEFFICIENT;
         int index = 0;
         for (Tile tile : tiles) {
             double tileX = tile.getX();
             double tileY = tile.getY();
-            double startAngle = Math.toRadians(0);
-            double rectangleRotation = Math.toRadians(30);
+            double startAngle = Math.toRadians(-30);
+            double rectangeleRotation = 0;
             for (int i = 0; i < 6; ++i) {
                 double x = tileX + length * Math.cos(startAngle);
                 double y = tileY + length * Math.sin(startAngle);
-                RoadButton roadButton = createRoadButton(x, y, index++);
-                roadButtons.add(roadButton);
-                startAngle += Math.toRadians(60);
-                rectangleRotation += Math.toRadians(120);
+                RoadButton roadButton = createRoadButton(x, y, index, rectangeleRotation);
+                if (roadButton != null) {
+                    roadButtons.add(roadButton);
+                    index++;
+                }
+                startAngle += Math.toRadians(-60);
+                // rectangeleRotation += 60;
             }
         }
+
         pane.getChildren().addAll(this.roadButtons);
     }
 
-    private RoadButton createRoadButton(double x, double y, int index) {
-        RoadButton roadButton = findRoadButtonByCoordinates(index);
-        if (roadButton == null) {
-            roadButton = new RoadButton(RADIUS / 4, RADIUS / 4, x, y, index);
+    private RoadButton createRoadButton(double x, double y, int index, double rectangeleRotation) {
+        RoadButton roadButton = findRoadButtonByCoordinates(x, y);
+        if (roadButton != null) {
+            return null;
         }
+        // double width = 2 * RADIUS * (1 - TILE_COEFFICIENT);
+        // double height = RADIUS * TILE_COEFFICIENT;
+        roadButton = new RoadButton(10, 20, x, y, index);
+        roadButton.setRotate(rectangeleRotation);
         return roadButton;
     }
 
-    private RoadButton findRoadButtonByCoordinates(int index) {
+    private RoadButton findRoadButtonByCoordinates(double x, double y) {
         for (RoadButton rButton : roadButtons) {
+            if ((int) rButton.getX() == (int) x && (int) rButton.getY() == (int) y) {
+                return rButton;
+            }
         }
         return null;
     }
-
 
     private Polygon createHexagon(Color fill, double RADIUS) {
         Polygon hexagon = new Polygon();
