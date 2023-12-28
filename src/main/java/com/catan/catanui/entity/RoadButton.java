@@ -36,8 +36,7 @@ public class RoadButton extends Rectangle implements EventHandler<MouseEvent>{
 
     @Override
     public void handle(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'handle'");
+        logger.info("RoadButton clicked: {}", this.index);
     }
     
 }
