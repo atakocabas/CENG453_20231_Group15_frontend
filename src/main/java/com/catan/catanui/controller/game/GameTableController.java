@@ -11,6 +11,7 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Rotate;
 
 import java.net.URL;
 import java.util.*;
@@ -173,7 +174,7 @@ public class GameTableController implements Initializable {
                     index++;
                 }
                 startAngle += Math.toRadians(-60);
-                // rectangeleRotation += 60;
+                rectangeleRotation += 60;
             }
         }
 
@@ -185,10 +186,13 @@ public class GameTableController implements Initializable {
         if (roadButton != null) {
             return null;
         }
-        // double width = 2 * RADIUS * (1 - TILE_COEFFICIENT);
-        // double height = RADIUS * TILE_COEFFICIENT;
-        roadButton = new RoadButton(10, 20, x, y, index);
-        roadButton.setRotate(rectangeleRotation);
+        double width = 2 * RADIUS * (1 - TILE_COEFFICIENT);
+        double height = RADIUS * TILE_COEFFICIENT;
+        roadButton = new RoadButton(width, height, x, y, index);
+        Rotate rotate = new Rotate(-rectangeleRotation);
+        rotate.setPivotX(roadButton.getX());
+        rotate.setPivotY(roadButton.getY());
+        roadButton.getTransforms().add(rotate);
         return roadButton;
     }
 
