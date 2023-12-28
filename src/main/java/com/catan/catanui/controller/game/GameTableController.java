@@ -190,31 +190,6 @@ public class GameTableController implements Initializable {
         return null;
     }
 
-    private double calculateXCoordinate(int i, int j, double xIncrement) {
-        return START_X + j * xIncrement - ((i == 1 || i == 2) ? xIncrement : 0);
-    }
-
-    private double calculateYCoordinate(int i, int j, double settlementStartY) {
-        double y;
-        if (i > 1) {
-            y = settlementStartY + i * RADIUS * 3 / 2 - ((j % 2 == 0) ? RADIUS / 2 : 0);
-        } else {
-            y = settlementStartY + i * RADIUS * 3 / 2 - ((j % 2 == 0) ? 0 : RADIUS / 2);
-        }
-        return y;
-    }
-
-    private int getNumSettlementsInRow(int currentRow) {
-        if (currentRow == 0 || currentRow == 3) {
-            return 5;
-        } else {
-            return 7;
-        }
-    }
-
-    private List<Tile> createAdjacentTiles(SettlementButton settlementButton) {
-        return null;
-    }
 
     private Polygon createHexagon(Color fill, double RADIUS) {
         Polygon hexagon = new Polygon();
