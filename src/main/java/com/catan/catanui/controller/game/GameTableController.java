@@ -58,6 +58,7 @@ public class GameTableController implements Initializable {
         initializeTiles();
         initiateSettlementButtons();
         initializeRoadButtons();
+        logger.info("Game Table Controller Initialized!");
     }
 
     public static GameTableController getInstance() {
@@ -164,7 +165,9 @@ public class GameTableController implements Initializable {
                 double x = tileX + length * Math.cos(startAngle);
                 double y = tileY + length * Math.sin(startAngle);
                 RoadButton roadButton = createRoadButton(x, y, index, rectangeleRotation);
-                if (roadButton != null) {
+                RoadButton roadButtonTmp = findRoadButtonByCoordinates(roadButton);
+                if(roadButtonTmp == null) {
+                    tile.getSettlementButtons().get(i).getAdjacentRoadButtons().add(roadButton);
                     roadButtons.add(roadButton);
                     index++;
                 }
@@ -184,10 +187,6 @@ public class GameTableController implements Initializable {
         rotate.setPivotX(roadButton.getX());
         rotate.setPivotY(roadButton.getY());
         roadButton.getTransforms().add(rotate);
-        RoadButton roadButtonTmp = findRoadButtonByCoordinates(roadButton);
-        if (roadButtonTmp != null) {
-            return null;
-        }
         return roadButton;
     }
 

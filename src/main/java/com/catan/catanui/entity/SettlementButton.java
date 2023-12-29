@@ -5,6 +5,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 public class SettlementButton extends Circle implements EventHandler<MouseEvent> {
     private static Logger logger = LoggerFactory.getLogger(SettlementButton.class);
     private Settlement settlement;
+    private List<RoadButton> adjacentRoads = new ArrayList<>();
 
     public SettlementButton(double radius, double centerX, double centerY, List<Tile> adjacentTiles, int index) {
         super(centerX, centerY, radius);
@@ -37,5 +39,9 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
 
     public int getIndex() {
         return this.settlement.getIndex();
+    }
+
+    public List<RoadButton> getAdjacentRoadButtons() {
+        return this.adjacentRoads;
     }
 }
