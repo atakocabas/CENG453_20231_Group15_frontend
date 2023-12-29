@@ -17,7 +17,7 @@ public class RoadButton extends Rectangle implements EventHandler<MouseEvent>{
         this.index = index;
         this.setOnMouseClicked(this);
         this.road = new Road();
-        this.setFill(Color.RED);
+        this.setFill(Color.TRANSPARENT);
         this.setStroke(null);
         this.setStrokeWidth(2);
 
