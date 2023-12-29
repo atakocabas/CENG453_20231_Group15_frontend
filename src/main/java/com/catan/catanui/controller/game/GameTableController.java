@@ -27,6 +27,7 @@ public class GameTableController implements Initializable {
     private static final double START_X = 362.0;
     private static final double START_Y = 220.0;
     private static final double TILE_COEFFICIENT = 0.9;
+    private static final double TOLERANCE = RADIUS * TILE_COEFFICIENT / 20;
 
     @FXML
     private Pane pane;
@@ -55,7 +56,7 @@ public class GameTableController implements Initializable {
         instance = this;
         initializeTiles();
         initiateSettlementButtons();
-        // initializeRoadButtons();
+        initializeRoadButtons();
     }
 
     public static GameTableController getInstance() {
@@ -199,19 +200,18 @@ public class GameTableController implements Initializable {
 
     private RoadButton findRoadButtonByCoordinates(RoadButton roadButton) {
         Point2D bottomRightCorner = calculateBottomRightCorner(roadButton);
-        for(RoadButton rButton : roadButtons) {
-            if((int) rButton.getX() == (int) bottomRightCorner.getX() && (int) rButton.getY() == (int) bottomRightCorner.getY()) {
+        for (RoadButton rButton : roadButtons) {
+            if (isCloseEnough(rButton.getX(), bottomRightCorner.getX()) && isCloseEnough(rButton.getY(), bottomRightCorner.getY())) {
                 return rButton;
             }
         }
         return null;
-        // for (RoadButton rButton : roadButtons) {
-        //     if ((int) rButton.getX() == (int) x && (int) rButton.getY() == (int) y) {
-        //         return rButton;
-        //     }
-        // }
-        // return null;
     }
+
+    private boolean isCloseEnough(double a, double b) {
+        return Math.abs(a - b) < TOLERANCE;
+    }
+
 
     private Point2D calculateBottomRightCorner(RoadButton roadButton) {
         // Get the Rotate object from the transforms list
@@ -225,11 +225,10 @@ public class GameTableController implements Initializable {
         // Calculate the coordinates of the bottom right corner after rotation
         double width = roadButton.getWidth();
         double height = roadButton.getHeight();
-        double length = Math.sqrt(Math.pow(width, 2) + Math.pow(height, 2));
 
-        double newX = roadButton.getX() + length * Math.cos(angleInRadians);
-        double newY = roadButton.getY() + length * Math.sin(angleInRadians);
-
+        double newX = roadButton.getX() + width * Math.cos(angleInRadians) - height * Math.sin(angleInRadians);
+        double newY = roadButton.getY() + width * Math.sin(angleInRadians) + height * Math.cos(angleInRadians);
+        
         return new Point2D.Double(newX, newY);
     }
 
