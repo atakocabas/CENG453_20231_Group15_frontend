@@ -2,6 +2,7 @@ package com.catan.catanui.controller.game;
 
 import com.catan.catanui.entity.Road;
 import com.catan.catanui.entity.RoadButton;
+import com.catan.catanui.entity.Settlement;
 import com.catan.catanui.entity.SettlementButton;
 import com.catan.catanui.entity.Tile;
 import javafx.fxml.FXML;
@@ -128,26 +129,18 @@ public class GameTableController implements Initializable {
             for (int i = 0; i < 6; ++i) {
                 double x = tileX + length * Math.cos(startAngle);
                 double y = tileY + length * Math.sin(startAngle);
-                SettlementButton settlementButton = createSettlementButton(x, y, index);
-                if (settlementButton != null) {
+                SettlementButton settlementButton = findSettlementButtonByCoordinates(x, y);
+                if (settlementButton == null) {
+                    settlementButton = new SettlementButton(RADIUS / 4, x, y, null, index);
                     settlementButtons.add(settlementButton);
-                    tile.getSettlementButtons().add(settlementButton);
                     index++;
                 }
+                tile.getSettlementButtons().add(settlementButton);
                 startAngle += Math.toRadians(60);
             }
         }
 
         pane.getChildren().addAll(this.settlementButtons);
-    }
-
-    private SettlementButton createSettlementButton(double x, double y, int index) {
-        SettlementButton settlementButton = findSettlementButtonByCoordinates(x, y);
-        if (settlementButton != null) {
-            return null;
-        }
-        settlementButton = new SettlementButton(RADIUS / 4, x, y, null, index);
-        return settlementButton;
     }
 
     private SettlementButton findSettlementButtonByCoordinates(double x, double y) {
@@ -201,7 +194,8 @@ public class GameTableController implements Initializable {
     private RoadButton findRoadButtonByCoordinates(RoadButton roadButton) {
         Point2D bottomRightCorner = calculateBottomRightCorner(roadButton);
         for (RoadButton rButton : roadButtons) {
-            if (isCloseEnough(rButton.getX(), bottomRightCorner.getX()) && isCloseEnough(rButton.getY(), bottomRightCorner.getY())) {
+            if (isCloseEnough(rButton.getX(), bottomRightCorner.getX())
+                    && isCloseEnough(rButton.getY(), bottomRightCorner.getY())) {
                 return rButton;
             }
         }
@@ -211,7 +205,6 @@ public class GameTableController implements Initializable {
     private boolean isCloseEnough(double a, double b) {
         return Math.abs(a - b) < TOLERANCE;
     }
-
 
     private Point2D calculateBottomRightCorner(RoadButton roadButton) {
         // Get the Rotate object from the transforms list
@@ -228,7 +221,7 @@ public class GameTableController implements Initializable {
 
         double newX = roadButton.getX() + width * Math.cos(angleInRadians) - height * Math.sin(angleInRadians);
         double newY = roadButton.getY() + width * Math.sin(angleInRadians) + height * Math.cos(angleInRadians);
-        
+
         return new Point2D.Double(newX, newY);
     }
 
