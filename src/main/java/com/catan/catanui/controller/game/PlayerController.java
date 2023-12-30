@@ -25,6 +25,7 @@ public class PlayerController implements Initializable {
 
     public static PlayerController instance;
     private static final List<Player> players = new ArrayList<>();
+    private int currentPlayerIndex;
 
     int fontSize = 20;
 
@@ -63,8 +64,9 @@ public class PlayerController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // You can initialize player-related components here if needed
         instance = this;
+        currentPlayerIndex = 0;
         initializePlayers();
-        updatePlayerCircle(0);
+        updatePlayerCircle(currentPlayerIndex);
 
     }
 
@@ -122,6 +124,7 @@ public class PlayerController implements Initializable {
         previousPlayerCircle.setStrokeWidth(1);
         currentPlayerCircle.setStroke(Color.GREEN);
         currentPlayerCircle.setStrokeWidth(3);
+        this.currentPlayerIndex = currentPlayer;
     }
 
     private List<HBox> getPlayersHBoxes() {
@@ -147,5 +150,8 @@ public class PlayerController implements Initializable {
     private Circle getPlayerCircle(int playerNumber) {
         return (Circle) getPlayerCircleAndNameVBox(playerNumber).getChildren().get(0);
     }
-
+    
+    public Player getCurrentPlayer() {
+        return players.get(currentPlayerIndex);
+    }
 }

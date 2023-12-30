@@ -10,10 +10,14 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.catan.catanui.controller.game.GameTableController;
+import com.catan.catanui.controller.game.PlayerController;
+
 public class SettlementButton extends Circle implements EventHandler<MouseEvent> {
     private static Logger logger = LoggerFactory.getLogger(SettlementButton.class);
     private Settlement settlement;
     private List<RoadButton> adjacentRoads = new ArrayList<>();
+    private PlayerController playerController = PlayerController.getInstance();
 
     public SettlementButton(double radius, double centerX, double centerY, List<Tile> adjacentTiles, int index) {
         super(centerX, centerY, radius);
@@ -35,6 +39,8 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
     @Override
     public void handle(MouseEvent event) {
         logger.info("Settlement {} Button Clicked!", this.settlement.getIndex());
+        Color playerColor = this.playerController.getCurrentPlayer().getColor();
+        this.setFill(playerColor);
     }
 
     public int getIndex() {
