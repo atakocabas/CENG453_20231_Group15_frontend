@@ -1,8 +1,6 @@
 package com.catan.catanui.controller.game;
 
-import com.catan.catanui.entity.Road;
 import com.catan.catanui.entity.RoadButton;
-import com.catan.catanui.entity.Settlement;
 import com.catan.catanui.entity.SettlementButton;
 import com.catan.catanui.entity.Tile;
 import javafx.fxml.FXML;
@@ -14,6 +12,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
+
 import java.awt.geom.Point2D;
 import java.net.URL;
 import java.util.*;
@@ -244,14 +243,5 @@ public class GameTableController implements Initializable {
         currentPlayer = (currentPlayer + 1) % 4;
         logger.info("Current player: {} ", currentPlayer);
         PlayerController.getInstance().updatePlayerCircle(currentPlayer);
-    }
-
-    private int getSettlementButtonRow(SettlementButton settlementButton) {
-        int index = settlementButton.getIndex() - 5;
-        if (index < 0)
-            return 0;
-        else {
-            return (index / 7) + 1;
-        }
     }
 }
