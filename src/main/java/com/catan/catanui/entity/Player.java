@@ -18,8 +18,10 @@ public class Player {
     private List<Settlement> settlements;
     private Color color;
     private Map<ResourceType, Integer> resources;
+    private int totalPoints;
 
     public Player(int id, String playerName, Color color) {
+        this.totalPoints = 0;
         this.id = id;
         if(playerName == null)
             this.playerName = "AI " + id;
