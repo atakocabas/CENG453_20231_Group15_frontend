@@ -81,7 +81,7 @@ public class PlayerController implements Initializable {
             playerInfoVBox.setSpacing(5);
             for (Map.Entry<ResourceType, Integer> entry : player.getResources().entrySet()) {
                 HBox resourceHBox = new HBox();
-                Text keyText = new Text(entry.getKey().toString());
+                Text keyText = new Text(entry.getKey().toString() + ": ");
                 Text valueText = new Text(entry.getValue().toString());
                 resourceHBox.getChildren().addAll(keyText, valueText);
                 playerInfoVBox.getChildren().add(resourceHBox);
