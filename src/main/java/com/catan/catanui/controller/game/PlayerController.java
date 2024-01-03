@@ -104,10 +104,14 @@ public class PlayerController implements Initializable {
 
     private void initalizePlayerResources(){
         for (Player player : players) {
-            increasePlayerLumber(player, 3);
-            increasePlayerBrick(player, 3);
-            increasePlayerGrain(player, 1);
-            increasePlayerWool(player, 1);
+            increasePlayerResource(player, ResourceType.LUMBER, 3);
+            increasePlayerResource(player, ResourceType.BRICK, 3);
+            increasePlayerResource(player, ResourceType.GRAIN, 1);
+            increasePlayerResource(player, ResourceType.WOOL, 1);
+            // increasePlayerLumber(player, 3);
+            // increasePlayerBrick(player, 3);
+            // increasePlayerGrain(player, 1);
+            // increasePlayerWool(player, 1);
         }
     }
 
@@ -137,28 +141,8 @@ public class PlayerController implements Initializable {
         this.currentPlayerIndex = currentPlayer;
     }
     
-    public void increasePlayerBrick(Player player, int amount) {
-        player.getResources().put(ResourceType.BRICK, player.getResources().get(ResourceType.BRICK) + amount);
-        updatePlayerInfo(player);
-    }
-
-    public void increasePlayerGrain(Player player, int amount) {
-        player.getResources().put(ResourceType.GRAIN, player.getResources().get(ResourceType.GRAIN) + amount);
-        updatePlayerInfo(player);
-    }
-
-    public void increasePlayerLumber(Player player, int amount) {
-        player.getResources().put(ResourceType.LUMBER, player.getResources().get(ResourceType.LUMBER) + amount);
-        updatePlayerInfo(player);
-    }
-
-    public void increasePlayerOre(Player player, int amount) {
-        player.getResources().put(ResourceType.ORE, player.getResources().get(ResourceType.ORE) + amount);
-        updatePlayerInfo(player);
-    }
-
-    public void increasePlayerWool(Player player, int amount) {
-        player.getResources().put(ResourceType.WOOL, player.getResources().get(ResourceType.WOOL) + amount);
+    public void increasePlayerResource(Player player, ResourceType resourceType, int amount) {
+        player.increaseResource(resourceType, amount);
         updatePlayerInfo(player);
     }
 
