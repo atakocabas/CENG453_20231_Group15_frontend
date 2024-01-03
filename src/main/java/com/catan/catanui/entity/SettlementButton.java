@@ -60,4 +60,8 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
         this.settlement.setOwner(player);
         this.setFill(player.getColor());
     }
+
+    public Player getOwner() {
+        return this.settlement.getOwner();
+    }
 }
