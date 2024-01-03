@@ -197,7 +197,9 @@ public class GameTableController implements Initializable {
                 RoadButton roadButton = createRoadButton(x, y, index, rectangeleRotation);
                 RoadButton roadButtonTmp = findRoadButtonByCoordinates(roadButton);
                 if(roadButtonTmp == null) {
+                    Integer otherAdjacentSettlementButtonIndex = (i - 1) != -1 ? i - 1 : 5;
                     tile.getSettlementButtons().get(i).getAdjacentRoadButtons().add(roadButton);
+                    tile.getSettlementButtons().get(otherAdjacentSettlementButtonIndex).getAdjacentRoadButtons().add(roadButton);
                     roadButtons.add(roadButton);
                     index++;
                 }
