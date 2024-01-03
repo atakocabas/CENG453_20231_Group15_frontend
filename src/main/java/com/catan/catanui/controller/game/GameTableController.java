@@ -145,7 +145,8 @@ public class GameTableController implements Initializable {
                 double y = tileY + length * Math.sin(startAngle);
                 SettlementButton settlementButton = findSettlementButtonByCoordinates(x, y);
                 if (settlementButton == null) {
-                    settlementButton = new SettlementButton(RADIUS / 4, x, y, null, index);
+                    settlementButton = new SettlementButton(RADIUS / 4, x, y, index);
+                    settlementButton.getAdjacentTiles().add(tile);
                     settlementButtons.add(settlementButton);
                     index++;
                 }
@@ -265,5 +266,9 @@ public class GameTableController implements Initializable {
 
     private Player getPlayer(int index) {
         return PlayerController.getInstance().getPlayer(index);
+    }
+
+    public List<SettlementButton> getSettlementButtons() {
+        return this.settlementButtons;
     }
 }

@@ -17,12 +17,13 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
     private static Logger logger = LoggerFactory.getLogger(SettlementButton.class);
     private Settlement settlement;
     private List<RoadButton> adjacentRoads = new ArrayList<>();
+    private List<Tile> adjacentTiles = new ArrayList<>();
     private PlayerController playerController = PlayerController.getInstance();
 
-    public SettlementButton(double radius, double centerX, double centerY, List<Tile> adjacentTiles, int index) {
+    public SettlementButton(double radius, double centerX, double centerY, int index) {
         super(centerX, centerY, radius);
         this.setOnMouseClicked(this);
-        this.settlement = new Settlement(null, adjacentTiles, index);
+        this.settlement = new Settlement(null, index);
         this.setFill(Color.TRANSPARENT);
         this.setStroke(Color.TRANSPARENT);
         this.setStrokeWidth(2);
@@ -49,6 +50,10 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
 
     public List<RoadButton> getAdjacentRoadButtons() {
         return this.adjacentRoads;
+    }
+
+    public List<Tile> getAdjacentTiles() {
+        return this.adjacentTiles;
     }
 
     public void setOwner(Player player) {
