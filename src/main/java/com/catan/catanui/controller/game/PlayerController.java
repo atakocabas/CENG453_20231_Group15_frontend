@@ -93,7 +93,8 @@ public class PlayerController implements Initializable {
             playerCircle.setFill(player.getColor());
             playerCircle.setStroke(Color.BLACK);
             Text playerNameText = new Text(player.getPlayerName());
-            playerCircleAndNameVBox.getChildren().addAll(playerCircle, playerNameText);
+            Text totalPointsText = new Text("Total Points: " + player.getTotalPoints());
+            playerCircleAndNameVBox.getChildren().addAll(playerCircle, playerNameText, totalPointsText);
             playerHBox.getChildren().addAll(playerInfoVBox, playerCircleAndNameVBox);
             playerHBoxes.add(playerHBox);
         }
