@@ -151,7 +151,7 @@ public class PlayerController implements Initializable {
         previousPlayerCircle.setStroke(Color.BLACK);
         previousPlayerCircle.setStrokeWidth(1);
         currentPlayerCircle.setStroke(Color.GREEN);
-        currentPlayerCircle.setStrokeWidth(3);
+        currentPlayerCircle.setStrokeWidth(5);
         this.currentPlayerIndex = currentPlayer;
     }
     
