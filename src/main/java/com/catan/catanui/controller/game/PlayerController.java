@@ -70,7 +70,7 @@ public class PlayerController implements Initializable {
 
     }
 
-    public void initializePlayers() {
+    private void initializePlayers() {
         createPlayers();
         List<HBox> playerHBoxes = new ArrayList<>();
         for (Player player : players) {
@@ -98,7 +98,17 @@ public class PlayerController implements Initializable {
             playerHBoxes.add(playerHBox);
         }
         layoutVBox.getChildren().addAll(playerHBoxes);
+        initalizePlayerResources();
         logger.info("PlayerController initialized");
+    }
+
+    private void initalizePlayerResources(){
+        for (Player player : players) {
+            increasePlayerLumber(player, 3);
+            increasePlayerBrick(player, 3);
+            increasePlayerGrain(player, 1);
+            increasePlayerWool(player, 1);
+        }
     }
 
     private void createPlayers(){
@@ -118,13 +128,50 @@ public class PlayerController implements Initializable {
     public void updatePlayerCircle(int currentPlayer) {
         int previousPlayer = currentPlayer - 1;
         if (previousPlayer < 0) previousPlayer = 3;
-        Circle currentPlayerCircle = getPlayerCircle(currentPlayer);
-        Circle previousPlayerCircle = getPlayerCircle(previousPlayer);
+        Circle currentPlayerCircle = getPlayerCircle(players.get(currentPlayer));
+        Circle previousPlayerCircle = getPlayerCircle(players.get(previousPlayer));
         previousPlayerCircle.setStroke(Color.BLACK);
         previousPlayerCircle.setStrokeWidth(1);
         currentPlayerCircle.setStroke(Color.GREEN);
         currentPlayerCircle.setStrokeWidth(3);
         this.currentPlayerIndex = currentPlayer;
+    }
+    
+    public void increasePlayerBrick(Player player, int amount) {
+        player.getResources().put(ResourceType.BRICK, player.getResources().get(ResourceType.BRICK) + amount);
+        updatePlayerInfo(player);
+    }
+
+    public void increasePlayerGrain(Player player, int amount) {
+        player.getResources().put(ResourceType.GRAIN, player.getResources().get(ResourceType.GRAIN) + amount);
+        updatePlayerInfo(player);
+    }
+
+    public void increasePlayerLumber(Player player, int amount) {
+        player.getResources().put(ResourceType.LUMBER, player.getResources().get(ResourceType.LUMBER) + amount);
+        updatePlayerInfo(player);
+    }
+
+    public void increasePlayerOre(Player player, int amount) {
+        player.getResources().put(ResourceType.ORE, player.getResources().get(ResourceType.ORE) + amount);
+        updatePlayerInfo(player);
+    }
+
+    public void increasePlayerWool(Player player, int amount) {
+        player.getResources().put(ResourceType.WOOL, player.getResources().get(ResourceType.WOOL) + amount);
+        updatePlayerInfo(player);
+    }
+
+    private void updatePlayerInfo(Player player) {
+        VBox playerInfoVBox = getPlayerInfoVBox(player);
+        for (int i = 0; i < playerInfoVBox.getChildren().size(); i++) {
+            HBox resourceHBox = (HBox) playerInfoVBox.getChildren().get(i);
+            Text keyText = (Text) resourceHBox.getChildren().get(0);
+            Text valueText = (Text) resourceHBox.getChildren().get(1);
+            ResourceType resourceType = ResourceType.valueOf(keyText.getText().substring(0, keyText.getText().length() - 2));
+            Integer value = player.getResources().get(resourceType);
+            valueText.setText(value.toString());
+        }
     }
 
     private List<HBox> getPlayersHBoxes() {
@@ -135,20 +182,20 @@ public class PlayerController implements Initializable {
         return playerHBoxes;
     }
 
-    private HBox getPlayerHBox(int playerNumber) {
-        return getPlayersHBoxes().get(playerNumber);
+    private HBox getPlayerHBox(Player player) {
+        return getPlayersHBoxes().get(player.getId() - 1);
     }
 
-    private VBox getPlayerInfoVBox(int playerNumber) {
-        return (VBox) getPlayerHBox(playerNumber).getChildren().get(0);
+    private VBox getPlayerInfoVBox(Player player) {
+        return (VBox) getPlayerHBox(player).getChildren().get(0);
     }
 
-    private VBox getPlayerCircleAndNameVBox(int playerNumber) {
-        return (VBox) getPlayerHBox(playerNumber).getChildren().get(1);
+    private VBox getPlayerCircleAndNameVBox(Player player) {
+        return (VBox) getPlayerHBox(player).getChildren().get(1);
     }
 
-    private Circle getPlayerCircle(int playerNumber) {
-        return (Circle) getPlayerCircleAndNameVBox(playerNumber).getChildren().get(0);
+    private Circle getPlayerCircle(Player player) {
+        return (Circle) getPlayerCircleAndNameVBox(player).getChildren().get(0);
     }
     
     public Player getCurrentPlayer() {
