@@ -1,5 +1,8 @@
 package com.catan.catanui.controller.game;
 
+import com.catan.catanui.controller.game.turn.AiTurnController;
+import com.catan.catanui.controller.game.turn.HumanTurnController;
+import com.catan.catanui.controller.game.turn.PlayerTurnController;
 import com.catan.catanui.entity.Player;
 import com.catan.catanui.entity.RoadButton;
 import com.catan.catanui.entity.SettlementButton;
@@ -37,6 +40,7 @@ public class GameTableController implements Initializable {
     private List<SettlementButton> settlementButtons = new ArrayList<>();
     private List<RoadButton> roadButtons = new ArrayList<>();
     private List<Tile> tiles = new ArrayList<>();
+    private List<PlayerTurnController> playerTurnControllers = new ArrayList<>();
 
     private static final List<Color> HEXAGON_COLORS = new ArrayList<>(List.of(
             Color.DARKGREEN, Color.DARKGREEN, Color.DARKGREEN, Color.DARKGREEN, // 4 dark green hexagons
@@ -78,6 +82,18 @@ public class GameTableController implements Initializable {
         for (int i = 0; i < 4; i++) {
             RoadButton roadButton = settlementButtons.get(randomNumbers[i]).getAdjacentRoadButtons().getFirst();
             roadButton.setOwner(getPlayer(i));
+        }
+        createPlayerTurnControllers();
+    }
+
+    private void createPlayerTurnControllers() {
+        List<Player> players = PlayerController.getInstance().getPlayers();
+        PlayerTurnController humanPlayerTurnController = new HumanTurnController(players.get(0));
+        playerTurnControllers.add(humanPlayerTurnController);
+
+        for (int i = 1; i < players.size(); i++) {
+            PlayerTurnController playerTurnController = new AiTurnController(players.get(i));
+            playerTurnControllers.add(playerTurnController);
         }
     }
 
@@ -254,10 +270,16 @@ public class GameTableController implements Initializable {
         return hexagon;
     }
 
+    public void startTurn(){
+        PlayerTurnController playerTurnController = playerTurnControllers.get(currentPlayer);
+        playerTurnController.startTurn();
+    }
+
     public void endTurn() {
         currentPlayer = (currentPlayer + 1) % 4;
         logger.info("Current player: {} ", currentPlayer);
         PlayerController.getInstance().updatePlayerCircle(currentPlayer);
+        PlayerTurnController playerTurnController = playerTurnControllers.get(currentPlayer);
     }
 
     private Player getCurrentPlayer() {
