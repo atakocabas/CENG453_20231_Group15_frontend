@@ -162,6 +162,7 @@ public class PlayerController implements Initializable {
 
     private void updatePlayerInfo(Player player) {
         VBox playerInfoVBox = getPlayerInfoVBox(player);
+        playerInfoVBox.setStyle("-fx-padding: 0 0 20 0;");
         for (int i = 0; i < playerInfoVBox.getChildren().size(); i++) {
             HBox resourceHBox = (HBox) playerInfoVBox.getChildren().get(i);
             Text keyText = (Text) resourceHBox.getChildren().get(0);
