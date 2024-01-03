@@ -136,7 +136,7 @@ public class GameTableController implements Initializable {
                     index++;
                 }
                 tile.getSettlementButtons().add(settlementButton);
-                startAngle += Math.toRadians(60);
+                startAngle += Math.toRadians(-60);
             }
         }
 
