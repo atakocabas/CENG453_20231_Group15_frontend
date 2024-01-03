@@ -92,11 +92,28 @@ public class PlayerController implements Initializable {
             playerCircle.setRadius(25);
             playerCircle.setFill(player.getColor());
             playerCircle.setStroke(Color.BLACK);
+
+
             Text playerNameText = new Text(player.getPlayerName());
+
+            VBox additionalInfoVBox = new VBox();
+            additionalInfoVBox.setSpacing(5);
+
+            Text settlementText = new Text("Settlement Points: " + player.getSettlementPoints());
+            Text cityText = new Text("City Points: " + player.getCityPoints());
+            Text longestPathText = new Text("Longest Path: " + player.getLongestPath());
             Text totalPointsText = new Text("Total Points: " + player.getTotalPoints());
-            playerCircleAndNameVBox.getChildren().addAll(playerCircle, playerNameText, totalPointsText);
-            playerHBox.getChildren().addAll(playerInfoVBox, playerCircleAndNameVBox);
+
+            additionalInfoVBox.getChildren().addAll(settlementText, cityText, longestPathText, totalPointsText);
+
+            playerCircleAndNameVBox.getChildren().addAll(playerCircle, playerNameText);
+            playerHBox.getChildren().addAll(playerInfoVBox, playerCircleAndNameVBox, additionalInfoVBox);
             playerHBoxes.add(playerHBox);
+
+            /*Text playerNameText = new Text(player.getPlayerName());
+            playerCircleAndNameVBox.getChildren().addAll(playerCircle, playerNameText);
+            playerHBox.getChildren().addAll(playerInfoVBox, playerCircleAndNameVBox);
+            playerHBoxes.add(playerHBox);*/
         }
         layoutVBox.getChildren().addAll(playerHBoxes);
         initalizePlayerResources();
@@ -119,8 +136,8 @@ public class PlayerController implements Initializable {
     private void createPlayers(){
         players.add(new Player(1, "Player 1", Color.RED));
         players.add(new Player(2, "Player 2", Color.BLUE));
-        players.add(new Player(3, "Player 3", Color.GREEN));
-        players.add(new Player(4, "Player 4", Color.YELLOW));
+        players.add(new Player(3, "Player 3", Color.PURPLE));
+        players.add(new Player(4, "Player 4", Color.ORANGE));
     }
 
     public static PlayerController getInstance() {
