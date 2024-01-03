@@ -154,4 +154,8 @@ public class PlayerController implements Initializable {
     public Player getCurrentPlayer() {
         return players.get(currentPlayerIndex);
     }
+
+    public Player getPlayer(int index){
+        return players.get(index);
+    }
 }

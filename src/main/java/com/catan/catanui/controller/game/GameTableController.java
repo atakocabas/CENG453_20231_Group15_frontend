@@ -1,5 +1,6 @@
 package com.catan.catanui.controller.game;
 
+import com.catan.catanui.entity.Player;
 import com.catan.catanui.entity.RoadButton;
 import com.catan.catanui.entity.SettlementButton;
 import com.catan.catanui.entity.Tile;
@@ -57,6 +58,7 @@ public class GameTableController implements Initializable {
         initializeTiles();
         initiateSettlementButtons();
         initializeRoadButtons();
+        initalizeGame();
         logger.info("Game Table Controller Initialized!");
     }
 
@@ -65,6 +67,18 @@ public class GameTableController implements Initializable {
             instance = new GameTableController();
         }
         return instance;
+    }
+
+    private void initalizeGame() {
+        Random random = new Random();
+        int[] randomNumbers = random.ints(0, settlementButtons.size()).distinct().limit(4).toArray();
+        for (int i = 0; i < 4; i++) {
+            settlementButtons.get(randomNumbers[i]).setOwner(getPlayer(i));
+        }
+        for (int i = 0; i < 4; i++) {
+            RoadButton roadButton = settlementButtons.get(randomNumbers[i]).getAdjacentRoadButtons().getFirst();
+            roadButton.setOwner(getPlayer(i));
+        }
     }
 
     private void initializeTiles() {
@@ -243,5 +257,13 @@ public class GameTableController implements Initializable {
         currentPlayer = (currentPlayer + 1) % 4;
         logger.info("Current player: {} ", currentPlayer);
         PlayerController.getInstance().updatePlayerCircle(currentPlayer);
+    }
+
+    private Player getCurrentPlayer() {
+        return PlayerController.getInstance().getCurrentPlayer();
+    }
+
+    private Player getPlayer(int index) {
+        return PlayerController.getInstance().getPlayer(index);
     }
 }

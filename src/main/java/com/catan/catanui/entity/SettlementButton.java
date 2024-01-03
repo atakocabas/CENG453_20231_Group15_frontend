@@ -50,4 +50,9 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
     public List<RoadButton> getAdjacentRoadButtons() {
         return this.adjacentRoads;
     }
+
+    public void setOwner(Player player) {
+        this.settlement.setOwner(player);
+        this.setFill(player.getColor());
+    }
 }

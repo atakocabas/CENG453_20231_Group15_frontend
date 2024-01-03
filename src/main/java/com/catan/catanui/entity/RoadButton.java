@@ -38,5 +38,10 @@ public class RoadButton extends Rectangle implements EventHandler<MouseEvent>{
     public void handle(MouseEvent arg0) {
         logger.info("RoadButton clicked: {}", this.index);
     }
+
+    public void setOwner(Player player) {
+        this.road.setOwner(player);
+        this.setFill(player.getColor());
+    }
     
 }
