@@ -110,10 +110,6 @@ public class PlayerController implements Initializable {
             playerHBox.getChildren().addAll(playerInfoVBox, playerCircleAndNameVBox, additionalInfoVBox);
             playerHBoxes.add(playerHBox);
 
-            /*Text playerNameText = new Text(player.getPlayerName());
-            playerCircleAndNameVBox.getChildren().addAll(playerCircle, playerNameText);
-            playerHBox.getChildren().addAll(playerInfoVBox, playerCircleAndNameVBox);
-            playerHBoxes.add(playerHBox);*/
         }
         layoutVBox.getChildren().addAll(playerHBoxes);
         initalizePlayerResources();
