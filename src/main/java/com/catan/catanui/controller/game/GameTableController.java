@@ -176,7 +176,7 @@ public class GameTableController implements Initializable {
 
     private SettlementButton findSettlementButtonByCoordinates(double x, double y) {
         for (SettlementButton sButton : settlementButtons) {
-            if ((int) sButton.getCenterX() == (int) x && (int) sButton.getCenterY() == (int) y) {
+            if (isCloseEnough(sButton.getCenterX(), x) && isCloseEnough(sButton.getCenterY(), y)) {
                 return sButton;
             }
         }
