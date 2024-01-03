@@ -19,9 +19,12 @@ public class Player {
     private Color color;
     private Map<ResourceType, Integer> resources;
     private int totalPoints;
+    private int longestPath;
+    private int settlementPoints;
+    private int cityPoints;
 
     public Player(int id, String playerName, Color color) {
-        this.totalPoints = 0;
+        this.totalPoints = 1;
         this.id = id;
         if(playerName == null)
             this.playerName = "AI " + id;
