@@ -23,7 +23,7 @@ import com.catan.catanui.enums.ResourceType;
 public class PlayerController implements Initializable {
     private static final Logger logger = LoggerFactory.getLogger(PlayerController.class);
 
-    public static PlayerController instance;
+    private static PlayerController instance;
     private static final List<Player> players = new ArrayList<>();
     private int currentPlayerIndex;
 

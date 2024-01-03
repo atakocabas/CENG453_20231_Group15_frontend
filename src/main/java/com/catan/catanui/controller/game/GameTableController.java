@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 
 public class GameTableController implements Initializable {
     private static Logger logger = LoggerFactory.getLogger(GameTableController.class);
-    public static GameTableController instance;
+    private static GameTableController instance;
     private static final double RADIUS = 75.0;
     private static final double START_X = 362.0;
     private static final double START_Y = 220.0;
