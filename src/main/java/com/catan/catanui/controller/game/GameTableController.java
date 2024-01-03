@@ -273,15 +273,19 @@ public class GameTableController implements Initializable {
     }
 
     public void startTurn(){
+        if(currentPlayer == 0){
+            return;
+        }
         PlayerTurnController playerTurnController = playerTurnControllers.get(currentPlayer);
         playerTurnController.startTurn();
+        endTurn();
     }
 
     public void endTurn() {
         currentPlayer = (currentPlayer + 1) % 4;
         logger.info("Current player: {} ", currentPlayer);
         PlayerController.getInstance().updatePlayerCircle(currentPlayer);
-        PlayerTurnController playerTurnController = playerTurnControllers.get(currentPlayer);
+        startTurn();
     }
 
     private Player getCurrentPlayer() {

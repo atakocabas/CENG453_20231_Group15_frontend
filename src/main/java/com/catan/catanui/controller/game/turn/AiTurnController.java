@@ -9,5 +9,11 @@ public class AiTurnController extends PlayerTurnController{
     }
 
     public void startTurn() {
+        // sleep for 2 seconds
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
