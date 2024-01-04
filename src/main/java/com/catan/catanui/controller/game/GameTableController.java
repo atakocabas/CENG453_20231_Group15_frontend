@@ -63,6 +63,7 @@ public class GameTableController implements Initializable {
         initiateSettlementButtons();
         initializeRoadButtons();
         initalizeGame();
+        startTurn();
         logger.info("Game Table Controller Initialized!");
     }
 
@@ -277,12 +278,14 @@ public class GameTableController implements Initializable {
         return hexagon;
     }
 
+    // Start Turn and End Turn methods are for AI players.
+    // Human player's end turn starts this loop, and ends it on human player.
+
     public void startTurn(){
+        playerTurnControllers.get(currentPlayer).startTurn();
         if(currentPlayer == 0){
             return;
         }
-        PlayerTurnController playerTurnController = playerTurnControllers.get(currentPlayer);
-        playerTurnController.startTurn();
         endTurn();
     }
 
