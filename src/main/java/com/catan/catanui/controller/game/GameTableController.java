@@ -80,7 +80,12 @@ public class GameTableController implements Initializable {
             settlementButtons.get(randomNumbers[i]).setOwner(getPlayer(i));
         }
         for (int i = 0; i < 4; i++) {
-            RoadButton roadButton = settlementButtons.get(randomNumbers[i]).getAdjacentRoadButtons().getFirst();
+
+            SettlementButton settlementButton = settlementButtons.get(randomNumbers[i]);
+            List<RoadButton> adjacentRoadButtons = settlementButton.getAdjacentRoadButtons();
+            RoadButton roadButton = adjacentRoadButtons.get(new Random().nextInt(adjacentRoadButtons.size()));
+
+            //RoadButton roadButton = settlementButtons.get(randomNumbers[i]).getAdjacentRoadButtons().getFirst();
             roadButton.setOwner(getPlayer(i));
         }
         createPlayerTurnControllers();
