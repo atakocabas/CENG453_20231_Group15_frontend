@@ -74,7 +74,7 @@ public class GameTableController implements Initializable {
         return instance;
     }
 
-    private void initalizeGame() {
+    /*private void initalizeGame() {
         Random random = new Random();
         int[] randomNumbers = random.ints(0, settlementButtons.size()).distinct().limit(4).toArray();
         for (int i = 0; i < 4; i++) {
@@ -90,7 +90,40 @@ public class GameTableController implements Initializable {
             roadButton.setOwner(getPlayer(i));
         }
         createPlayerTurnControllers();
+    }*/
+
+    private void initalizeGame() {
+        Random random = new Random();
+        int[] randomNumbers = random.ints(0, settlementButtons.size()).distinct().limit(4).toArray();
+
+        for (int i = 0; i < 4; i++) {
+            SettlementButton settlementButton = settlementButtons.get(randomNumbers[i]);
+            Player player = getPlayer(i);
+
+            // Set owner for settlement
+            settlementButton.setOwner(player);
+
+            // Find an available road for the settlement
+            List<RoadButton> adjacentRoadButtons = settlementButton.getAdjacentRoadButtons();
+            RoadButton roadButton = findAvailableRoad(adjacentRoadButtons);
+
+            if (roadButton != null) {
+                roadButton.setOwner(player);
+            }
+        }
+
+        createPlayerTurnControllers();
     }
+
+    private RoadButton findAvailableRoad(List<RoadButton> roadButtons) {
+        for (RoadButton roadButton : roadButtons) {
+            if (roadButton.getOwner() == null) {
+                return roadButton;
+            }
+        }
+        return null;
+    }
+
 
     private void createPlayerTurnControllers() {
         List<Player> players = PlayerController.getInstance().getPlayers();
