@@ -27,35 +27,6 @@ public class PlayerController implements Initializable {
     private static final List<Player> players = new ArrayList<>();
     private int currentPlayerIndex;
 
-    int fontSize = 20;
-
-    String textColor = "white";
-    @FXML
-    private VBox playerVBox;
-
-    @FXML
-    private Circle player1Circle;
-
-    @FXML
-    private Text player1Text;
-
-    @FXML
-    private Circle player2Circle;
-
-    @FXML
-    private Text player2Text;
-
-    @FXML
-    private Circle player3Circle;
-
-    @FXML
-    private Text player3Text;
-
-    @FXML
-    private Circle player4Circle;
-
-    @FXML
-    private Text player4Text;
 
     @FXML
     private VBox layoutVBox;
