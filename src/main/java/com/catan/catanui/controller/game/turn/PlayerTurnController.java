@@ -25,4 +25,11 @@ public abstract class PlayerTurnController {
     }
 
     public abstract void startTurn();
+
+    public void endTurn() {
+        List<SettlementButton> settlementButtons = gameTableController.getSettlementButtons();
+        for(SettlementButton settlementButton : settlementButtons) {
+            settlementButton.setDisable(false);
+        }
+    }
 }
