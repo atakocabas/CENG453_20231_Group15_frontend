@@ -10,54 +10,7 @@ import java.util.Random;
 
 public class DiceController {
 
-    String dice6 =
-                    "        <Rectangle fx:id=\"dice66\" width=\"50\" height=\"50\" fill=\"WHITE\" stroke=\"BLACK\" strokeWidth=\"2\"/> " +
-                    "        <Text text=\"•\" x=\"10\" y=\"20\" style=\"-fx-font-size: 25px;\"/> " +
-                    "        <Text text=\"•\" x=\"30\" y=\"20\" style=\"-fx-font-size: 25px;\"/> " +
-                    "        <Text text=\"•\" x=\"10\" y=\"32\" style=\"-fx-font-size: 25px;\"/> " +
-                    "        <Text text=\"•\" x=\"30\" y=\"32\" style=\"-fx-font-size: 25px;\"/> " +
-                    "        <Text text=\"•\" x=\"10\" y=\"44\" style=\"-fx-font-size: 25px;\"/> " +
-                    "        <Text text=\"•\" x=\"30\" y=\"44\" style=\"-fx-font-size: 25px;\"/> "
-            ;
-
-    String dice5 =
-                    "        <Rectangle fx:id=\"dice55\" width=\"50\" height=\"50\" fill=\"WHITE\" stroke=\"BLACK\" strokeWidth=\"2\"/> " +
-                    "        <Text text=\"•\" x=\"10\" y=\"20\" style=\"-fx-font-size: 25px;\"/> " +
-                    "        <Text text=\"•\" x=\"30\" y=\"20\" style=\"-fx-font-size: 25px;\"/> " +
-                    "        <Text text=\"•\" x=\"20\" y=\"32\" style=\"-fx-font-size: 25px;\"/> " +
-                    "        <Text text=\"•\" x=\"10\" y=\"44\" style=\"-fx-font-size: 25px;\"/> " +
-                    "        <Text text=\"•\" x=\"30\" y=\"44\" style=\"-fx-font-size: 25px;\"/> "
-            ;
-
-    String dice4 =
-                    "        <Rectangle fx:id=\"dice44\" width=\"50\" height=\"50\" fill=\"WHITE\" stroke=\"BLACK\" strokeWidth=\"2\"/> " +
-                    "        <Text text=\"•\" x=\"11\" y=\"25\" style=\"-fx-font-size: 25px;\"/> " +
-                    "        <Text text=\"•\" x=\"29\" y=\"25\" style=\"-fx-font-size: 25px;\"/> " +
-                    "        <Text text=\"•\" x=\"11\" y=\"40\" style=\"-fx-font-size: 25px;\"/> " +
-                    "        <Text text=\"•\" x=\"29\" y=\"40\" style=\"-fx-font-size: 25px;\"/> "
-            ;
-
-    String dice3 =
-                    "        <Rectangle fx:id=\"dice33\" width=\"50\" height=\"50\" fill=\"WHITE\" stroke=\"BLACK\" strokeWidth=\"2\"/> " +
-                    "        <Text text=\"•\" x=\"10\" y=\"20\" style=\"-fx-font-size: 25px;\"/> " +
-                    "        <Text text=\"•\" x=\"20\" y=\"32\" style=\"-fx-font-size: 25px;\"/> " +
-                    "        <Text text=\"•\" x=\"30\" y=\"44\" style=\"-fx-font-size: 25px;\"/> "
-            ;
-
-    String dice2 =
-                    "        <Rectangle fx:id=\"dice22\" width=\"50\" height=\"50\" fill=\"WHITE\" stroke=\"BLACK\" strokeWidth=\"2\"/> " +
-                    "        <Text text=\"•\" x=\"20\" y=\"25\" style=\"-fx-font-size: 25px;\"/>\n" +
-                    "        <Text text=\"•\" x=\"20\" y=\"42\" style=\"-fx-font-size: 25px;\"/>\n"
-            ;
-
-    String dice1 =
-                    "        <Rectangle fx:id=\"dice11\" width=\"50\" height=\"50\" fill=\"WHITE\" stroke=\"BLACK\" strokeWidth=\"2\"/> " +
-                    "        <Text text=\"•\" x=\"19\" y=\"33\" style=\"-fx-font-size: 30px;\"/>\n"
-            ;
-
-
-
-    String diceTop;
+    private int diceTotal;
 
     @FXML
     private Rectangle diceFirst;
@@ -289,6 +242,7 @@ public class DiceController {
 
         // Update the totalText
         int total = diceValue1 + diceValue2;
+        this.diceTotal = total;
         totalText.setText(String.valueOf(total));
     }
 
