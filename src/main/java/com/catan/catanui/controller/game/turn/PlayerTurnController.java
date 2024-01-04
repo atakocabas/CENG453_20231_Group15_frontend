@@ -18,7 +18,7 @@ public abstract class PlayerTurnController {
     protected void disableSettlementButtonsWithOtherOwners() {
         List<SettlementButton> settlementButtons = gameTableController.getSettlementButtons();
         for (SettlementButton settlementButton : settlementButtons) {
-            if (settlementButton.getOwner() != null && settlementButton.getOwner() != player) {
+            if (settlementButton.getOwner() != null) {
                 settlementButton.setDisable(true);
             }
         }
