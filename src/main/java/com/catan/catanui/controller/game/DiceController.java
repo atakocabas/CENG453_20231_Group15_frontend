@@ -244,6 +244,7 @@ public class DiceController {
         int total = diceValue1 + diceValue2;
         this.diceTotal = total;
         totalText.setText(String.valueOf(total));
+        GameTableController.getInstance().getCurrentPlayerTurnController().diceRolled(this.diceTotal);
     }
 
 

@@ -64,4 +64,8 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
     public Player getOwner() {
         return this.settlement.getOwner();
     }
+
+    public int getLevel() {
+        return 1;
+    }
 }

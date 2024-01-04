@@ -17,4 +17,8 @@ public class AiTurnController extends PlayerTurnController{
             Thread.currentThread().interrupt();
         }
     }
+
+    public void diceRolled(int diceTotal) {
+        throw new UnsupportedOperationException("Unimplemented method 'diceRolled'");
+    }
 }

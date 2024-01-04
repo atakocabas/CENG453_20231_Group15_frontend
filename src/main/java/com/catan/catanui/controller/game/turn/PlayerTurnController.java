@@ -24,5 +24,11 @@ public abstract class PlayerTurnController {
         }
     }
 
+    public Player getPlayer() {
+        return this.player;
+    }
+
     public abstract void startTurn();
+
+    public abstract void diceRolled(int diceTotal);
 }

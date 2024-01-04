@@ -307,4 +307,18 @@ public class GameTableController implements Initializable {
     public List<SettlementButton> getSettlementButtons() {
         return this.settlementButtons;
     }
+
+    public PlayerTurnController getCurrentPlayerTurnController() {
+        return playerTurnControllers.get(currentPlayer);
+    }
+
+    public List<SettlementButton> getSettlementButtons(Player player) {
+        List<SettlementButton> playerSettlementButtons = new ArrayList<>();
+        for (SettlementButton settlementButton : settlementButtons) {
+            if (settlementButton.getOwner() == player) {
+                playerSettlementButtons.add(settlementButton);
+            }
+        }
+        return playerSettlementButtons;
+    }
 }
