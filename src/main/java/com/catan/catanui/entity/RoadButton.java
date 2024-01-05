@@ -107,6 +107,7 @@ public class RoadButton extends Rectangle implements EventHandler<MouseEvent> {
                 // Enable available settlement and road buttons
                 ButtonsController.getInstance().enableAvailableSettlementButtons(owner);
                 ButtonsController.getInstance().enableAvailableRoadButtons(owner);
+                owner.updateLongestPath();
             } else {
                 logger.info("Not Enough Resources to Build Road.");
             }

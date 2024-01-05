@@ -46,6 +46,9 @@ public class Player {
     private Text longestPathText;
     private Text totalPointsText;
 
+    static int longestPathOfGame = 4;
+    static Player longestPathOwner;
+
     public Player(int id, String playerName, Color color) {
         this.totalPoints = settlementPoints + cityPoints; //  + isLongestPath eklenecek
         this.id = id;
@@ -211,6 +214,32 @@ public class Player {
         this.longestPath = roadGraph.getLongestPathLength();
         longestPathText.setText("Longest Path: " + longestPath);
         logger.info(playerName + " longest path: " + longestPath);
+
+        if(longestPath > longestPathOfGame) {
+            if (longestPathOfGame == 4) {
+
+                totalPoints++;
+                totalPointsText.setText("Total Points: " + totalPoints);
+
+                longestPathOwner = this;
+                longestPathOfGame = longestPath;
+            }
+
+            else if (longestPathOwner != this) {
+                totalPoints++;
+                totalPointsText.setText("Total Points: " + totalPoints);
+
+                longestPathOwner.totalPoints--;
+                longestPathOwner.totalPointsText.setText("Total Points: " + longestPathOwner.totalPoints);
+
+                longestPathOwner = this;
+                longestPathOfGame = longestPath;
+            }
+
+            else {
+                longestPathOfGame = longestPath;
+            }
+        }
     }
     
 }
