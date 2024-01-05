@@ -43,6 +43,9 @@ public class GameTableController implements Initializable {
     private List<Tile> tiles = new ArrayList<>();
     private List<PlayerTurnController> playerTurnControllers = new ArrayList<>();
 
+    @FXML
+    private Pane mainPane;
+
     private static final List<Color> HEXAGON_COLORS = new ArrayList<>(List.of(
             Color.DARKGREEN, Color.DARKGREEN, Color.DARKGREEN, Color.DARKGREEN, // 4 dark green hexagons
             Color.SADDLEBROWN, Color.SADDLEBROWN, Color.SADDLEBROWN, // 3 dark brown hexagons
@@ -60,6 +63,7 @@ public class GameTableController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;
+        mainPane = pane;
         initializeTiles();
         initiateSettlementButtons();
         initializeRoadButtons();
@@ -68,6 +72,9 @@ public class GameTableController implements Initializable {
         logger.info("Game Table Controller Initialized!");
     }
 
+    public Pane getMainPane() {
+        return mainPane;
+    }
     public static GameTableController getInstance() {
         if (instance == null) {
             instance = new GameTableController();
