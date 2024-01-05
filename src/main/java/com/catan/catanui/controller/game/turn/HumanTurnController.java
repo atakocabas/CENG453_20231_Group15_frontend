@@ -45,7 +45,7 @@ public class HumanTurnController extends PlayerTurnController {
     private void disableAdjacentSettlements() {
         List<SettlementButton> ownedSettlementButtons = this.player.getOwnedSettlementButtons();
         for (SettlementButton settlementButton : ownedSettlementButtons) {
-            for (SettlementButton adjacSettlementButton : findAdjacentSettlementButtons(settlementButton)) {
+            for (SettlementButton adjacSettlementButton : settlementButton.getAdjacentSettlementButtons()) {
                 adjacSettlementButton.setDisable(true);
             }
         }
@@ -62,18 +62,6 @@ public class HumanTurnController extends PlayerTurnController {
                 settlementButton.setDisable(true);
             }
         }
-    }
-
-    private List<SettlementButton> findAdjacentSettlementButtons(SettlementButton settlementButton) {
-        List<SettlementButton> adjacSettlementButtons = new ArrayList<>();
-        for (RoadButton roadButton : settlementButton.getAdjacentRoadButtons()) {
-            for (SettlementButton settlementButton2 : roadButton.getAdjacentSettlementButtons()) {
-                if (settlementButton2 != settlementButton) {
-                    adjacSettlementButtons.add(settlementButton2);
-                }
-            }
-        }
-        return adjacSettlementButtons;
     }
 
 }

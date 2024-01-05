@@ -75,4 +75,16 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
     public int getLevel() {
         return 1;
     }
+
+    public List<SettlementButton> getAdjacentSettlementButtons() {
+        List<SettlementButton> adjacSettlementButtons = new ArrayList<>();
+        for (RoadButton roadButton : this.getAdjacentRoadButtons()) {
+            for (SettlementButton settlementButton2 : roadButton.getAdjacentSettlementButtons()) {
+                if (settlementButton2 != this) {
+                    adjacSettlementButtons.add(settlementButton2);
+                }
+            }
+        }
+        return adjacSettlementButtons;
+    }
 }
