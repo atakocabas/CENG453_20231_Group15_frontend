@@ -42,4 +42,8 @@ public class Player {
     public void changeResource(ResourceType resourceType, int amount) {
         this.resources.put(resourceType, this.resources.get(resourceType) + amount);
     }
+
+    public boolean isEnoughResourcesForRoad() {
+        return this.resources.get(ResourceType.BRICK) >= 1 && this.resources.get(ResourceType.LUMBER) >= 1;
+    }
 }

@@ -11,11 +11,15 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class RoadButton extends Rectangle implements EventHandler<MouseEvent>{
+import com.catan.catanui.controller.game.PlayerController;
+import com.catan.catanui.controller.game.turn.PlayerTurnController;
+
+public class RoadButton extends Rectangle implements EventHandler<MouseEvent> {
     private static Logger logger = LoggerFactory.getLogger(RoadButton.class);
     private Road road;
     private int index;
     private List<SettlementButton> adjacentSettlementButtons;
+    private PlayerTurnController playerTurnController;
 
     public RoadButton(double width, double height, double x, double y, int index) {
         super(x, y, width, height);
@@ -43,6 +47,15 @@ public class RoadButton extends Rectangle implements EventHandler<MouseEvent>{
     @Override
     public void handle(MouseEvent arg0) {
         logger.info("RoadButton clicked: {}", this.index);
+        if (PlayerController.getInstance().buildRoad()) {
+            Player currentPlayer = PlayerController.getInstance().getCurrentPlayer();
+            this.setOwner(currentPlayer);
+            this.setFill(currentPlayer.getColor());
+            this.setDisable(true);
+            logger.info("Road Built by Player: {}", currentPlayer.getId());
+        } else {
+            logger.info("Not Enough Resources to Build Road.");
+        }
     }
 
     public void setOwner(Player player) {

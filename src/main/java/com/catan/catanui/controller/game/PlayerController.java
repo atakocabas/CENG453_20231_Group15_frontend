@@ -180,4 +180,15 @@ public class PlayerController implements Initializable {
     public List<Player> getPlayers() {
         return players;
     }
+
+    public boolean buildRoad() {
+        Player currentPlayer = getCurrentPlayer();
+        if (getCurrentPlayer().isEnoughResourcesForRoad()) {
+            changePlayerResource(currentPlayer, ResourceType.BRICK, -1);
+            changePlayerResource(currentPlayer, ResourceType.LUMBER, -1);
+            updatePlayerInfo(getCurrentPlayer());
+            return true;
+        }
+        return false;
+    }
 }
