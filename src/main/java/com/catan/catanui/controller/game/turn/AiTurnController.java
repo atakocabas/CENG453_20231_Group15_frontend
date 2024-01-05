@@ -14,11 +14,26 @@ public class AiTurnController extends PlayerTurnController{
 
     public void startTurn() {
         DiceController.getInstance().rollDice();
+        decideBuildRoads();
+        decideBuildSettlements();
+        decideBuildCities();
         PauseTransition pause = new PauseTransition(Duration.seconds(2));
         pause.setOnFinished(event -> {
             GameTableController.getInstance().endTurn();
         });
         pause.play();
+    }
+
+    private void decideBuildRoads() {
+        return;
+    }
+
+    private void decideBuildSettlements() {
+        return;
+    }
+
+    private void decideBuildCities() {
+        return;
     }
 
     public void enableEndTurnButton() {

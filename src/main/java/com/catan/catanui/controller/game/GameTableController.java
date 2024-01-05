@@ -107,7 +107,7 @@ public class GameTableController implements Initializable {
             RoadButton roadButton = findAvailableRoad(adjacentRoadButtons);
 
             if (roadButton != null) {
-                roadButton.setOwner(player);
+                roadButton.build(player);
             }
         }
 

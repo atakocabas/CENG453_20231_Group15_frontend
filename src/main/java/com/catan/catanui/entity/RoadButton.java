@@ -25,7 +25,6 @@ public class RoadButton extends Rectangle implements EventHandler<MouseEvent> {
         super(x, y, width, height);
         this.index = index;
         this.setOnMouseClicked(this);
-        this.road = new Road();
         this.setFill(Color.TRANSPARENT);
         this.setStroke(null);
         this.setStrokeWidth(2);
@@ -47,14 +46,16 @@ public class RoadButton extends Rectangle implements EventHandler<MouseEvent> {
     @Override
     public void handle(MouseEvent arg0) {
         logger.info("RoadButton clicked: {}", this.index);
-        if (PlayerController.getInstance().buildRoad()) {
-            Player currentPlayer = PlayerController.getInstance().getCurrentPlayer();
-            this.setOwner(currentPlayer);
-            this.setFill(currentPlayer.getColor());
-            this.setDisable(true);
-            logger.info("Road Built by Player: {}", currentPlayer.getId());
+        if(road == null){
+            if(PlayerController.getInstance().buildRoad()){
+                Player currentPlayer = PlayerController.getInstance().getCurrentPlayer();
+                this.build(currentPlayer);
+                logger.info("Road Built by Player: {}", currentPlayer.getId());
+            } else {
+                logger.info("Not Enough Resources to Build Road.");
+            }
         } else {
-            logger.info("Not Enough Resources to Build Road.");
+            logger.info("Road Already Built.");
         }
     }
 
@@ -64,10 +65,23 @@ public class RoadButton extends Rectangle implements EventHandler<MouseEvent> {
     }
 
     public Player getOwner() {
-        return road.getOwner();
+        if(road != null){
+            return this.road.getOwner();
+        }
+        return null;
     }
 
     public List<SettlementButton> getAdjacentSettlementButtons() {
         return this.adjacentSettlementButtons;
     }
+
+    public void build(Player owner){
+        if(this.road == null){
+            this.road = new Road();
+            road.setOwner(owner);
+            this.setFill(owner.getColor());
+            this.setDisable(true);
+        }
+    }
+
 }
