@@ -68,4 +68,9 @@ public class Player {
         }
         return ownedSettlementButtons;
     }
+
+    public boolean isEnoughResourcesForCity() {
+        return this.resources.get(ResourceType.ORE) >= 3 
+            && this.resources.get(ResourceType.GRAIN) >= 2;
+    }
 }

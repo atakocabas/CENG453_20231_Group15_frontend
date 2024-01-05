@@ -204,4 +204,15 @@ public class PlayerController implements Initializable {
         }
         return false;
     }
+
+    public boolean upgradeSettlement() {
+        Player currentPlayer = getCurrentPlayer();
+        if (getCurrentPlayer().isEnoughResourcesForCity()) {
+            changePlayerResource(currentPlayer, ResourceType.GRAIN, -2);
+            changePlayerResource(currentPlayer, ResourceType.ORE, -3);
+            updatePlayerInfo(getCurrentPlayer());
+            return true;
+        }
+        return false;
+    }
 }

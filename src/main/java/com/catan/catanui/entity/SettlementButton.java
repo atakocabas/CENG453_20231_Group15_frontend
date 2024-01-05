@@ -10,7 +10,6 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.catan.catanui.controller.game.GameTableController;
 import com.catan.catanui.controller.game.PlayerController;
 
 public class SettlementButton extends Circle implements EventHandler<MouseEvent> {
@@ -18,7 +17,6 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
     private Settlement settlement;
     private List<RoadButton> adjacentRoads = new ArrayList<>();
     private List<Tile> adjacentTiles = new ArrayList<>();
-    private PlayerController playerController = PlayerController.getInstance();
     private int index;
 
     public SettlementButton(double radius, double centerX, double centerY, int index) {
@@ -41,15 +39,27 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
     @Override
     public void handle(MouseEvent event) {
         logger.info("Settlement {} Button Clicked!", this.getIndex());
-        if(PlayerController.getInstance().buildSettlement()) {
-            Player currentPlayer = PlayerController.getInstance().getCurrentPlayer();
-            this.build(currentPlayer);
-            this.setOwner(currentPlayer);
-            this.setFill(currentPlayer.getColor());
-            this.getAdjacentSettlementButtons().forEach(settlementButton -> settlementButton.setDisable(true));
-            logger.info("Settlement Built by Player: {}", currentPlayer.getId());
-        } else {
-            logger.info("Not Enough Resources to Build Settlement.");
+        if(this.settlement == null){
+            if(PlayerController.getInstance().buildSettlement()){
+                Player currentPlayer = PlayerController.getInstance().getCurrentPlayer();
+                this.build(currentPlayer);
+                this.setFill(currentPlayer.getColor());
+                this.getAdjacentSettlementButtons().forEach(settlementButton -> settlementButton.setDisable(true));
+                logger.info("Settlement Built by Player: {}", currentPlayer.getId());
+            } else {
+                logger.info("Not Enough Resources to Build Settlement.");
+            }
+        } else if(!this.settlement.isCity()){
+            if(PlayerController.getInstance().upgradeSettlement()){
+                Player currentPlayer = PlayerController.getInstance().getCurrentPlayer();
+                this.upgrade();
+                this.setOwner(currentPlayer);
+                this.setFill(currentPlayer.getColor());
+                this.getAdjacentSettlementButtons().forEach(settlementButton -> settlementButton.setDisable(true));
+                logger.info("Settlement Upgraded by Player: {}", currentPlayer.getId());
+            } else {
+                logger.info("Not Enough Resources to Upgrade Settlement.");
+            }
         }
     }
 
@@ -97,6 +107,12 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
         if(settlement == null){
             settlement = new Settlement(owner);
             this.setFill(owner.getColor());
+        }
+    }
+
+    public void upgrade(){
+        if(this.getOwner() != null && this.settlement != null){
+            this.settlement.setCity(true);
         }
     }
 }
