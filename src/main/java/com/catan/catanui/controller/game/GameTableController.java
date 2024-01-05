@@ -81,6 +81,10 @@ public class GameTableController implements Initializable {
             List<SettlementButton> availableSettlementButtons = player.getInitialAvailableSettlementButtons();
             if(!availableSettlementButtons.isEmpty()){
                 SettlementButton settlementButton = availableSettlementButtons.get(random.nextInt(availableSettlementButtons.size()));
+                List<Tile> adjacentTiles = settlementButton.getAdjacentTiles();
+                for(Tile tile: adjacentTiles){
+                    PlayerController.getInstance().changePlayerResource(player, tile.getResourceType(), settlementButton.getLevel());
+                }
                 settlementButton.build(player);
             }
         }
