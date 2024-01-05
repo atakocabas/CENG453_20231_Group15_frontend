@@ -38,7 +38,7 @@ public class AiTurnController extends PlayerTurnController{
         List<RoadButton> avaliableRoadButtons = player.getAvaliableRoadButtons();
         int randomIndex = rand.nextInt(avaliableRoadButtons.size());
         RoadButton roadButton = avaliableRoadButtons.get(randomIndex);
-        roadButton.build(player);
+        roadButton.buildTurns(player);
     }
 
     private void decideBuildSettlements() {
