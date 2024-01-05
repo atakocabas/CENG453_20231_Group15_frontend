@@ -76,11 +76,37 @@ public class Player {
 
     public List<RoadButton> getAvaliableRoadButtons() {
         List<RoadButton> avaliableRoadButtons = new ArrayList<>();
+        avaliableRoadButtons.addAll(getAvailableRoadButtonsAdjacentToSettlements());
+        avaliableRoadButtons.addAll(getAvailableRoadButtonsAdjacentToRoads());
+        return avaliableRoadButtons;
+    }
+
+    private List<RoadButton> getAvailableRoadButtonsAdjacentToSettlements(){
+        List<RoadButton> avaliableRoadButtons = new ArrayList<>();
         List<SettlementButton> ownedSettlementButtons = this.getOwnedSettlementButtons();
         for (SettlementButton settlementButton : ownedSettlementButtons) {
             for (RoadButton roadButton : settlementButton.getAdjacentRoadButtons()) {
                 if(roadButton.getOwner() == null)
                     avaliableRoadButtons.add(roadButton);
+            }
+        }
+        return avaliableRoadButtons;
+    }
+
+    private List<RoadButton> getAvailableRoadButtonsAdjacentToRoads(){
+        List<RoadButton> avaliableRoadButtons = new ArrayList<>();
+        List<RoadButton> ownedRoadButtons = this.getOwnedRoadButtons();
+        for (RoadButton roadButton : ownedRoadButtons) {
+            SettlementButton settlementButtonWithNoOwner;
+            for(SettlementButton settlementButton : roadButton.getAdjacentSettlementButtons()){
+                if(settlementButton.getOwner() == null){
+                    settlementButtonWithNoOwner = settlementButton;
+                    for(RoadButton roadButtonWithNoOwner : settlementButtonWithNoOwner.getAdjacentRoadButtons()){
+                        if(roadButtonWithNoOwner.getOwner() == null){
+                            avaliableRoadButtons.add(roadButtonWithNoOwner);
+                        }
+                    }
+                }
             }
         }
         return avaliableRoadButtons;

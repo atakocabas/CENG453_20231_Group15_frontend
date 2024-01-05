@@ -56,36 +56,16 @@ public abstract class PlayerTurnController {
         disableAllSettlementButtons();
         enableSettlementButtons();
         disableAllRoadButtons();
-        enableRoadButtonsWithSettlements();
-        enableRoadButtonWithOwnedAdjacentRoadButton();
+        enableAvailableRoadButtons();
     }
 
-    private void enableRoadButtonWithOwnedAdjacentRoadButton() {
-        List<RoadButton> ownedRoadButtons = player.getOwnedRoadButtons();
-        for (RoadButton roadButton : ownedRoadButtons) {
-            SettlementButton settlementButtonWithNoOwner;
-            for(SettlementButton settlementButton : roadButton.getAdjacentSettlementButtons()){
-                if(settlementButton.getOwner() == null){
-                    settlementButtonWithNoOwner = settlementButton;
-                    for(RoadButton roadButtonWithNoOwner : settlementButtonWithNoOwner.getAdjacentRoadButtons()){
-                        if(roadButtonWithNoOwner.getOwner() == null){
-                            roadButtonWithNoOwner.setDisable(false);
-                        }
-                    }
-                }
-            }
+    private void enableAvailableRoadButtons() {
+        List<RoadButton> availableRoadButtons = player.getAvaliableRoadButtons();
+        for (RoadButton roadButton : availableRoadButtons) {
+            roadButton.setDisable(false);
         }
     }
 
-    private void enableRoadButtonsWithSettlements() {
-        List<SettlementButton> ownedSettlementButtons = this.player.getOwnedSettlementButtons();
-        for (SettlementButton settlementButton : ownedSettlementButtons) {
-            for (RoadButton roadButton : settlementButton.getAdjacentRoadButtons()) {
-                if(roadButton.getOwner() == null)
-                    roadButton.setDisable(false);
-            }
-        }
-    }
 
     private void disableAllRoadButtons() {
         List<RoadButton> roadButtons = gameTableController.getRoadButtons();
