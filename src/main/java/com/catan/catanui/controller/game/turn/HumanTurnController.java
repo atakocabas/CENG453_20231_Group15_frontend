@@ -12,12 +12,12 @@ public class HumanTurnController extends PlayerTurnController {
     }
 
     public void startTurn() {
-        ButtonsController.getInstance().enableAllGameTableButtons();
-        updateButtons();
+        return;
     }
 
-    public void enableEndTurnButton() {
+    public void enableButtons() {
         EndTurnController.getInstance().enableEndTurnButton();
+        updateButtons();
     }
 
 }

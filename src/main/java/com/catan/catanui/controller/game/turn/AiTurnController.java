@@ -59,7 +59,7 @@ public class AiTurnController extends PlayerTurnController{
         settlementButton.upgrade(player);
     }
 
-    public void enableEndTurnButton() {
+    public void enableButtons() {
         return;
     }
 

@@ -38,7 +38,7 @@ public abstract class PlayerTurnController {
 
     public abstract void startTurn();
 
-    public abstract void enableEndTurnButton();
+    public abstract void enableButtons();
 
     //works for tiles with same number
     public void updateResources(int diceTotal) {

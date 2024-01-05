@@ -1,5 +1,6 @@
 package com.catan.catanui.controller.game;
 
+import com.catan.catanui.controller.ButtonsController;
 import com.catan.catanui.controller.game.turn.AiTurnController;
 import com.catan.catanui.controller.game.turn.HumanTurnController;
 import com.catan.catanui.controller.game.turn.PlayerTurnController;
@@ -99,6 +100,10 @@ public class GameTableController implements Initializable {
         }
 
         createPlayerTurnControllers();
+
+        // Disable all buttons at the beginning of the game, they will be enabled when dice is rolled
+        ButtonsController.getInstance().disableAllRoadButtons();
+        ButtonsController.getInstance().disableAllSettlementButtons();
     }
 
 

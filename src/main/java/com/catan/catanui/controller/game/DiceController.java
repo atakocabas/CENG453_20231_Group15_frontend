@@ -264,7 +264,6 @@ public class DiceController {
         if (total == 7) {
             logger.info("Dice total: " + total + " no resources are distributed");
             totalText.setText(String.valueOf(total));
-            GameTableController.getInstance().getCurrentPlayerTurnController().enableEndTurnButton();
         } else {
             logger.info("Dice total: " + total);
             totalText.setText(String.valueOf(total));
@@ -272,9 +271,8 @@ public class DiceController {
             for (PlayerTurnController playerTurnController : playerTurnControllers) {
                 playerTurnController.updateResources(total);
             }
-            GameTableController.getInstance().getCurrentPlayerTurnController().enableEndTurnButton();
-
         }
+        GameTableController.getInstance().getCurrentPlayerTurnController().enableButtons();
     }
 
 
