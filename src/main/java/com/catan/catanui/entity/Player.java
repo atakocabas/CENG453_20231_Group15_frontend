@@ -146,6 +146,17 @@ public class Player {
         return ownedRoadButtons;
     }
 
+    public List<SettlementButton> getInitialAvailableSettlementButtons(){
+        List<SettlementButton> availableSettlementButtons = new ArrayList<>();
+        List<SettlementButton> settlementButtons = GameTableController.getInstance().getSettlementButtonsWithNoOwner();
+        for(SettlementButton settlementButton : settlementButtons){
+            if(settlementButton.getAdjacentSettlementButtonsWithOwner().isEmpty()){
+                availableSettlementButtons.add(settlementButton);
+            }
+        }
+        return availableSettlementButtons;
+    }
+
 
 
     private static final Logger logger = LoggerFactory.getLogger(Player.class);

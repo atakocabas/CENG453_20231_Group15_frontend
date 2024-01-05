@@ -93,20 +93,20 @@ public class GameTableController implements Initializable {
     }*/
 
     private void initalizeGame() {
-        Random random = new Random();
-        int[] randomNumbers = random.ints(0, settlementButtons.size()).distinct().limit(4).toArray();
 
-        for (int i = 0; i < 4; i++) {
-            SettlementButton settlementButton = settlementButtons.get(randomNumbers[i]);
-            Player player = getPlayer(i);
-
-            // Build settlement
-            settlementButton.build(player);
-            // Find an available road for the settlement
-            List<RoadButton> adjacentRoadButtons = settlementButton.getAdjacentRoadButtons();
-            RoadButton roadButton = findAvailableRoad(adjacentRoadButtons);
-
-            if (roadButton != null) {
+        for(Player player: PlayerController.getInstance().getPlayers()){
+            Random random = new Random();
+            List<SettlementButton> availableSettlementButtons = player.getInitialAvailableSettlementButtons();
+            if(!availableSettlementButtons.isEmpty()){
+                SettlementButton settlementButton = availableSettlementButtons.get(random.nextInt(availableSettlementButtons.size()));
+                settlementButton.build(player);
+            }
+        }
+        for(Player player: PlayerController.getInstance().getPlayers()){
+            Random random = new Random();
+            List<RoadButton> availableRoadButtons = player.getAvaliableRoadButtons();
+            if(!availableRoadButtons.isEmpty()){
+                RoadButton roadButton = availableRoadButtons.get(random.nextInt(availableRoadButtons.size()));
                 roadButton.build(player);
             }
         }
@@ -365,5 +365,15 @@ public class GameTableController implements Initializable {
 
     public List<RoadButton> getRoadButtons() {
         return this.roadButtons;
+    }
+
+    public List<SettlementButton> getSettlementButtonsWithNoOwner() {
+        List<SettlementButton> settlementButtonsWithNoOwner = new ArrayList<>();
+        for (SettlementButton settlementButton : settlementButtons) {
+            if (settlementButton.getOwner() == null) {
+                settlementButtonsWithNoOwner.add(settlementButton);
+            }
+        }
+        return settlementButtonsWithNoOwner;
     }
 }
