@@ -1,38 +1,88 @@
 package com.catan.catanui.controller.game.turn;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.catan.catanui.controller.game.EndTurnController;
-import com.catan.catanui.controller.game.GameTableController;
-import com.catan.catanui.controller.game.PlayerController;
 import com.catan.catanui.entity.Player;
+import com.catan.catanui.entity.RoadButton;
 import com.catan.catanui.entity.SettlementButton;
-import com.catan.catanui.entity.Tile;
 
 public class HumanTurnController extends PlayerTurnController {
-    
+
     public HumanTurnController(Player player) {
         super(player);
     }
 
     public void startTurn() {
+        disableButtons();
+    }
+
+    public void disableButtons() {
         disableSettlementButtonsWithOtherOwners();
-//        EndTurnController.getInstance().enableEndTurnButton();
+        disableAdjacentSettlements();
+        disableAllRoadButtons();
+        enableRoadButtonsWithSettlements();
+    }
+
+    private void enableRoadButtonsWithSettlements() {
+        List<SettlementButton> settlementButtons = getOwnedSettlementButtons();
+        for (SettlementButton settlementButton : settlementButtons) {
+            for (RoadButton roadButton : settlementButton.getAdjacentRoadButtons()) {
+                if(roadButton.getOwner() == null)
+                    roadButton.setDisable(false);
+            }
+        }
+    }
+
+    private void disableAllRoadButtons() {
+        List<RoadButton> roadButtons = gameTableController.getRoadButtons();
+        for (RoadButton roadButton : roadButtons) {
+            roadButton.setDisable(true);
+        }
+    }
+
+    private void disableAdjacentSettlements() {
+        for (SettlementButton settlementButton : getOwnedSettlementButtons()) {
+            for (SettlementButton adjacSettlementButton : findAdjacentSettlementButtons(settlementButton)) {
+                adjacSettlementButton.setDisable(true);
+            }
+        }
     }
 
     public void enableEndTurnButton() {
         EndTurnController.getInstance().enableEndTurnButton();
     }
 
-//    public void diceRolled(int diceTotal) {
-//        List<SettlementButton> settlementButtons = GameTableController.getInstance().getSettlementButtons(this.getPlayer());
-//        for (SettlementButton settlementButton : settlementButtons) {
-//            List<Tile> adjacentTiles = settlementButton.getAdjacentTiles();
-//            for (Tile tile : adjacentTiles) {
-//                if (tile.getDiceNumber() == diceTotal) {
-//                    PlayerController.getInstance().increasePlayerResource(this.getPlayer(), tile.getResourceType(), settlementButton.getLevel());
-//                }
-//            }
-//        }
-//    }
+    private void disableSettlementButtonsWithOtherOwners() {
+        List<SettlementButton> settlementButtons = gameTableController.getSettlementButtons();
+        for (SettlementButton settlementButton : settlementButtons) {
+            if (settlementButton.getOwner() != null && settlementButton.getOwner() != player) {
+                settlementButton.setDisable(true);
+            }
+        }
+    }
+
+    private List<SettlementButton> findAdjacentSettlementButtons(SettlementButton settlementButton) {
+        List<SettlementButton> adjacSettlementButtons = new ArrayList<>();
+        for (RoadButton roadButton : settlementButton.getAdjacentRoadButtons()) {
+            for (SettlementButton settlementButton2 : roadButton.getAdjacentSettlementButtons()) {
+                if (settlementButton2 != settlementButton) {
+                    adjacSettlementButtons.add(settlementButton2);
+                }
+            }
+        }
+        return adjacSettlementButtons;
+    }
+
+    private List<SettlementButton> getOwnedSettlementButtons() {
+        List<SettlementButton> ownedSettlementButtons = new ArrayList<>();
+        List<SettlementButton> settlementButtons = gameTableController.getSettlementButtons();
+        for (SettlementButton settlementButton : settlementButtons) {
+            if (settlementButton.getOwner() == player) {
+                ownedSettlementButtons.add(settlementButton);
+            }
+        }
+        return ownedSettlementButtons;
+    }
 }

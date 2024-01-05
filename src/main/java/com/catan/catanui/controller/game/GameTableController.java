@@ -363,4 +363,8 @@ public class GameTableController implements Initializable {
         }
         return playerSettlementButtons;
     }
+
+    public List<RoadButton> getRoadButtons() {
+        return this.roadButtons;
+    }
 }

@@ -9,22 +9,15 @@ import com.catan.catanui.entity.SettlementButton;
 import com.catan.catanui.entity.Tile;
 
 public abstract class PlayerTurnController {
-    private Player player;
+    protected Player player;
     private Boolean isDiceRolled = false;
-    private static GameTableController gameTableController = GameTableController.getInstance();
+    protected static GameTableController gameTableController = GameTableController.getInstance();
 
     PlayerTurnController(Player player) {
         this.player = player;
     }
 
-    protected void disableSettlementButtonsWithOtherOwners() {
-        List<SettlementButton> settlementButtons = gameTableController.getSettlementButtons();
-        for (SettlementButton settlementButton : settlementButtons) {
-            if (settlementButton.getOwner() != null && settlementButton.getOwner() != player) {
-                settlementButton.setDisable(true);
-            }
-        }
-    }
+    protected abstract void disableButtons();
 
     public boolean rollDice() {
         if (isDiceRolled) {
