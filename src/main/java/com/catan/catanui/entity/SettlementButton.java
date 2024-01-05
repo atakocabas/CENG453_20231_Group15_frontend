@@ -10,6 +10,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.catan.catanui.controller.ButtonsController;
 import com.catan.catanui.controller.game.PlayerController;
 
 public class SettlementButton extends Circle implements EventHandler<MouseEvent> {
@@ -110,6 +111,8 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
         if(settlement == null){
             settlement = new Settlement(owner);
             this.setFill(owner.getColor());
+            ButtonsController.getInstance().enableAvailableSettlementButtons(owner);
+            ButtonsController.getInstance().enableAvailableRoadButtons(owner);
         }
     }
 
