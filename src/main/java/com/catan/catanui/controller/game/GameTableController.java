@@ -177,10 +177,10 @@ public class GameTableController implements Initializable {
                 SettlementButton settlementButton = findSettlementButtonByCoordinates(x, y);
                 if (settlementButton == null) {
                     settlementButton = new SettlementButton(RADIUS / 4, x, y, index);
-                    settlementButton.getAdjacentTiles().add(tile);
                     settlementButtons.add(settlementButton);
                     index++;
                 }
+                settlementButton.getAdjacentTiles().add(tile);
                 tile.getSettlementButtons().add(settlementButton);
                 startAngle += Math.toRadians(-60);
             }
