@@ -1,5 +1,6 @@
 package com.catan.catanui.entity;
 
+import com.catan.catanui.enums.ResourceType;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -54,7 +55,7 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
         } else if(!this.settlement.isCity()){
             if(PlayerController.getInstance().upgradeSettlement()){
                 Player currentPlayer = PlayerController.getInstance().getCurrentPlayer();
-                this.upgrade();
+                this.upgrade(currentPlayer);
                 this.setOwner(currentPlayer);
                 this.setFill(currentPlayer.getColor());
                 this.setDisable(true);
@@ -116,9 +117,54 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
         }
     }
 
-    public void upgrade(){
+    public void buildTurns(Player owner) {
+        if (settlement == null) {
+            if (owner.isEnoughResourcesForSettlement()) {
+                // Deduct resources for the settlement
+                PlayerController.getInstance().changePlayerResource(owner, ResourceType.BRICK, -1);
+                PlayerController.getInstance().changePlayerResource(owner, ResourceType.LUMBER, -1);
+                PlayerController.getInstance().changePlayerResource(owner, ResourceType.GRAIN, -1);
+                PlayerController.getInstance().changePlayerResource(owner, ResourceType.WOOL, -1);
+                PlayerController.getInstance().updatePlayerInfo(owner);
+
+                // Build the settlement
+                settlement = new Settlement(owner);
+                this.setFill(owner.getColor());
+
+                owner.increaseSettlementPoints();
+
+                // Enable available settlement and road buttons
+                ButtonsController.getInstance().enableAvailableSettlementButtons(owner);
+                ButtonsController.getInstance().enableAvailableRoadButtons(owner);
+            } else {
+                logger.info("Not Enough Resources to Build Settlement.");
+            }
+        } else {
+            logger.info("Settlement Already Built.");
+        }
+    }
+
+
+
+    /*public void upgrade(){
         if(this.getOwner() != null && this.settlement != null){
             this.settlement.setCity(true);
+        }
+    }*/
+
+    public void upgrade(Player owner) {
+        if (this.getOwner() != null && this.settlement != null) {
+            Player currentPlayer = this.getOwner();
+            if (currentPlayer.isEnoughResourcesForCity()) {
+                // Deduct resources for the city
+                PlayerController.getInstance().changePlayerResource(currentPlayer, ResourceType.GRAIN, -2);
+                PlayerController.getInstance().changePlayerResource(currentPlayer, ResourceType.ORE, -3);
+                PlayerController.getInstance().updatePlayerInfo(currentPlayer);
+
+                owner.updateCityBuildPoints();
+                // Upgrade the settlement to a city
+                this.settlement.setCity(true);
+            }
         }
     }
 

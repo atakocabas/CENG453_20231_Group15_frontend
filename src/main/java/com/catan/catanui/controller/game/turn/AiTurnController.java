@@ -47,7 +47,7 @@ public class AiTurnController extends PlayerTurnController{
             return;
         int randomIndex = rand.nextInt(avaliableSettlementButtons.size());
         SettlementButton settlementButton = avaliableSettlementButtons.get(randomIndex);
-        settlementButton.build(player);
+        settlementButton.buildTurns(player);
     }
 
     private void decideBuildCities() {
@@ -56,7 +56,7 @@ public class AiTurnController extends PlayerTurnController{
             return;
         int randomIndex = rand.nextInt(availableCities.size());
         SettlementButton settlementButton = availableCities.get(randomIndex);
-        settlementButton.upgrade();
+        settlementButton.upgrade(player);
     }
 
     public void enableEndTurnButton() {
