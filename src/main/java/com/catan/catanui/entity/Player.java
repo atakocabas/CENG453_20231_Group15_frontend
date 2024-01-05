@@ -126,9 +126,10 @@ public class Player {
         List<SettlementButton> avaliableSettlementButtons = new ArrayList<>();
         List<RoadButton> ownedRoadButtons = this.getOwnedRoadButtons();
         for(RoadButton roadButton : ownedRoadButtons){
-            for(SettlementButton settlementButton : roadButton.getAdjacentSettlementButtons()){
-                if(settlementButton.getOwner() == null && roadButton.isRoadButtonHaveNoneAdjacentSettlement())
+            for(SettlementButton settlementButton : roadButton.getAdjacentSettlementButtonsWithNoOwner()){
+                if(settlementButton.getAdjacentSettlementButtonsWithOwner().isEmpty()){
                     avaliableSettlementButtons.add(settlementButton);
+                }
             }
         }
         return avaliableSettlementButtons;

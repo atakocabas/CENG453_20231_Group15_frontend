@@ -121,4 +121,14 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
             this.settlement.setCity(true);
         }
     }
+
+    public List<SettlementButton> getAdjacentSettlementButtonsWithOwner() {
+        List<SettlementButton> adjacentSettlementButtonsWithOwner = new ArrayList<>();
+        for (SettlementButton settlementButton : this.getAdjacentSettlementButtons()) {
+            if (settlementButton.getOwner() != null) {
+                adjacentSettlementButtonsWithOwner.add(settlementButton);
+            }
+        }
+        return adjacentSettlementButtonsWithOwner;
+    }
 }
