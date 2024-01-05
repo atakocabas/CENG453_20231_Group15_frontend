@@ -2,8 +2,11 @@ package com.catan.catanui.entity;
 
 import com.catan.catanui.controller.game.EndTurnController;
 import com.catan.catanui.controller.game.GameTableController;
+import com.catan.catanui.controller.game.FunText;
 
 import com.catan.catanui.controller.game.PlayerController;
+
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import lombok.Data;
@@ -46,7 +49,7 @@ public class Player {
     private Text longestPathText;
     private Text totalPointsText;
 
-    static int longestPathOfGame = 1;
+    static int longestPathOfGame = 4;
     static Player longestPathOwner;
 
     public Player(int id, String playerName, Color color) {
@@ -167,14 +170,20 @@ public class Player {
         return availableSettlementButtons;
     }
 
-
-    public void increaseSettlementPoints(){
+    public void increaseSettlementPoints() {
         settlementPoints++;
         totalPoints++;
         settlementText.setText("Settlement Points: " + settlementPoints);
         totalPointsText.setText("Total Points: " + totalPoints);
         logger.info("Settlement count increased: Player {}", id);
+
+        if (totalPoints == 2) {
+            Pane gameTablePane = GameTableController.getInstance().getMainPane();
+            String winningMessage = "Player " + id + " won the game!";
+            FunText.displayFunMessage(gameTablePane, winningMessage);
+        }
     }
+
 
     public void updateCityBuildPoints(){
         settlementPoints--;
@@ -184,6 +193,12 @@ public class Player {
         cityText.setText("City Points: " + cityPoints);
         totalPointsText.setText("Total Points: " + totalPoints);
         logger.info("City count increased: Player {}", id);
+
+        if (totalPoints == 2) {
+            Pane gameTablePane = GameTableController.getInstance().getMainPane();
+            String winningMessage = "Player " + id + " won the game!";
+            FunText.displayFunMessage(gameTablePane, winningMessage);
+        }
     }
 
     public List<SettlementButton> getUpgradableSettlementButtons() {
@@ -216,13 +231,19 @@ public class Player {
         logger.info(playerName + " longest path: " + longestPath);
 
         if(longestPath > longestPathOfGame) {
-            if (longestPathOfGame == 1) {
+            if (longestPathOfGame == 4) {
 
                 totalPoints++;
                 totalPointsText.setText("Total Points: " + totalPoints);
 
                 longestPathOwner = this;
                 longestPathOfGame = longestPath;
+
+                if (totalPoints == 2) {
+                    Pane gameTablePane = GameTableController.getInstance().getMainPane();
+                    String winningMessage = "Player " + id + " won the game!";
+                    FunText.displayFunMessage(gameTablePane, winningMessage);
+                }
             }
 
             else if (longestPathOwner != this) {
@@ -234,6 +255,12 @@ public class Player {
 
                 longestPathOwner = this;
                 longestPathOfGame = longestPath;
+
+                if (totalPoints == 2) {
+                    Pane gameTablePane = GameTableController.getInstance().getMainPane();
+                    String winningMessage = "Player " + id + " won the game!";
+                    FunText.displayFunMessage(gameTablePane, winningMessage);
+                }
             }
 
             else {
@@ -241,5 +268,7 @@ public class Player {
             }
         }
     }
-    
+
+
+
 }
