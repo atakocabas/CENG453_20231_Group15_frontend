@@ -1,9 +1,12 @@
 package com.catan.catanui.entity;
 
 import com.catan.catanui.controller.game.EndTurnController;
+import com.catan.catanui.controller.game.GameTableController;
+
 import javafx.scene.paint.Color;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -53,5 +56,16 @@ public class Player {
             && this.resources.get(ResourceType.LUMBER) >= 1 
             && this.resources.get(ResourceType.WOOL) >= 1 
             && this.resources.get(ResourceType.GRAIN) >= 1;
+    }
+
+    public List<SettlementButton> getOwnedSettlementButtons() {
+        List<SettlementButton> ownedSettlementButtons = new ArrayList<>();
+        List<SettlementButton> settlementButtons = GameTableController.getInstance().getSettlementButtons();
+        for (SettlementButton settlementButton : settlementButtons) {
+            if (settlementButton.getOwner() == this) {
+                ownedSettlementButtons.add(settlementButton);
+            }
+        }
+        return ownedSettlementButtons;
     }
 }
