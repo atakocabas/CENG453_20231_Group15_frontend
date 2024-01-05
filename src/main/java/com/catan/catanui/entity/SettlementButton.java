@@ -55,6 +55,7 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
                 this.upgrade();
                 this.setOwner(currentPlayer);
                 this.setFill(currentPlayer.getColor());
+                this.setDisable(true);
                 this.getAdjacentSettlementButtons().forEach(settlementButton -> settlementButton.setDisable(true));
                 logger.info("Settlement Upgraded by Player: {}", currentPlayer.getId());
             } else {
