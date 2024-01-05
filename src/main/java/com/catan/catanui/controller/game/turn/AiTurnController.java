@@ -1,6 +1,10 @@
 package com.catan.catanui.controller.game.turn;
 
+import com.catan.catanui.controller.game.DiceController;
+import com.catan.catanui.controller.game.GameTableController;
 import com.catan.catanui.entity.Player;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
 
 public class AiTurnController extends PlayerTurnController{
 
@@ -9,16 +13,19 @@ public class AiTurnController extends PlayerTurnController{
     }
 
     public void startTurn() {
-        // sleep for 2 seconds
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            Thread.currentThread().interrupt();
-        }
+        DiceController.getInstance().rollDice();
+        PauseTransition pause = new PauseTransition(Duration.seconds(2));
+        pause.setOnFinished(event -> {
+            GameTableController.getInstance().endTurn();
+        });
+        pause.play();
     }
 
-    public void diceRolled(int diceTotal) {
-        throw new UnsupportedOperationException("Unimplemented method 'diceRolled'");
+    public void enableEndTurnButton() {
+        return;
     }
+
+//    public void diceRolled(int diceTotal) {
+//        throw new UnsupportedOperationException("Unimplemented method 'diceRolled'");
+//    }
 }

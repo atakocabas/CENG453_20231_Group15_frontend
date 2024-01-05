@@ -129,6 +129,7 @@ public class PlayerController implements Initializable {
     public void increasePlayerResource(Player player, ResourceType resourceType, int amount) {
         player.increaseResource(resourceType, amount);
         updatePlayerInfo(player);
+        logger.info("Player {} {} increased by {}", player.getId(), resourceType, amount);
     }
 
     private void updatePlayerInfo(Player player) {

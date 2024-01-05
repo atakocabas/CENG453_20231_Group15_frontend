@@ -1,5 +1,6 @@
 package com.catan.catanui.entity;
 
+import com.catan.catanui.controller.game.EndTurnController;
 import javafx.scene.paint.Color;
 import lombok.Data;
 
@@ -11,6 +12,7 @@ import com.catan.catanui.enums.ResourceType;
 
 @Data
 public class Player {
+
     private int id;
     private String playerName;
     private int longestRoad;

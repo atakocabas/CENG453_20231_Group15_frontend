@@ -1,16 +1,23 @@
 // DiceController.java
 package com.catan.catanui.controller.game;
 
+import com.catan.catanui.controller.game.turn.PlayerTurnController;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.Random;
 
 public class DiceController {
+    private static final Logger logger = LoggerFactory.getLogger(DiceController.class);
 
     private int diceTotal;
+
+    private static DiceController instance;
 
     @FXML
     private Rectangle diceFirst;
@@ -52,13 +59,23 @@ public class DiceController {
     @FXML
     private Text dot26;
 
+    public static DiceController getInstance() {
+        if (instance == null) {
+            instance = new DiceController();
+        }
+        return instance;
+    }
 
     public void initialize() {
         // Initialize your controller logic here
         // For example, you can set initial values or add event handlers
+        instance = this;
     }
 
     public void rollDice() {
+        // check if the dice is already rolled in this turn
+        if(!GameTableController.getInstance().getCurrentPlayerTurnController().rollDice())
+            return;
         // Simulate rolling a dice and update the display
         Random random = new Random();
         int diceValue1 = random.nextInt(6) + 1; // Adding 1 to get values between 1 and 6
@@ -243,8 +260,14 @@ public class DiceController {
         // Update the totalText
         int total = diceValue1 + diceValue2;
         this.diceTotal = total;
+        logger.info("Dice total: " + total);
         totalText.setText(String.valueOf(total));
-        GameTableController.getInstance().getCurrentPlayerTurnController().diceRolled(this.diceTotal);
+        List<PlayerTurnController> playerTurnControllers = GameTableController.getInstance().getPlayerTurnControllers();
+        for (PlayerTurnController playerTurnController : playerTurnControllers) {
+            playerTurnController.updateResources(total);
+        }
+
+        GameTableController.getInstance().getCurrentPlayerTurnController().enableEndTurnButton();
     }
 
 
