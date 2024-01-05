@@ -150,7 +150,7 @@ public class RoadButton extends Rectangle implements EventHandler<MouseEvent> {
         List<RoadButton> adjacentRoadButtonsWithSameOwner = new ArrayList<>();
         for(SettlementButton settlementButton : this.adjacentSettlementButtons){
             for(RoadButton roadButton : settlementButton.getAdjacentRoadButtons()){
-                if(roadButton.getOwner() != null && roadButton.getOwner().getId() == this.getOwner().getId()){
+                if(roadButton.getOwner() != null && roadButton.getOwner().getId() == this.getOwner().getId() && this != roadButton){
                     adjacentRoadButtonsWithSameOwner.add(roadButton);
                 }
             }
