@@ -1,8 +1,8 @@
 package com.catan.catanui.controller.game.turn;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import com.catan.catanui.controller.ButtonsController;
 import com.catan.catanui.controller.game.GameTableController;
 import com.catan.catanui.controller.game.PlayerController;
 import com.catan.catanui.entity.Player;
@@ -53,58 +53,10 @@ public abstract class PlayerTurnController {
     }
 
     protected void updateButtons() {
-        disableAllSettlementButtons();
-        enableAvailableSettlementButtons();
-        disableAllRoadButtons();
-        enableAvailableRoadButtons();
+        ButtonsController.getInstance().disableAllSettlementButtons();
+        ButtonsController.getInstance().enableAvailableSettlementButtons(this.getPlayer());
+        ButtonsController.getInstance().disableAllRoadButtons();
+        ButtonsController.getInstance().enableAvailableRoadButtons(this.getPlayer());
     }
 
-    private void enableAvailableRoadButtons() {
-        List<RoadButton> availableRoadButtons = player.getAvaliableRoadButtons();
-        for (RoadButton roadButton : availableRoadButtons) {
-            roadButton.setDisable(false);
-        }
-    }
-
-
-    private void disableAllRoadButtons() {
-        List<RoadButton> roadButtons = gameTableController.getRoadButtons();
-        for (RoadButton roadButton : roadButtons) {
-            roadButton.setDisable(true);
-        }
-    }
-
-    private void disableAllSettlementButtons(){
-        List<SettlementButton> settlementButtons = gameTableController.getSettlementButtons();
-        for (SettlementButton settlementButton : settlementButtons) {
-            settlementButton.setDisable(true);
-        }
-    }
-
-    private void enableAvailableSettlementButtons() {
-        List<SettlementButton> availableSettlementButtons = player.getAvaliableSettlementButtons();
-        for (SettlementButton settlementButton : availableSettlementButtons) {
-            settlementButton.setDisable(false);
-        }
-    }
-
-
-    protected void enableAllGameTableButtons() {
-        enableAllSettlementButtons();
-        enableAllRoadButtons();
-    }
-
-    private void enableAllSettlementButtons() {
-        List<SettlementButton> settlementButtons = gameTableController.getSettlementButtons();
-        for (SettlementButton settlementButton : settlementButtons) {
-            settlementButton.setDisable(false);
-        }
-    }
-
-    private void enableAllRoadButtons(){
-        List<RoadButton> roadButtons = gameTableController.getRoadButtons();
-        for (RoadButton roadButton : roadButtons) {
-            roadButton.setDisable(false);
-        }
-    }
 }
