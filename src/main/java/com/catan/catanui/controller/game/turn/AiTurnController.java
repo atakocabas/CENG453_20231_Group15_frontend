@@ -3,6 +3,7 @@ package com.catan.catanui.controller.game.turn;
 import java.util.List;
 import java.util.Random;
 
+import com.catan.catanui.controller.ButtonsController;
 import com.catan.catanui.controller.game.DiceController;
 import com.catan.catanui.controller.game.GameTableController;
 import com.catan.catanui.entity.Player;
@@ -18,7 +19,7 @@ public class AiTurnController extends PlayerTurnController{
     }
 
     public void startTurn() {
-        enableAllGameTableButtons();
+        ButtonsController.getInstance().enableAllGameTableButtons();
         updateButtons();
         DiceController.getInstance().rollDice();
         decideBuildRoads();
