@@ -1,5 +1,6 @@
 package com.catan.catanui.entity;
 
+import com.catan.catanui.enums.ResourceType;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -84,6 +85,32 @@ public class RoadButton extends Rectangle implements EventHandler<MouseEvent> {
             this.setDisable(true);
             ButtonsController.getInstance().enableAvailableSettlementButtons(owner);
             ButtonsController.getInstance().enableAvailableRoadButtons(owner);
+        }
+    }
+
+    //after first turn, use this for AI
+    public void buildTurns(Player owner) {
+        if (this.road == null) {
+            if (owner.isEnoughResourcesForRoad()) {
+                // Deduct resources for the road
+                PlayerController.getInstance().changePlayerResource(owner, ResourceType.BRICK, -1);
+                PlayerController.getInstance().changePlayerResource(owner, ResourceType.LUMBER, -1);
+                PlayerController.getInstance().updatePlayerInfo(owner);
+
+                // Build the road
+                this.road = new Road();
+                road.setOwner(owner);
+                this.setFill(owner.getColor());
+                this.setDisable(true);
+
+                // Enable available settlement and road buttons
+                ButtonsController.getInstance().enableAvailableSettlementButtons(owner);
+                ButtonsController.getInstance().enableAvailableRoadButtons(owner);
+            } else {
+                logger.info("Not Enough Resources to Build Road.");
+            }
+        } else {
+            logger.info("Road Already Built.");
         }
     }
 
