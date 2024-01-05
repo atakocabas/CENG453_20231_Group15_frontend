@@ -70,12 +70,12 @@ public class PlayerController implements Initializable {
             VBox additionalInfoVBox = new VBox();
             additionalInfoVBox.setSpacing(5);
 
-            Text settlementText = new Text("Settlement Points: " + player.getSettlementPoints());
-            Text cityText = new Text("City Points: " + player.getCityPoints());
-            Text longestPathText = new Text("Longest Path: " + player.getLongestPath());
-            Text totalPointsText = new Text("Total Points: " + player.getTotalPoints());
+            //Text settlementText = new Text("Settlement Points: " + player.getSettlementPoints());
+            //Text cityText = new Text("City Points: " + player.getCityPoints());
+            //Text longestPathText = new Text("Longest Path: " + player.getLongestPath());
+            //Text totalPointsText = new Text("Total Points: " + player.getTotalPoints());
 
-            additionalInfoVBox.getChildren().addAll(settlementText, cityText, longestPathText, totalPointsText);
+            additionalInfoVBox.getChildren().addAll(player.getSettlementText(), player.getCityText(), player.getLongestPathText(), player.getTotalPointsText());
 
             playerCircleAndNameVBox.getChildren().addAll(playerCircle, playerNameText);
             playerHBox.getChildren().addAll(playerInfoVBox, playerCircleAndNameVBox, additionalInfoVBox);
