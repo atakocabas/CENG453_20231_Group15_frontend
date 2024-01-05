@@ -131,10 +131,11 @@ public class Player {
 
     public List<SettlementButton> getAvaliableSettlementButtons() {
         List<SettlementButton> avaliableSettlementButtons = new ArrayList<>();
-        List<SettlementButton> settlementButtons = GameTableController.getInstance().getSettlementButtons();
-        for (SettlementButton settlementButton : settlementButtons) {
-            if (settlementButton.getOwner() == null) {
-                avaliableSettlementButtons.add(settlementButton);
+        List<RoadButton> ownedRoadButtons = this.getOwnedRoadButtons();
+        for(RoadButton roadButton : ownedRoadButtons){
+            for(SettlementButton settlementButton : roadButton.getAdjacentSettlementButtons()){
+                if(settlementButton.getOwner() == null && roadButton.isRoadButtonHaveNoneAdjacentSettlement())
+                    avaliableSettlementButtons.add(settlementButton);
             }
         }
         return avaliableSettlementButtons;
