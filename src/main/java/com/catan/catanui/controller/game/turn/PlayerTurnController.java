@@ -54,7 +54,7 @@ public abstract class PlayerTurnController {
 
     protected void disableButtons() {
         disableAllSettlementButtons();
-        enableSettlementButtons();
+        enableAvailableSettlementButtons();
         disableAllRoadButtons();
         enableAvailableRoadButtons();
     }
@@ -81,7 +81,7 @@ public abstract class PlayerTurnController {
         }
     }
 
-    private void enableSettlementButtons() {
+    private void enableAvailableSettlementButtons() {
         List<SettlementButton> availableSettlementButtons = player.getAvaliableSettlementButtons();
         for (SettlementButton settlementButton : availableSettlementButtons) {
             settlementButton.setDisable(false);
