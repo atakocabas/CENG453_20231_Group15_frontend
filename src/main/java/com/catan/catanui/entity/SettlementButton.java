@@ -131,6 +131,8 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
                 settlement = new Settlement(owner);
                 this.setFill(owner.getColor());
 
+                owner.increaseSettlementPoints();
+
                 // Enable available settlement and road buttons
                 ButtonsController.getInstance().enableAvailableSettlementButtons(owner);
                 ButtonsController.getInstance().enableAvailableRoadButtons(owner);
