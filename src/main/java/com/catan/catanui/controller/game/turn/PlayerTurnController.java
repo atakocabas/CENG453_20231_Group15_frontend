@@ -1,11 +1,13 @@
 package com.catan.catanui.controller.game.turn;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.catan.catanui.controller.game.GameTableController;
 import com.catan.catanui.controller.game.PlayerController;
 import com.catan.catanui.entity.Player;
 import com.catan.catanui.entity.RoadButton;
+import com.catan.catanui.entity.Settlement;
 import com.catan.catanui.entity.SettlementButton;
 import com.catan.catanui.entity.Tile;
 
@@ -51,10 +53,28 @@ public abstract class PlayerTurnController {
     }
 
     protected void disableButtons() {
-        disableSettlementButtonsWithOtherOwners();
-        disableAdjacentSettlements();
+        disableAllSettlementButtons();
+        enableSettlementButtons();
         disableAllRoadButtons();
         enableRoadButtonsWithSettlements();
+        enableRoadButtonWithOwnedAdjacentRoadButton();
+    }
+
+    private void enableRoadButtonWithOwnedAdjacentRoadButton() {
+        List<RoadButton> ownedRoadButtons = player.getOwnedRoadButtons();
+        for (RoadButton roadButton : ownedRoadButtons) {
+            SettlementButton settlementButtonWithNoOwner;
+            for(SettlementButton settlementButton : roadButton.getAdjacentSettlementButtons()){
+                if(settlementButton.getOwner() == null){
+                    settlementButtonWithNoOwner = settlementButton;
+                    for(RoadButton roadButtonWithNoOwner : settlementButtonWithNoOwner.getAdjacentRoadButtons()){
+                        if(roadButtonWithNoOwner.getOwner() == null){
+                            roadButtonWithNoOwner.setDisable(false);
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private void enableRoadButtonsWithSettlements() {
@@ -74,24 +94,23 @@ public abstract class PlayerTurnController {
         }
     }
 
-    private void disableAdjacentSettlements() {
-        List<SettlementButton> ownedSettlementButtons = this.player.getOwnedSettlementButtons();
-        for (SettlementButton settlementButton : ownedSettlementButtons) {
-            for (SettlementButton adjacSettlementButton : settlementButton.getAdjacentSettlementButtons()) {
-                adjacSettlementButton.setDisable(true);
-            }
-        }
-    }
-
-
-    private void disableSettlementButtonsWithOtherOwners() {
+    private void disableAllSettlementButtons(){
         List<SettlementButton> settlementButtons = gameTableController.getSettlementButtons();
         for (SettlementButton settlementButton : settlementButtons) {
-            if (settlementButton.getOwner() != null && settlementButton.getOwner() != player) {
-                settlementButton.setDisable(true);
+            settlementButton.setDisable(true);
+        }
+    }
+
+    private void enableSettlementButtons() {
+        List<RoadButton> ownedRoadButtons = player.getOwnedRoadButtons();
+        for(RoadButton roadButton : ownedRoadButtons){
+            for(SettlementButton settlementButton : roadButton.getAdjacentSettlementButtons()){
+                if(settlementButton.getOwner() == null && roadButton.isRoadButtonHaveNoneAdjacentSettlement())
+                    settlementButton.setDisable(false);
             }
         }
     }
+
 
     protected void enableAllGameTableButtons() {
         enableAllSettlementButtons();

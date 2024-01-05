@@ -84,4 +84,13 @@ public class RoadButton extends Rectangle implements EventHandler<MouseEvent> {
         }
     }
 
+    public boolean isRoadButtonHaveNoneAdjacentSettlement(){
+        for(SettlementButton settlementButton : this.adjacentSettlementButtons){
+            if(settlementButton.getOwner() != null){
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

@@ -85,4 +85,27 @@ public class Player {
         }
         return avaliableRoadButtons;
     }
+
+    public List<SettlementButton> getAvaliableSettlementButtons() {
+        List<SettlementButton> avaliableSettlementButtons = new ArrayList<>();
+        List<SettlementButton> settlementButtons = GameTableController.getInstance().getSettlementButtons();
+        for (SettlementButton settlementButton : settlementButtons) {
+            if (settlementButton.getOwner() == null) {
+                avaliableSettlementButtons.add(settlementButton);
+            }
+        }
+        return avaliableSettlementButtons;
+    }
+
+    public List<RoadButton> getOwnedRoadButtons() {
+        List<RoadButton> ownedRoadButtons = new ArrayList<>();
+        List<RoadButton> roadButtons = GameTableController.getInstance().getRoadButtons();
+        for (RoadButton roadButton : roadButtons) {
+            if (roadButton.getOwner() == this) {
+                ownedRoadButtons.add(roadButton);
+            }
+        }
+        return ownedRoadButtons;
+    }
+
 }
