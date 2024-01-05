@@ -17,18 +17,22 @@ public class HumanTurnController extends PlayerTurnController {
 
     public void startTurn() {
         disableSettlementButtonsWithOtherOwners();
+//        EndTurnController.getInstance().enableEndTurnButton();
+    }
+
+    public void enableEndTurnButton() {
         EndTurnController.getInstance().enableEndTurnButton();
     }
 
-    public void diceRolled(int diceTotal) {
-        List<SettlementButton> settlementButtons = GameTableController.getInstance().getSettlementButtons(this.getPlayer());
-        for (SettlementButton settlementButton : settlementButtons) {
-            List<Tile> adjacentTiles = settlementButton.getAdjacentTiles();
-            for (Tile tile : adjacentTiles) {
-                if (tile.getDiceNumber() == diceTotal) {
-                    PlayerController.getInstance().increasePlayerResource(this.getPlayer(), tile.getResourceType(), settlementButton.getLevel());
-                }
-            }
-        }
-    }
+//    public void diceRolled(int diceTotal) {
+//        List<SettlementButton> settlementButtons = GameTableController.getInstance().getSettlementButtons(this.getPlayer());
+//        for (SettlementButton settlementButton : settlementButtons) {
+//            List<Tile> adjacentTiles = settlementButton.getAdjacentTiles();
+//            for (Tile tile : adjacentTiles) {
+//                if (tile.getDiceNumber() == diceTotal) {
+//                    PlayerController.getInstance().increasePlayerResource(this.getPlayer(), tile.getResourceType(), settlementButton.getLevel());
+//                }
+//            }
+//        }
+//    }
 }

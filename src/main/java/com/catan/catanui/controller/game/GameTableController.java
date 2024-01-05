@@ -316,13 +316,16 @@ public class GameTableController implements Initializable {
 
     public void startTurn(){
         playerTurnControllers.get(currentPlayer).startTurn();
-        if(currentPlayer == 0){
-            return;
-        }
-        endTurn();
+//        if(currentPlayer == 0){
+//            return;
+//        }
+//        endTurn();
     }
 
     public void endTurn() {
+        PlayerTurnController playerTurnController = playerTurnControllers.get(currentPlayer);
+        playerTurnController.resetDiceRolled();
+
         currentPlayer = (currentPlayer + 1) % 4;
         logger.info("Current player: {} ", currentPlayer);
         PlayerController.getInstance().updatePlayerCircle(currentPlayer);
@@ -343,6 +346,10 @@ public class GameTableController implements Initializable {
 
     public PlayerTurnController getCurrentPlayerTurnController() {
         return playerTurnControllers.get(currentPlayer);
+    }
+
+    public List<PlayerTurnController> getPlayerTurnControllers() {
+        return playerTurnControllers;
     }
 
     public List<SettlementButton> getSettlementButtons(Player player) {
