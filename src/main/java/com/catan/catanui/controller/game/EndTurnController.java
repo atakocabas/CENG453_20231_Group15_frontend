@@ -50,11 +50,11 @@ public class EndTurnController implements Initializable {
     }
 
     public void disableEndTurnButton() {
-        endTurnButton.setVisible(false);
+        endTurnButton.setDisable(true);
     }
 
     public void enableEndTurnButton() {
-        endTurnButton.setVisible(true);
+        endTurnButton.setDisable(false);
     }
     
     public Button getEndTurnButton() {
