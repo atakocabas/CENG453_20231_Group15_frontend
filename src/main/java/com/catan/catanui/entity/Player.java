@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 
 @Data
 public class Player {
+    private static Logger logger = LoggerFactory.getLogger(Player.class);
 
     private int id;
     private String playerName;
@@ -158,8 +159,6 @@ public class Player {
     }
 
 
-
-    private static final Logger logger = LoggerFactory.getLogger(Player.class);
     public void increaseSettlementPoints(){
         settlementPoints++;
         totalPoints++;
