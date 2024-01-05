@@ -29,7 +29,4 @@ public class AiTurnController extends PlayerTurnController{
         return;
     }
 
-//    public void diceRolled(int diceTotal) {
-//        throw new UnsupportedOperationException("Unimplemented method 'diceRolled'");
-//    }
 }

@@ -89,10 +89,10 @@ public class PlayerController implements Initializable {
 
     private void initalizePlayerResources(){
         for (Player player : players) {
-            increasePlayerResource(player, ResourceType.LUMBER, 3);
-            increasePlayerResource(player, ResourceType.BRICK, 3);
-            increasePlayerResource(player, ResourceType.GRAIN, 1);
-            increasePlayerResource(player, ResourceType.WOOL, 1);
+            changePlayerResource(player, ResourceType.LUMBER, 3);
+            changePlayerResource(player, ResourceType.BRICK, 3);
+            changePlayerResource(player, ResourceType.GRAIN, 1);
+            changePlayerResource(player, ResourceType.WOOL, 1);
             // increasePlayerLumber(player, 3);
             // increasePlayerBrick(player, 3);
             // increasePlayerGrain(player, 1);
@@ -126,8 +126,8 @@ public class PlayerController implements Initializable {
         this.currentPlayerIndex = currentPlayer;
     }
     
-    public void increasePlayerResource(Player player, ResourceType resourceType, int amount) {
-        player.increaseResource(resourceType, amount);
+    public void changePlayerResource(Player player, ResourceType resourceType, int amount) {
+        player.changeResource(resourceType, amount);
         updatePlayerInfo(player);
         logger.info("Player {} {} increased by {}", player.getId(), resourceType, amount);
     }

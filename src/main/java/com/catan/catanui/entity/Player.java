@@ -39,7 +39,7 @@ public class Player {
         }
     }
 
-    public void increaseResource(ResourceType resourceType, int amount) {
+    public void changeResource(ResourceType resourceType, int amount) {
         this.resources.put(resourceType, this.resources.get(resourceType) + amount);
     }
 }

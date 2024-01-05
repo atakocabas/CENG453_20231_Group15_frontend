@@ -45,7 +45,7 @@ public abstract class PlayerTurnController {
             List<Tile> adjacentTiles = settlementButton.getAdjacentTiles();
             for (Tile tile : adjacentTiles) {
                 if (tile.getDiceNumber() == diceTotal) {
-                    PlayerController.getInstance().increasePlayerResource(this.getPlayer(), tile.getResourceType(), settlementButton.getLevel());
+                    PlayerController.getInstance().changePlayerResource(this.getPlayer(), tile.getResourceType(), settlementButton.getLevel());
                 }
             }
         }
