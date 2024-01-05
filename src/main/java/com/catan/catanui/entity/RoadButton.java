@@ -4,6 +4,10 @@ import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,6 +15,7 @@ public class RoadButton extends Rectangle implements EventHandler<MouseEvent>{
     private static Logger logger = LoggerFactory.getLogger(RoadButton.class);
     private Road road;
     private int index;
+    private List<SettlementButton> adjacentSettlementButtons;
 
     public RoadButton(double width, double height, double x, double y, int index) {
         super(x, y, width, height);
@@ -28,6 +33,7 @@ public class RoadButton extends Rectangle implements EventHandler<MouseEvent>{
         this.setOnMouseExited(e -> {
             this.setStroke(null);
         });
+        this.adjacentSettlementButtons = new ArrayList<>();
     }
 
     public int getIndex() {
@@ -46,5 +52,9 @@ public class RoadButton extends Rectangle implements EventHandler<MouseEvent>{
 
     public Player getOwner() {
         return road.getOwner();
+    }
+
+    public List<SettlementButton> getAdjacentSettlementButtons() {
+        return this.adjacentSettlementButtons;
     }
 }
