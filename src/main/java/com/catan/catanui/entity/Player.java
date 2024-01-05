@@ -198,14 +198,12 @@ public class Player {
 
     public void updateLongestPath(){
         List<RoadButton> ownedRoadButtons = this.getOwnedRoadButtons();
-        Graph<RoadButton, DefaultEdge> graph = new DefaultUndirectedGraph<>(DefaultEdge.class);
+        Graph<SettlementButton, DefaultEdge> graph = new DefaultUndirectedGraph<>(DefaultEdge.class);
         for(RoadButton roadButton : ownedRoadButtons){
-            graph.addVertex(roadButton);
-        }
-        for(RoadButton roadButton : ownedRoadButtons){
-            for(RoadButton adjacentRoadButton : roadButton.getAdjacentRoadButtonWithSameOwner()){
-                graph.addEdge(roadButton, adjacentRoadButton);
-            }
+            List<SettlementButton> adjacentSettlementButtons = roadButton.getAdjacentSettlementButtons();
+            graph.addVertex(adjacentSettlementButtons.get(0));
+            graph.addVertex(adjacentSettlementButtons.get(1));
+            graph.addEdge(adjacentSettlementButtons.get(0), adjacentSettlementButtons.get(1));
         }
 
         RoadGraph roadGraph = new RoadGraph(graph);
