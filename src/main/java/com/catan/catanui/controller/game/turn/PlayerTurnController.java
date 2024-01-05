@@ -40,7 +40,7 @@ public abstract class PlayerTurnController {
 
     public abstract void enableEndTurnButton();
 
-    public void updateResources(int diceTotal) {
+    /*public void updateResources(int diceTotal) {
         List<SettlementButton> settlementButtons = GameTableController.getInstance().getSettlementButtons(this.getPlayer());
         for (SettlementButton settlementButton : settlementButtons) {
             List<Tile> adjacentTiles = settlementButton.getAdjacentTiles();
@@ -50,7 +50,26 @@ public abstract class PlayerTurnController {
                 }
             }
         }
+    }*/
+
+    //works for tiles with same number
+    public void updateResources(int diceTotal) {
+        List<SettlementButton> settlementButtons = GameTableController.getInstance().getSettlementButtons(this.getPlayer());
+        for (SettlementButton settlementButton : settlementButtons) {
+            List<Tile> adjacentTiles = settlementButton.getAdjacentTiles();
+            for (Tile tile : adjacentTiles) {
+                if (tile.getDiceNumber() == diceTotal) {
+                    PlayerController.getInstance().changePlayerResource(
+                            this.getPlayer(),
+                            tile.getResourceType(),
+                            settlementButton.getLevel()
+                    );
+                }
+            }
+        }
     }
+
+
 
     protected void updateButtons() {
         ButtonsController.getInstance().disableAllSettlementButtons();
