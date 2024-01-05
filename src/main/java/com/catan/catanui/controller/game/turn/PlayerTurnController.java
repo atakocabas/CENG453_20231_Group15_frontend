@@ -5,6 +5,7 @@ import java.util.List;
 import com.catan.catanui.controller.game.GameTableController;
 import com.catan.catanui.controller.game.PlayerController;
 import com.catan.catanui.entity.Player;
+import com.catan.catanui.entity.RoadButton;
 import com.catan.catanui.entity.SettlementButton;
 import com.catan.catanui.entity.Tile;
 
@@ -16,8 +17,6 @@ public abstract class PlayerTurnController {
     PlayerTurnController(Player player) {
         this.player = player;
     }
-
-    protected abstract void disableButtons();
 
     public boolean rollDice() {
         if (isDiceRolled) {
@@ -48,6 +47,68 @@ public abstract class PlayerTurnController {
                     PlayerController.getInstance().changePlayerResource(this.getPlayer(), tile.getResourceType(), settlementButton.getLevel());
                 }
             }
+        }
+    }
+
+    protected void disableButtons() {
+        disableSettlementButtonsWithOtherOwners();
+        disableAdjacentSettlements();
+        disableAllRoadButtons();
+        enableRoadButtonsWithSettlements();
+    }
+
+    private void enableRoadButtonsWithSettlements() {
+        List<SettlementButton> ownedSettlementButtons = this.player.getOwnedSettlementButtons();
+        for (SettlementButton settlementButton : ownedSettlementButtons) {
+            for (RoadButton roadButton : settlementButton.getAdjacentRoadButtons()) {
+                if(roadButton.getOwner() == null)
+                    roadButton.setDisable(false);
+            }
+        }
+    }
+
+    private void disableAllRoadButtons() {
+        List<RoadButton> roadButtons = gameTableController.getRoadButtons();
+        for (RoadButton roadButton : roadButtons) {
+            roadButton.setDisable(true);
+        }
+    }
+
+    private void disableAdjacentSettlements() {
+        List<SettlementButton> ownedSettlementButtons = this.player.getOwnedSettlementButtons();
+        for (SettlementButton settlementButton : ownedSettlementButtons) {
+            for (SettlementButton adjacSettlementButton : settlementButton.getAdjacentSettlementButtons()) {
+                adjacSettlementButton.setDisable(true);
+            }
+        }
+    }
+
+
+    private void disableSettlementButtonsWithOtherOwners() {
+        List<SettlementButton> settlementButtons = gameTableController.getSettlementButtons();
+        for (SettlementButton settlementButton : settlementButtons) {
+            if (settlementButton.getOwner() != null && settlementButton.getOwner() != player) {
+                settlementButton.setDisable(true);
+            }
+        }
+    }
+
+    protected void enableAllGameTableButtons() {
+        enableAllSettlementButtons();
+        enableAllRoadButtons();
+    }
+
+    private void enableAllSettlementButtons() {
+        List<SettlementButton> settlementButtons = gameTableController.getSettlementButtons();
+        for (SettlementButton settlementButton : settlementButtons) {
+            settlementButton.setDisable(false);
+        }
+    }
+
+    private void enableAllRoadButtons(){
+        List<RoadButton> roadButtons = gameTableController.getRoadButtons();
+        for (RoadButton roadButton : roadButtons) {
+            roadButton.setDisable(false);
         }
     }
 }
