@@ -3,7 +3,9 @@ package com.catan.catanui.entity;
 import com.catan.catanui.controller.game.EndTurnController;
 import com.catan.catanui.controller.game.GameTableController;
 
+import com.catan.catanui.controller.game.PlayerController;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -12,6 +14,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.catan.catanui.enums.ResourceType;
+
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Data
 public class Player {
@@ -28,6 +34,11 @@ public class Player {
     private int settlementPoints = 1;
     private int cityPoints;
 
+    private Text settlementText;
+    private Text cityText;
+    private Text longestPathText;
+    private Text totalPointsText;
+
     public Player(int id, String playerName, Color color) {
         this.totalPoints = settlementPoints + cityPoints; //  + isLongestPath eklenecek
         this.id = id;
@@ -40,6 +51,12 @@ public class Player {
         for(ResourceType type: ResourceType.values()) {
             this.resources.put(type, 0);
         }
+
+        // Initialize the settlementText field
+        this.settlementText = new Text("Settlement Points: " + this.settlementPoints);
+        this.cityText = new Text("City Points: " + this.cityPoints);
+        this.longestPathText = new Text("Longest Path: " + this.longestPath);
+        this.totalPointsText = new Text("Total Points: " + this.totalPoints);
     }
 
     public void changeResource(ResourceType resourceType, int amount) {
@@ -134,4 +151,14 @@ public class Player {
         return ownedRoadButtons;
     }
 
+
+
+    private static final Logger logger = LoggerFactory.getLogger(Player.class);
+    public void increaseSettlementPoints(){
+        settlementPoints++;
+        totalPoints++;
+        settlementText.setText("Settlement Points: " + settlementPoints);
+        totalPointsText.setText("Total Points: " + totalPoints);
+        logger.info("Settlement count increased: Player {}", id);
+    }
 }
