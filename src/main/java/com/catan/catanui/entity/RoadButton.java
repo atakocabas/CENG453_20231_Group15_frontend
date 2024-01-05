@@ -85,6 +85,7 @@ public class RoadButton extends Rectangle implements EventHandler<MouseEvent> {
             this.setDisable(true);
             ButtonsController.getInstance().enableAvailableSettlementButtons(owner);
             ButtonsController.getInstance().enableAvailableRoadButtons(owner);
+            owner.updateLongestPath();
         }
     }
 
@@ -143,6 +144,18 @@ public class RoadButton extends Rectangle implements EventHandler<MouseEvent> {
             }
         }
         return adjacentSettlementButtonsWithNoOwner;
+    }
+
+    public List<RoadButton> getAdjacentRoadButtonWithSameOwner(){
+        List<RoadButton> adjacentRoadButtonsWithSameOwner = new ArrayList<>();
+        for(SettlementButton settlementButton : this.adjacentSettlementButtons){
+            for(RoadButton roadButton : settlementButton.getAdjacentRoadButtons()){
+                if(roadButton.getOwner() != null && roadButton.getOwner().getId() == this.getOwner().getId()){
+                    adjacentRoadButtonsWithSameOwner.add(roadButton);
+                }
+            }
+        }
+        return adjacentRoadButtonsWithSameOwner;
     }
 
 }

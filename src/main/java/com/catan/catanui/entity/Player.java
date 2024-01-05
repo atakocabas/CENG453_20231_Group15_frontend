@@ -10,12 +10,18 @@ import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 import com.catan.catanui.enums.ResourceType;
+import com.catan.catanui.utils.RoadGraph;
 
-
+import org.jgrapht.Graph;
+import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.DefaultUndirectedGraph;
+import org.jgrapht.util.SupplierUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -187,4 +193,25 @@ public class Player {
         }
         return upgradablSettlementButtons;
     }
+
+    
+
+    public void updateLongestPath(){
+        List<RoadButton> ownedRoadButtons = this.getOwnedRoadButtons();
+        Graph<RoadButton, DefaultEdge> graph = new DefaultUndirectedGraph<>(DefaultEdge.class);
+        for(RoadButton roadButton : ownedRoadButtons){
+            graph.addVertex(roadButton);
+        }
+        for(RoadButton roadButton : ownedRoadButtons){
+            for(RoadButton adjacentRoadButton : roadButton.getAdjacentRoadButtonWithSameOwner()){
+                graph.addEdge(roadButton, adjacentRoadButton);
+            }
+        }
+
+        RoadGraph roadGraph = new RoadGraph(graph);
+        roadGraph.computeLongestPath();
+        this.longestPath = roadGraph.getLongestPathLength();
+        logger.info(playerName + " longest path: " + longestPath);
+    }
+    
 }
