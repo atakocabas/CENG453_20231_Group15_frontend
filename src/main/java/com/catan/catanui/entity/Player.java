@@ -46,4 +46,12 @@ public class Player {
     public boolean isEnoughResourcesForRoad() {
         return this.resources.get(ResourceType.BRICK) >= 1 && this.resources.get(ResourceType.LUMBER) >= 1;
     }
+    
+
+    public boolean isEnoughResourcesForSettlement() {
+        return this.resources.get(ResourceType.BRICK) >= 1 
+            && this.resources.get(ResourceType.LUMBER) >= 1 
+            && this.resources.get(ResourceType.WOOL) >= 1 
+            && this.resources.get(ResourceType.GRAIN) >= 1;
+    }
 }

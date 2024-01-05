@@ -40,8 +40,15 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
     @Override
     public void handle(MouseEvent event) {
         logger.info("Settlement {} Button Clicked!", this.settlement.getIndex());
-        Color playerColor = this.playerController.getCurrentPlayer().getColor();
-        this.setFill(playerColor);
+        if(PlayerController.getInstance().buildSettlement()) {
+            Player currentPlayer = PlayerController.getInstance().getCurrentPlayer();
+            this.setOwner(currentPlayer);
+            this.setFill(currentPlayer.getColor());
+            this.setDisable(true);
+            logger.info("Settlement Built by Player: {}", currentPlayer.getId());
+        } else {
+            logger.info("Not Enough Resources to Build Settlement.");
+        }
     }
 
     public int getIndex() {
