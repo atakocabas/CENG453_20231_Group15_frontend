@@ -46,7 +46,7 @@ public class Player {
     private Text longestPathText;
     private Text totalPointsText;
 
-    static int longestPathOfGame = 4;
+    static int longestPathOfGame = 1;
     static Player longestPathOwner;
 
     public Player(int id, String playerName, Color color) {
@@ -216,7 +216,7 @@ public class Player {
         logger.info(playerName + " longest path: " + longestPath);
 
         if(longestPath > longestPathOfGame) {
-            if (longestPathOfGame == 4) {
+            if (longestPathOfGame == 1) {
 
                 totalPoints++;
                 totalPointsText.setText("Total Points: " + totalPoints);
