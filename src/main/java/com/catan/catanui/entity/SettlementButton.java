@@ -131,4 +131,11 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
         }
         return adjacentSettlementButtonsWithOwner;
     }
+
+    public boolean isCity() {
+        if(this.settlement != null){
+            return this.settlement.isCity();
+        }
+        return false;
+    }
 }

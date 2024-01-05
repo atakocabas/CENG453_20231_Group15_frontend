@@ -51,7 +51,12 @@ public class AiTurnController extends PlayerTurnController{
     }
 
     private void decideBuildCities() {
-        return;
+        List<SettlementButton> availableCities = player.getUpgradableSettlementButtons();
+        if(availableCities.isEmpty())
+            return;
+        int randomIndex = rand.nextInt(availableCities.size());
+        SettlementButton settlementButton = availableCities.get(randomIndex);
+        settlementButton.upgrade();
     }
 
     public void enableEndTurnButton() {

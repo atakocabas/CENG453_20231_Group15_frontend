@@ -176,4 +176,15 @@ public class Player {
         totalPointsText.setText("Total Points: " + totalPoints);
         logger.info("City count increased: Player {}", id);
     }
+
+    public List<SettlementButton> getUpgradableSettlementButtons() {
+        List<SettlementButton> upgradablSettlementButtons = new ArrayList<>();
+        List<SettlementButton> ownedSettlementButtons = this.getOwnedSettlementButtons();
+        for(SettlementButton settlementButton : ownedSettlementButtons){
+            if(!settlementButton.isCity()){
+                upgradablSettlementButtons.add(settlementButton);
+            }
+        }
+        return upgradablSettlementButtons;
+    }
 }
