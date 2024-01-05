@@ -209,6 +209,7 @@ public class Player {
         RoadGraph roadGraph = new RoadGraph(graph);
         roadGraph.computeLongestPath();
         this.longestPath = roadGraph.getLongestPathLength();
+        longestPathText.setText("Longest Path: " + longestPath);
         logger.info(playerName + " longest path: " + longestPath);
     }
     
