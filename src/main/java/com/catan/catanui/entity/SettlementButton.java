@@ -58,6 +58,7 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
                 this.setFill(currentPlayer.getColor());
                 this.setDisable(true);
                 this.getAdjacentSettlementButtons().forEach(settlementButton -> settlementButton.setDisable(true));
+                currentPlayer.updateCityBuildPoints();
                 logger.info("Settlement Upgraded by Player: {}", currentPlayer.getId());
             } else {
                 logger.info("Not Enough Resources to Upgrade Settlement.");
