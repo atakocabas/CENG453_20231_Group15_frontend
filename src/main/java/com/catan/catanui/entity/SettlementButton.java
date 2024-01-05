@@ -45,6 +45,7 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
                 this.build(currentPlayer);
                 this.setFill(currentPlayer.getColor());
                 this.getAdjacentSettlementButtons().forEach(settlementButton -> settlementButton.setDisable(true));
+                currentPlayer.increaseSettlementPoints();
                 logger.info("Settlement Built by Player: {}", currentPlayer.getId());
             } else {
                 logger.info("Not Enough Resources to Build Settlement.");
