@@ -162,4 +162,14 @@ public class Player {
         totalPointsText.setText("Total Points: " + totalPoints);
         logger.info("Settlement count increased: Player {}", id);
     }
+
+    public void updateCityBuildPoints(){
+        settlementPoints--;
+        cityPoints++;
+        totalPoints++;
+        settlementText.setText("Settlement Points: " + settlementPoints);
+        cityText.setText("City Points: " + cityPoints);
+        totalPointsText.setText("Total Points: " + totalPoints);
+        logger.info("City count increased: Player {}", id);
+    }
 }
