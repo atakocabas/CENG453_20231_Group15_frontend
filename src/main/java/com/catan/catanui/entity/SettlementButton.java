@@ -19,9 +19,11 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
     private List<RoadButton> adjacentRoads = new ArrayList<>();
     private List<Tile> adjacentTiles = new ArrayList<>();
     private PlayerController playerController = PlayerController.getInstance();
+    private int index;
 
     public SettlementButton(double radius, double centerX, double centerY, int index) {
         super(centerX, centerY, radius);
+        this.index = index;
         this.setOnMouseClicked(this);
         this.setFill(Color.TRANSPARENT);
         this.setStroke(Color.TRANSPARENT);
@@ -38,10 +40,10 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
 
     @Override
     public void handle(MouseEvent event) {
-        logger.info("Settlement {} Button Clicked!", this.settlement.getIndex());
+        logger.info("Settlement {} Button Clicked!", this.getIndex());
         if(PlayerController.getInstance().buildSettlement()) {
             Player currentPlayer = PlayerController.getInstance().getCurrentPlayer();
-            this.build(currentPlayer, this.settlement.getIndex());
+            this.build(currentPlayer);
             this.setOwner(currentPlayer);
             this.setFill(currentPlayer.getColor());
             this.getAdjacentSettlementButtons().forEach(settlementButton -> settlementButton.setDisable(true));
@@ -52,7 +54,7 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
     }
 
     public int getIndex() {
-        return this.settlement.getIndex();
+        return this.index;
     }
 
     public List<RoadButton> getAdjacentRoadButtons() {
@@ -91,9 +93,9 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
         return adjacSettlementButtons;
     }
 
-    public void build(Player owner, int index){
+    public void build(Player owner){
         if(settlement == null){
-            settlement = new Settlement(owner, index);
+            settlement = new Settlement(owner);
             this.setFill(owner.getColor());
         }
     }

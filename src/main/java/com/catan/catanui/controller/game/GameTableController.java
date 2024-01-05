@@ -101,7 +101,7 @@ public class GameTableController implements Initializable {
             Player player = getPlayer(i);
 
             // Build settlement
-            settlementButton.build(player, i);
+            settlementButton.build(player);
             // Find an available road for the settlement
             List<RoadButton> adjacentRoadButtons = settlementButton.getAdjacentRoadButtons();
             RoadButton roadButton = findAvailableRoad(adjacentRoadButtons);

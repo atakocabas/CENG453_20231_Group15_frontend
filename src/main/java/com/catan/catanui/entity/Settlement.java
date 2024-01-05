@@ -10,12 +10,10 @@ public class Settlement {
     private Player owner;
     private SettlementType type;
     private Color color = Color.TRANSPARENT;
-    private int index;
 
-    public Settlement(Player owner, int index) {
+    public Settlement(Player owner) {
         this.owner = owner;
         this.type = SettlementType.SETTLEMENT;
-        this.index = index;
     }
 
 }
