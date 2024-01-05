@@ -25,6 +25,7 @@ public class EndTurnController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         createEndTurnButton();
         endTurnButton.setOnAction(this::endTurn);
+        endTurnButton.setDisable(true);
         logger.info("EndTurnController initialized");
     }
 
