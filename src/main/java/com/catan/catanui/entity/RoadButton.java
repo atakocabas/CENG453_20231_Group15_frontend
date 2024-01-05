@@ -11,6 +11,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.catan.catanui.controller.ButtonsController;
 import com.catan.catanui.controller.game.PlayerController;
 import com.catan.catanui.controller.game.turn.PlayerTurnController;
 
@@ -81,6 +82,7 @@ public class RoadButton extends Rectangle implements EventHandler<MouseEvent> {
             road.setOwner(owner);
             this.setFill(owner.getColor());
             this.setDisable(true);
+            ButtonsController.getInstance().enableAvailableSettlementButtons(owner);
         }
     }
 
