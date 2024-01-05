@@ -73,4 +73,16 @@ public class Player {
         return this.resources.get(ResourceType.ORE) >= 3 
             && this.resources.get(ResourceType.GRAIN) >= 2;
     }
+
+    public List<RoadButton> getAvaliableRoadButtons() {
+        List<RoadButton> avaliableRoadButtons = new ArrayList<>();
+        List<SettlementButton> ownedSettlementButtons = this.getOwnedSettlementButtons();
+        for (SettlementButton settlementButton : ownedSettlementButtons) {
+            for (RoadButton roadButton : settlementButton.getAdjacentRoadButtons()) {
+                if(roadButton.getOwner() == null)
+                    avaliableRoadButtons.add(roadButton);
+            }
+        }
+        return avaliableRoadButtons;
+    }
 }
