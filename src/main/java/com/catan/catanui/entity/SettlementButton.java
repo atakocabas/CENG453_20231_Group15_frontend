@@ -1,5 +1,6 @@
 package com.catan.catanui.entity;
 
+import com.catan.catanui.enums.ResourceType;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -115,6 +116,33 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
             ButtonsController.getInstance().enableAvailableRoadButtons(owner);
         }
     }
+
+    public void buildTurns(Player owner) {
+        if (settlement == null) {
+            if (owner.isEnoughResourcesForSettlement()) {
+                // Deduct resources for the settlement
+                PlayerController.getInstance().changePlayerResource(owner, ResourceType.BRICK, -1);
+                PlayerController.getInstance().changePlayerResource(owner, ResourceType.LUMBER, -1);
+                PlayerController.getInstance().changePlayerResource(owner, ResourceType.GRAIN, -1);
+                PlayerController.getInstance().changePlayerResource(owner, ResourceType.WOOL, -1);
+                PlayerController.getInstance().updatePlayerInfo(owner);
+
+                // Build the settlement
+                settlement = new Settlement(owner);
+                this.setFill(owner.getColor());
+
+                // Enable available settlement and road buttons
+                ButtonsController.getInstance().enableAvailableSettlementButtons(owner);
+                ButtonsController.getInstance().enableAvailableRoadButtons(owner);
+            } else {
+                logger.info("Not Enough Resources to Build Settlement.");
+            }
+        } else {
+            logger.info("Settlement Already Built.");
+        }
+    }
+
+
 
     public void upgrade(){
         if(this.getOwner() != null && this.settlement != null){
