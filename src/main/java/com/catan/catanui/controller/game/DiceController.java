@@ -74,7 +74,7 @@ public class DiceController {
 
     public void rollDice() {
         // check if the dice is already rolled in this turn
-        if(!GameTableController.getInstance().getCurrentPlayerTurnController().rollDice())
+        if (!GameTableController.getInstance().getCurrentPlayerTurnController().rollDice())
             return;
         // Simulate rolling a dice and update the display
         Random random = new Random();
@@ -260,16 +260,22 @@ public class DiceController {
         // Update the totalText
         int total = diceValue1 + diceValue2;
         this.diceTotal = total;
-        logger.info("Dice total: " + total);
-        totalText.setText(String.valueOf(total));
-        List<PlayerTurnController> playerTurnControllers = GameTableController.getInstance().getPlayerTurnControllers();
-        for (PlayerTurnController playerTurnController : playerTurnControllers) {
-            playerTurnController.updateResources(total);
+
+        if (total == 7) {
+            logger.info("Dice total: " + total + " no resources are distributed");
+            totalText.setText(String.valueOf(total));
+            GameTableController.getInstance().getCurrentPlayerTurnController().enableEndTurnButton();
+        } else {
+            logger.info("Dice total: " + total);
+            totalText.setText(String.valueOf(total));
+            List<PlayerTurnController> playerTurnControllers = GameTableController.getInstance().getPlayerTurnControllers();
+            for (PlayerTurnController playerTurnController : playerTurnControllers) {
+                playerTurnController.updateResources(total);
+            }
+            GameTableController.getInstance().getCurrentPlayerTurnController().enableEndTurnButton();
+
         }
-
-        GameTableController.getInstance().getCurrentPlayerTurnController().enableEndTurnButton();
     }
-
 
 
 
