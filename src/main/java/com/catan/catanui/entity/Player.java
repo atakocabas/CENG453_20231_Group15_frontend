@@ -9,12 +9,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.catan.catanui.enums.ResourceType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Data
 public class Player {
-    private static final Logger logger = LoggerFactory.getLogger(Player.class);
 
     private int id;
     private String playerName;
@@ -43,7 +40,6 @@ public class Player {
     }
 
     public void increaseResource(ResourceType resourceType, int amount) {
-        logger.info("Player {} increased {} by {}", this.playerName, resourceType, amount);
         this.resources.put(resourceType, this.resources.get(resourceType) + amount);
     }
 }
