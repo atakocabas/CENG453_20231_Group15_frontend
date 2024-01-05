@@ -55,7 +55,7 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
         } else if(!this.settlement.isCity()){
             if(PlayerController.getInstance().upgradeSettlement()){
                 Player currentPlayer = PlayerController.getInstance().getCurrentPlayer();
-                this.upgrade();
+                this.upgrade(currentPlayer);
                 this.setOwner(currentPlayer);
                 this.setFill(currentPlayer.getColor());
                 this.setDisable(true);
@@ -146,9 +146,25 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
 
 
 
-    public void upgrade(){
+    /*public void upgrade(){
         if(this.getOwner() != null && this.settlement != null){
             this.settlement.setCity(true);
+        }
+    }*/
+
+    public void upgrade(Player owner) {
+        if (this.getOwner() != null && this.settlement != null) {
+            Player currentPlayer = this.getOwner();
+            if (currentPlayer.isEnoughResourcesForCity()) {
+                // Deduct resources for the city
+                PlayerController.getInstance().changePlayerResource(currentPlayer, ResourceType.GRAIN, -2);
+                PlayerController.getInstance().changePlayerResource(currentPlayer, ResourceType.ORE, -3);
+                PlayerController.getInstance().updatePlayerInfo(currentPlayer);
+
+                owner.updateCityBuildPoints();
+                // Upgrade the settlement to a city
+                this.settlement.setCity(true);
+            }
         }
     }
 
