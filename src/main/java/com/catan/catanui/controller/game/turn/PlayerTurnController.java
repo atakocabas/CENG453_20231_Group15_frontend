@@ -52,7 +52,7 @@ public abstract class PlayerTurnController {
         }
     }
 
-    protected void disableButtons() {
+    protected void updateButtons() {
         disableAllSettlementButtons();
         enableAvailableSettlementButtons();
         disableAllRoadButtons();

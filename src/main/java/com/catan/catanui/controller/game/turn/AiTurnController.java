@@ -19,7 +19,7 @@ public class AiTurnController extends PlayerTurnController{
 
     public void startTurn() {
         enableAllGameTableButtons();
-        disableButtons();
+        updateButtons();
         DiceController.getInstance().rollDice();
         decideBuildRoads();
         decideBuildSettlements();

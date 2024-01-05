@@ -12,7 +12,7 @@ public class HumanTurnController extends PlayerTurnController {
 
     public void startTurn() {
         enableAllGameTableButtons();
-        disableButtons();
+        updateButtons();
     }
 
     public void enableEndTurnButton() {
