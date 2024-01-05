@@ -8,11 +8,13 @@ import com.catan.catanui.controller.game.DiceController;
 import com.catan.catanui.controller.game.GameTableController;
 import com.catan.catanui.entity.Player;
 import com.catan.catanui.entity.RoadButton;
+import com.catan.catanui.entity.SettlementButton;
 
 import javafx.animation.PauseTransition;
 import javafx.util.Duration;
 
 public class AiTurnController extends PlayerTurnController{
+    private static Random rand = new Random();
 
     public AiTurnController(Player player) {
         super(player);
@@ -34,14 +36,18 @@ public class AiTurnController extends PlayerTurnController{
 
     private void decideBuildRoads() {
         List<RoadButton> avaliableRoadButtons = player.getAvaliableRoadButtons();
-        Random rand = new Random();
         int randomIndex = rand.nextInt(avaliableRoadButtons.size());
         RoadButton roadButton = avaliableRoadButtons.get(randomIndex);
         roadButton.build(player);
     }
 
     private void decideBuildSettlements() {
-        return;
+        List<SettlementButton> avaliableSettlementButtons = player.getAvaliableSettlementButtons();
+        if(avaliableSettlementButtons.isEmpty())
+            return;
+        int randomIndex = rand.nextInt(avaliableSettlementButtons.size());
+        SettlementButton settlementButton = avaliableSettlementButtons.get(randomIndex);
+        settlementButton.build(player);
     }
 
     private void decideBuildCities() {
