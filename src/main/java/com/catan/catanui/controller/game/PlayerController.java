@@ -132,7 +132,7 @@ public class PlayerController implements Initializable {
         logger.info("Player {} {} increased by {}", player.getId(), resourceType, amount);
     }
 
-    private void updatePlayerInfo(Player player) {
+    public void updatePlayerInfo(Player player) {
         VBox playerInfoVBox = getPlayerInfoVBox(player);
         playerInfoVBox.setStyle("-fx-padding: 0 0 20 0;");
         for (int i = 0; i < playerInfoVBox.getChildren().size(); i++) {
