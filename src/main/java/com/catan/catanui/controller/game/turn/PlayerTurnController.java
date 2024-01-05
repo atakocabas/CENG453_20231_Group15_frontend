@@ -82,12 +82,9 @@ public abstract class PlayerTurnController {
     }
 
     private void enableSettlementButtons() {
-        List<RoadButton> ownedRoadButtons = player.getOwnedRoadButtons();
-        for(RoadButton roadButton : ownedRoadButtons){
-            for(SettlementButton settlementButton : roadButton.getAdjacentSettlementButtons()){
-                if(settlementButton.getOwner() == null && roadButton.isRoadButtonHaveNoneAdjacentSettlement())
-                    settlementButton.setDisable(false);
-            }
+        List<SettlementButton> availableSettlementButtons = player.getAvaliableSettlementButtons();
+        for (SettlementButton settlementButton : availableSettlementButtons) {
+            settlementButton.setDisable(false);
         }
     }
 
