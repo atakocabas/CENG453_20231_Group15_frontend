@@ -4,7 +4,6 @@ import com.catan.catanui.enums.SettlementType;
 import javafx.scene.paint.Color;
 import lombok.Data;
 
-import java.util.List;
 
 @Data
 public class Settlement {

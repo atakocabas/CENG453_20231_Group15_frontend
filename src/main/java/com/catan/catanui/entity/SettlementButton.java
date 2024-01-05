@@ -23,7 +23,6 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
     public SettlementButton(double radius, double centerX, double centerY, int index) {
         super(centerX, centerY, radius);
         this.setOnMouseClicked(this);
-        this.settlement = new Settlement(null, index);
         this.setFill(Color.TRANSPARENT);
         this.setStroke(Color.TRANSPARENT);
         this.setStrokeWidth(2);
@@ -42,6 +41,7 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
         logger.info("Settlement {} Button Clicked!", this.settlement.getIndex());
         if(PlayerController.getInstance().buildSettlement()) {
             Player currentPlayer = PlayerController.getInstance().getCurrentPlayer();
+            this.build(currentPlayer, this.settlement.getIndex());
             this.setOwner(currentPlayer);
             this.setFill(currentPlayer.getColor());
             this.getAdjacentSettlementButtons().forEach(settlementButton -> settlementButton.setDisable(true));
@@ -69,7 +69,10 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
     }
 
     public Player getOwner() {
-        return this.settlement.getOwner();
+        if(this.settlement != null){
+            return this.settlement.getOwner();
+        }
+        return null;
     }
 
     public int getLevel() {
@@ -86,5 +89,12 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
             }
         }
         return adjacSettlementButtons;
+    }
+
+    public void build(Player owner, int index){
+        if(settlement == null){
+            settlement = new Settlement(owner, index);
+            this.setFill(owner.getColor());
+        }
     }
 }
