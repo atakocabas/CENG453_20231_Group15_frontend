@@ -2,6 +2,7 @@ package com.catan.catanui.entity;
 
 import com.catan.catanui.constants.Constant;
 import com.catan.catanui.controller.game.EndTurnController;
+import com.catan.catanui.controller.game.GameEndController;
 import com.catan.catanui.controller.game.GameTableController;
 import com.catan.catanui.controller.game.GameEndController;
 
