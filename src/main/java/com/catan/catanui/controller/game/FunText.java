@@ -104,8 +104,5 @@ public class FunText {
         // Remove the greyPane when the animation is finished
         parentPane.getChildren().clear();
     }
-     
-    private static void deleteGreyPane(Pane parentPane) {
-        parentPane.getChildren().clear();
-    }
+    
 }
