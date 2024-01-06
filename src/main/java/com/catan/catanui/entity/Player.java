@@ -53,7 +53,6 @@ public class Player {
     private Text totalPointsText;
 
     static int longestPathOfGame = 4;
-    static Player longestPathOwner;
 
     public Player(int id, String playerName, Color color) {
         this.totalPoints = settlementPoints + cityPoints; // + isLongestPath eklenecek
@@ -231,7 +230,7 @@ public class Player {
                 totalPoints = totalPoints + 2;
                 totalPointsText.setText("Total Points: " + totalPoints);
 
-                longestPathOwner = this;
+                PlayerController.getInstance().setLongestPathOwner(this);
                 longestPathOfGame = longestPath;
 
                 if (this.getTotalPoints() >= Constant.GAME_END_POINTS) {
@@ -239,14 +238,14 @@ public class Player {
                 }
             }
 
-            else if (longestPathOwner != this) {
+            else if (PlayerController.getInstance().getLongestPathOwner() != this) {
                 totalPoints = totalPoints + 2;
                 totalPointsText.setText("Total Points: " + totalPoints);
 
-                longestPathOwner.totalPoints = longestPathOwner.totalPoints - 2 ;
-                longestPathOwner.totalPointsText.setText("Total Points: " + longestPathOwner.totalPoints);
+                PlayerController.getInstance().getLongestPathOwner().totalPoints = PlayerController.getInstance().getLongestPathOwner().totalPoints - 2 ;
+                PlayerController.getInstance().getLongestPathOwner().totalPointsText.setText("Total Points: " + PlayerController.getInstance().getLongestPathOwner().totalPoints);
 
-                longestPathOwner = this;
+                PlayerController.getInstance().setLongestPathOwner(this);
                 longestPathOfGame = longestPath;
 
                 if (this.getTotalPoints() >= Constant.GAME_END_POINTS) {

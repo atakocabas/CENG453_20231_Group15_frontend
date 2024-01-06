@@ -26,6 +26,7 @@ public class PlayerController implements Initializable {
     private static PlayerController instance;
     private static final List<Player> players = new ArrayList<>();
     private int currentPlayerIndex;
+    private Player longestPathOwner;
 
 
     @FXML
@@ -37,8 +38,16 @@ public class PlayerController implements Initializable {
         instance = this;
         currentPlayerIndex = 0;
         initializePlayers();
+        initializeLongestPathOwner();
         updatePlayerCircle(currentPlayerIndex);
 
+    }
+
+    private void initializeLongestPathOwner() {
+        HBox longestPathOwnerVBox = new HBox();
+        Text longestPathOwnerText = new Text("Longest Path Owner: NONE ");
+        longestPathOwnerVBox.getChildren().add(longestPathOwnerText);
+        layoutVBox.getChildren().add(longestPathOwnerVBox);
     }
 
     private void initializePlayers() {
@@ -144,6 +153,19 @@ public class PlayerController implements Initializable {
             Integer value = player.getResources().get(resourceType);
             valueText.setText(value.toString());
         }
+        
+    }
+
+    public void updateLongestPathOwner(){
+        if(longestPathOwner != null){
+            HBox longestPathOwnerHBox = getLongestPathOwnerHBox();
+            Text longestPathOwnerText = (Text) longestPathOwnerHBox.getChildren().get(0);
+            longestPathOwnerText.setText("Longest Path Owner: " + longestPathOwner.getPlayerName());
+        }
+    }
+
+    private HBox getLongestPathOwnerHBox() {
+        return (HBox) layoutVBox.getChildren().get(layoutVBox.getChildren().size() - 1);
     }
 
     private List<HBox> getPlayersHBoxes() {
@@ -215,5 +237,15 @@ public class PlayerController implements Initializable {
             return true;
         }
         return false;
+    }
+
+    public Player getLongestPathOwner() {
+        return longestPathOwner;
+    }
+
+    public Player setLongestPathOwner(Player player) {
+        this.longestPathOwner = player;
+        updatePlayerInfo(player);
+        return longestPathOwner; 
     }
 }

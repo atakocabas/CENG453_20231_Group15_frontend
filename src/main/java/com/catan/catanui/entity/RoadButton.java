@@ -86,6 +86,7 @@ public class RoadButton extends Rectangle implements EventHandler<MouseEvent> {
             ButtonsController.getInstance().enableAvailableSettlementButtons(owner);
             ButtonsController.getInstance().enableAvailableRoadButtons(owner);
             owner.updateLongestPath();
+            PlayerController.getInstance().updateLongestPathOwner();
         }
     }
 
@@ -97,6 +98,7 @@ public class RoadButton extends Rectangle implements EventHandler<MouseEvent> {
                 PlayerController.getInstance().changePlayerResource(owner, ResourceType.BRICK, -1);
                 PlayerController.getInstance().changePlayerResource(owner, ResourceType.LUMBER, -1);
                 PlayerController.getInstance().updatePlayerInfo(owner);
+                PlayerController.getInstance().updateLongestPathOwner();
 
                 // Build the road
                 this.road = new Road();
