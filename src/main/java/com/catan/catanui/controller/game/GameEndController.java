@@ -21,7 +21,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class FunText {
+public class GameEndController {
 
     public static void displayFunMessage(Pane parentPane, String message) {
         // Create a container for the grey text
@@ -49,7 +49,7 @@ public class FunText {
         Button backToMainMenuButton = new Button();
         backToMainMenuButton.setGraphic(backToMainMenuText);
         backToMainMenuButton.setOnAction(event -> {
-            Utility.navigate((Stage) scene.getWindow(), FunText.class.getResource(Constant.MAIN));
+            Utility.navigate((Stage) scene.getWindow(), GameEndController.class.getResource(Constant.MAIN));
         });
 
         // Set the position of the button
@@ -98,7 +98,7 @@ public class FunText {
             // Handle the "Play Again" button click
             // You can replace the following line with the logic to restart the game
             System.out.println("Play Again button clicked!");
-            Utility.startGame((Stage) scene.getWindow(), FunText.class.getResource(Constant.GAME_TABLE));
+            Utility.startGame((Stage) scene.getWindow(), GameEndController.class.getResource(Constant.GAME_TABLE));
         });
 
         // Set the position of the button
