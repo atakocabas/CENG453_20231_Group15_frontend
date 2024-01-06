@@ -37,7 +37,8 @@ public class GameTableController implements Initializable {
     @FXML
     private Pane pane;
 
-    private static int currentPlayer = 0;
+    // Game Table Variables
+    private static int currentPlayer;
     private List<SettlementButton> settlementButtons = new ArrayList<>();
     private List<RoadButton> roadButtons = new ArrayList<>();
     private List<Tile> tiles = new ArrayList<>();
@@ -46,30 +47,47 @@ public class GameTableController implements Initializable {
     @FXML
     private Pane mainPane;
 
-    private static final List<Color> HEXAGON_COLORS = new ArrayList<>(List.of(
-            Color.DARKGREEN, Color.DARKGREEN, Color.DARKGREEN, Color.DARKGREEN, // 4 dark green hexagons
-            Color.SADDLEBROWN, Color.SADDLEBROWN, Color.SADDLEBROWN, // 3 dark brown hexagons
-            Color.LIGHTGREEN, Color.LIGHTGREEN, Color.LIGHTGREEN, Color.LIGHTGREEN, // 4 light green hexagons
-            Color.GREY, Color.GREY, Color.GREY, // 3 light blue hexagons
-            Color.YELLOW, Color.YELLOW, Color.YELLOW, Color.YELLOW, // 4 yellow hexagons
-            Color.BURLYWOOD // 1 sand-colored hexagon
-    ));
+    private static final List<Color> HEXAGON_COLORS = new ArrayList<>();
 
     // Make sure the number of elements in HEXAGON_COLORS and HEXAGON_NUMBERS are
     // the same
-    private static final List<Integer> HEXAGON_NUMBERS = new LinkedList<>(
-            List.of(2, 3, 11, 12, 4, 5, 6, 7, 8, 9, 10, 4, 5, 6, 7, 8, 9, 10));
+    private static final List<Integer> HEXAGON_NUMBERS = new LinkedList<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;
         mainPane = pane;
+        initializeGameTableVariables();
+        initializeHexagonColorsAndNumbers();
         initializeTiles();
         initiateSettlementButtons();
         initializeRoadButtons();
         initalizeGame();
         startTurn();
         logger.info("Game Table Controller Initialized!");
+    }
+
+    private void initializeGameTableVariables() {
+        currentPlayer = 0;
+        settlementButtons.clear();
+        roadButtons.clear();
+        tiles.clear();
+        playerTurnControllers.clear();
+    }
+
+    private void initializeHexagonColorsAndNumbers() {
+        HEXAGON_COLORS.clear();
+        HEXAGON_COLORS.addAll(List.of(
+                Color.DARKGREEN, Color.DARKGREEN, Color.DARKGREEN, Color.DARKGREEN, // 4 dark green hexagons
+                Color.SADDLEBROWN, Color.SADDLEBROWN, Color.SADDLEBROWN, // 3 dark brown hexagons
+                Color.LIGHTGREEN, Color.LIGHTGREEN, Color.LIGHTGREEN, Color.LIGHTGREEN, // 4 light green hexagons
+                Color.GREY, Color.GREY, Color.GREY, // 3 light blue hexagons
+                Color.YELLOW, Color.YELLOW, Color.YELLOW, Color.YELLOW, // 4 yellow hexagons
+                Color.BURLYWOOD // 1 sand-colored hexagon
+        ));
+        HEXAGON_NUMBERS.clear();
+        HEXAGON_NUMBERS.addAll(List.of(
+                2, 3, 11, 12, 4, 5, 6, 7, 8, 9, 10, 4, 5, 6, 7, 8, 9, 10));
     }
 
     public Pane getMainPane() {

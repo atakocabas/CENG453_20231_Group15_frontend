@@ -2,6 +2,10 @@
 
 package com.catan.catanui.controller.game;
 
+import com.catan.catanui.constants.Constant;
+import com.catan.catanui.utils.Utility;
+
+import ch.qos.logback.classic.pattern.Util;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -14,6 +18,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class FunText {
@@ -72,6 +77,7 @@ public class FunText {
             // Handle the "Play Again" button click
             // You can replace the following line with the logic to restart the game
             System.out.println("Play Again button clicked!");
+            Utility.startGame((Stage) scene.getWindow(), FunText.class.getResource(Constant.GAME_TABLE));
         });
 
         // Set the position of the button
@@ -96,6 +102,10 @@ public class FunText {
             ((Parent) root).setDisable(false);
         }
         // Remove the greyPane when the animation is finished
+        parentPane.getChildren().clear();
+    }
+     
+    private static void deleteGreyPane(Pane parentPane) {
         parentPane.getChildren().clear();
     }
 }

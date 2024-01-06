@@ -27,4 +27,20 @@ public class Utility {
         }
     }
 
+    public static void startGame(Stage stage, URL resourceUrl){
+        try {
+            stage.close();
+            FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
+            Parent root = fxmlLoader.load();
+            Scene scene = new Scene(root, 1300, 800);
+            stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+        } catch (LoadException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
 }
