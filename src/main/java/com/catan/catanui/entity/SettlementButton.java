@@ -43,25 +43,23 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
     public void handle(MouseEvent event) {
         logger.info("Settlement {} Button Clicked!", this.getIndex());
         if(this.settlement == null){
-            if(PlayerController.getInstance().buildSettlement()){
+            if(PlayerController.getInstance().getCurrentPlayer().isEnoughResourcesForSettlement()){
                 Player currentPlayer = PlayerController.getInstance().getCurrentPlayer();
-                this.build(currentPlayer);
+                this.buildTurns(currentPlayer);
                 this.setFill(currentPlayer.getColor());
                 this.getAdjacentSettlementButtons().forEach(settlementButton -> settlementButton.setDisable(true));
-                currentPlayer.increaseSettlementPoints();
                 logger.info("Settlement Built by Player: {}", currentPlayer.getId());
             } else {
                 logger.info("Not Enough Resources to Build Settlement.");
             }
         } else if(!this.settlement.isCity()){
-            if(PlayerController.getInstance().upgradeSettlement()){
+            if(PlayerController.getInstance().getCurrentPlayer().isEnoughResourcesForCity()){
                 Player currentPlayer = PlayerController.getInstance().getCurrentPlayer();
                 this.upgrade(currentPlayer);
                 this.setOwner(currentPlayer);
                 this.setFill(currentPlayer.getColor());
                 this.setDisable(true);
                 this.getAdjacentSettlementButtons().forEach(settlementButton -> settlementButton.setDisable(true));
-                currentPlayer.updateCityBuildPoints();
                 logger.info("Settlement Upgraded by Player: {}", currentPlayer.getId());
             } else {
                 logger.info("Not Enough Resources to Upgrade Settlement.");

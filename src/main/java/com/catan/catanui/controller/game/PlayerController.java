@@ -98,10 +98,11 @@ public class PlayerController implements Initializable {
 
     private void initalizePlayerResources(){
         for (Player player : players) {
-            changePlayerResource(player, ResourceType.LUMBER, 3);
-            changePlayerResource(player, ResourceType.BRICK, 3);
-            changePlayerResource(player, ResourceType.GRAIN, 1);
-            changePlayerResource(player, ResourceType.WOOL, 1);
+            changePlayerResource(player, ResourceType.LUMBER, 1000);
+            changePlayerResource(player, ResourceType.BRICK, 10);
+            changePlayerResource(player, ResourceType.GRAIN, 199);
+            changePlayerResource(player, ResourceType.WOOL, 110);
+            changePlayerResource(player, ResourceType.ORE, 11111);
             // increasePlayerLumber(player, 3);
             // increasePlayerBrick(player, 3);
             // increasePlayerGrain(player, 1);
@@ -215,29 +216,7 @@ public class PlayerController implements Initializable {
         return false;
     }
 
-    public boolean buildSettlement() {
-        Player currentPlayer = getCurrentPlayer();
-        if (getCurrentPlayer().isEnoughResourcesForSettlement()) {
-            changePlayerResource(currentPlayer, ResourceType.BRICK, -1);
-            changePlayerResource(currentPlayer, ResourceType.LUMBER, -1);
-            changePlayerResource(currentPlayer, ResourceType.GRAIN, -1);
-            changePlayerResource(currentPlayer, ResourceType.WOOL, -1);
-            updatePlayerInfo(getCurrentPlayer());
-            return true;
-        }
-        return false;
-    }
 
-    public boolean upgradeSettlement() {
-        Player currentPlayer = getCurrentPlayer();
-        if (getCurrentPlayer().isEnoughResourcesForCity()) {
-            changePlayerResource(currentPlayer, ResourceType.GRAIN, -2);
-            changePlayerResource(currentPlayer, ResourceType.ORE, -3);
-            updatePlayerInfo(getCurrentPlayer());
-            return true;
-        }
-        return false;
-    }
 
     public Player getLongestPathOwner() {
         return longestPathOwner;
