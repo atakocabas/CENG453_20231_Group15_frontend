@@ -8,6 +8,7 @@ import com.catan.catanui.entity.Player;
 import com.catan.catanui.entity.RoadButton;
 import com.catan.catanui.entity.SettlementButton;
 import com.catan.catanui.entity.Tile;
+import com.catan.catanui.service.LeaderboardService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
@@ -52,6 +53,11 @@ public class GameTableController implements Initializable {
     // Make sure the number of elements in HEXAGON_COLORS and HEXAGON_NUMBERS are
     // the same
     private static final List<Integer> HEXAGON_NUMBERS = new LinkedList<>();
+
+    private static final LeaderboardService leaderboardService = new LeaderboardService();
+
+    private boolean isGameEnded = false;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -384,7 +390,23 @@ public class GameTableController implements Initializable {
     }
 
     public void endGame() {
-        // TODO: Send request to backend.
-        GameEndController.displayFunMessage(mainPane, "Player " + (currentPlayer + 1) + " won the game!");
+        if(isGameEnded)
+            return;
+        isGameEnded = true;
+        Player player = playerTurnControllers.get(0).getPlayer();
+        String playerName = player.getPlayerName();
+        int score = player.getTotalPoints();
+        if(leaderboardService.addLeaderboardEntry(playerName, score)){
+            logger.info("Leaderboard entry added successfully with username: {} and score: {}", playerName, score);
+        }
+        else{
+            logger.info("Leaderboard entry could not be added");
+        }
+        if(currentPlayer == 0){
+            GameEndController.displayFunMessage(mainPane, playerName + " won the game!");
+        }
+        else{
+            GameEndController.displayFunMessage(mainPane, "Player " + (currentPlayer + 1) + " won the game!");
+        }
     }
 }

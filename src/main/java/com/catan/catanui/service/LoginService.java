@@ -36,6 +36,7 @@ public class LoginService {
             if (response.getStatusCode().is2xxSuccessful()){
                 String token = response.getBody();
                 TokenStore.getInstance().setToken(token);
+                TokenStore.getInstance().setUsername(username);
                 return response;
             }
         } catch (Exception e){
