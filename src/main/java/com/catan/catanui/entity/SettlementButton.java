@@ -151,11 +151,6 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
         if (this.getOwner() != null && this.settlement != null) {
             Player currentPlayer = this.getOwner();
             if (currentPlayer.isEnoughResourcesForCity()) {
-                // Deduct resources for the city
-                PlayerController.getInstance().changePlayerResource(currentPlayer, ResourceType.GRAIN, -2);
-                PlayerController.getInstance().changePlayerResource(currentPlayer, ResourceType.ORE, -3);
-                PlayerController.getInstance().updatePlayerInfo(currentPlayer);
-
                 owner.updateCityBuildPoints();
                 // Upgrade the settlement to a city
                 strokeColor = Color.WHITE;
