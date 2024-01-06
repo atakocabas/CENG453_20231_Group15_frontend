@@ -1,8 +1,9 @@
 package com.catan.catanui.entity;
 
 import com.catan.catanui.controller.game.EndTurnController;
+import com.catan.catanui.controller.game.GameEndController;
 import com.catan.catanui.controller.game.GameTableController;
-import com.catan.catanui.controller.game.FunText;
+import com.catan.catanui.controller.game.GameEndController;
 
 import com.catan.catanui.controller.game.PlayerController;
 
@@ -181,7 +182,7 @@ public class Player {
         if (totalPoints == gameEndPoints) {
             Pane gameTablePane = GameTableController.getInstance().getMainPane();
             String winningMessage = "Player " + id + " won the game!";
-            FunText.displayFunMessage(gameTablePane, winningMessage);
+            GameEndController.displayFunMessage(gameTablePane, winningMessage);
         }
     }
 
@@ -198,7 +199,7 @@ public class Player {
         if (totalPoints == gameEndPoints) {
             Pane gameTablePane = GameTableController.getInstance().getMainPane();
             String winningMessage = "Player " + id + " won the game!";
-            FunText.displayFunMessage(gameTablePane, winningMessage);
+            GameEndController.displayFunMessage(gameTablePane, winningMessage);
         }
     }
 
@@ -243,7 +244,7 @@ public class Player {
                 if (totalPoints == gameEndPoints) {
                     Pane gameTablePane = GameTableController.getInstance().getMainPane();
                     String winningMessage = "Player " + id + " won the game!";
-                    FunText.displayFunMessage(gameTablePane, winningMessage);
+                    GameEndController.displayFunMessage(gameTablePane, winningMessage);
                 }
             }
 
@@ -260,7 +261,7 @@ public class Player {
                 if (totalPoints == gameEndPoints) {
                     Pane gameTablePane = GameTableController.getInstance().getMainPane();
                     String winningMessage = "Player " + id + " won the game!";
-                    FunText.displayFunMessage(gameTablePane, winningMessage);
+                    GameEndController.displayFunMessage(gameTablePane, winningMessage);
                 }
             }
 
