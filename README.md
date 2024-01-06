@@ -41,6 +41,7 @@ is at least 2 roads away from any other settlement.
     - Each city worth 2 points.
     - Having longest path worth 2 points.
     - If a player reaches 8 points, the game ends.
+14. If you want to play again, click "Play Again".
 
 ## AI Strategy
 If AI player has enough resources to build a road, it randomly builds a road. Then,
