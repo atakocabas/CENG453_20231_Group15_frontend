@@ -37,6 +37,27 @@ public class FunText {
 
         // Create a "Play Again" button
         createPlayAgainButton(greyPane, parentPane.getScene());
+
+        createBackToMainMenuButton(greyPane, parentPane.getScene());
+    }
+
+    private static void createBackToMainMenuButton(Pane parentPane, Scene scene) {
+        Text backToMainMenuText = new Text("Back to Main Menu");
+        backToMainMenuText.setFont(Font.font("Verdana", FontWeight.BOLD, 16));
+        backToMainMenuText.setFill(Color.BLACK);
+        
+        Button backToMainMenuButton = new Button();
+        backToMainMenuButton.setGraphic(backToMainMenuText);
+        backToMainMenuButton.setOnAction(event -> {
+            Utility.navigate((Stage) scene.getWindow(), FunText.class.getResource(Constant.MAIN));
+        });
+
+        // Set the position of the button
+        backToMainMenuButton.setLayoutX((parentPane.getWidth() - backToMainMenuButton.getWidth()) / 2);
+        backToMainMenuButton.setLayoutY(parentPane.getHeight() / 2 + 100);
+
+        // Add the button to the parent pane
+        parentPane.getChildren().add(backToMainMenuButton);
     }
 
     private static void createGreyText(Pane parentPane, String message, int fontSize, FontWeight fontWeight) {
