@@ -22,10 +22,10 @@ public class FunText {
         rainbowPane.setLayoutY((parentPane.getHeight() - rainbowPane.getHeight()) / 2);
 
         // Create a Text node with a rotating rainbow gradient fill
-        createRainbowText(rainbowPane, message, 80, FontWeight.BOLD);
+        createGreyText(rainbowPane, message, 80, FontWeight.BOLD);
     }
 
-    private static void createRainbowText(Pane parentPane, String message, int fontSize, FontWeight fontWeight) {
+    private static void createGreyText(Pane parentPane, String message, int fontSize, FontWeight fontWeight) {
         Text text = new Text(message);
         text.setFont(Font.font("Verdana", fontWeight, fontSize));
 
@@ -33,9 +33,11 @@ public class FunText {
         Timeline timeline = new Timeline();
         timeline.setCycleCount(Timeline.INDEFINITE);
 
-        // Rotate through rainbow colors
+        // Rotate through grey-like colors
         for (int i = 0; i < 360; i += 10) {
-            KeyValue keyValue = new KeyValue(text.fillProperty(), Color.hsb(i, 1.0, 1.0));
+            // Use grey-like colors with varying brightness
+            double brightness = 0.5 + 0.5 * Math.sin(Math.toRadians(i));
+            KeyValue keyValue = new KeyValue(text.fillProperty(), Color.gray(brightness));
             KeyFrame keyFrame = new KeyFrame(Duration.millis(i * 10 * 1.8), keyValue); // Change the duration here
             timeline.getKeyFrames().add(keyFrame);
         }
