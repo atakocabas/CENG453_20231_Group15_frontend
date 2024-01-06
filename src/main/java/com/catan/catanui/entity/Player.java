@@ -51,6 +51,7 @@ public class Player {
 
     static int longestPathOfGame = 4;
     static Player longestPathOwner;
+    static int gameEndPoints = 10;
 
     public Player(int id, String playerName, Color color) {
         this.totalPoints = settlementPoints + cityPoints; //  + isLongestPath eklenecek
@@ -177,7 +178,7 @@ public class Player {
         totalPointsText.setText("Total Points: " + totalPoints);
         logger.info("Settlement count increased: Player {}", id);
 
-        if (totalPoints == 2) {
+        if (totalPoints == gameEndPoints) {
             Pane gameTablePane = GameTableController.getInstance().getMainPane();
             String winningMessage = "Player " + id + " won the game!";
             FunText.displayFunMessage(gameTablePane, winningMessage);
@@ -194,7 +195,7 @@ public class Player {
         totalPointsText.setText("Total Points: " + totalPoints);
         logger.info("City count increased: Player {}", id);
 
-        if (totalPoints == 2) {
+        if (totalPoints == gameEndPoints) {
             Pane gameTablePane = GameTableController.getInstance().getMainPane();
             String winningMessage = "Player " + id + " won the game!";
             FunText.displayFunMessage(gameTablePane, winningMessage);
@@ -239,7 +240,7 @@ public class Player {
                 longestPathOwner = this;
                 longestPathOfGame = longestPath;
 
-                if (totalPoints == 2) {
+                if (totalPoints == gameEndPoints) {
                     Pane gameTablePane = GameTableController.getInstance().getMainPane();
                     String winningMessage = "Player " + id + " won the game!";
                     FunText.displayFunMessage(gameTablePane, winningMessage);
@@ -256,7 +257,7 @@ public class Player {
                 longestPathOwner = this;
                 longestPathOfGame = longestPath;
 
-                if (totalPoints == 2) {
+                if (totalPoints == gameEndPoints) {
                     Pane gameTablePane = GameTableController.getInstance().getMainPane();
                     String winningMessage = "Player " + id + " won the game!";
                     FunText.displayFunMessage(gameTablePane, winningMessage);
