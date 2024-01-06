@@ -8,6 +8,7 @@ import javafx.animation.Timeline;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -29,8 +30,8 @@ public class FunText {
         // Create a Text node with a rotating grey gradient fill
         createGreyText(greyPane, message, 80, FontWeight.BOLD);
 
-        // Disable the root node of the scene
-        disableSceneRoot(parentPane.getScene());
+        // Create a "Play Again" button
+        createPlayAgainButton(greyPane, parentPane.getScene());
     }
 
     private static void createGreyText(Pane parentPane, String message, int fontSize, FontWeight fontWeight) {
@@ -62,6 +63,23 @@ public class FunText {
 
         // Add a keyframe to the timeline to enable the scene root when finished
         timeline.setOnFinished(event -> enableSceneRoot(parentPane));
+    }
+
+    private static void createPlayAgainButton(Pane parentPane, Scene scene) {
+        Button playAgainButton = new Button("Play Again");
+        playAgainButton.setFont(Font.font("Verdana", FontWeight.BOLD, 16));
+        playAgainButton.setOnAction(event -> {
+            // Handle the "Play Again" button click
+            // You can replace the following line with the logic to restart the game
+            System.out.println("Play Again button clicked!");
+        });
+
+        // Set the position of the button
+        playAgainButton.setLayoutX((parentPane.getWidth() - playAgainButton.getWidth()) / 2);
+        playAgainButton.setLayoutY(parentPane.getHeight() / 2 + 50);
+
+        // Add the button to the parent pane
+        parentPane.getChildren().add(playAgainButton);
     }
 
     private static void disableSceneRoot(Scene scene) {
