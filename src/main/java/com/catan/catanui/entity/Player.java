@@ -1,8 +1,9 @@
 package com.catan.catanui.entity;
 
+import com.catan.catanui.constants.Constant;
 import com.catan.catanui.controller.game.EndTurnController;
 import com.catan.catanui.controller.game.GameTableController;
-import com.catan.catanui.controller.game.FunText;
+import com.catan.catanui.controller.game.GameEndController;
 
 import com.catan.catanui.controller.game.PlayerController;
 
@@ -21,6 +22,7 @@ import java.util.function.Supplier;
 import com.catan.catanui.enums.ResourceType;
 import com.catan.catanui.utils.RoadGraph;
 
+import org.apache.tomcat.util.bcel.Const;
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.DefaultUndirectedGraph;
@@ -51,18 +53,17 @@ public class Player {
 
     static int longestPathOfGame = 4;
     static Player longestPathOwner;
-    static int gameEndPoints = 10;
 
     public Player(int id, String playerName, Color color) {
-        this.totalPoints = settlementPoints + cityPoints; //  + isLongestPath eklenecek
+        this.totalPoints = settlementPoints + cityPoints; // + isLongestPath eklenecek
         this.id = id;
-        if(playerName == null)
+        if (playerName == null)
             this.playerName = "AI " + id;
         else
             this.playerName = playerName;
         this.color = color;
         this.resources = new EnumMap<>(ResourceType.class);
-        for(ResourceType type: ResourceType.values()) {
+        for (ResourceType type : ResourceType.values()) {
             this.resources.put(type, 0);
         }
 
@@ -80,13 +81,12 @@ public class Player {
     public boolean isEnoughResourcesForRoad() {
         return this.resources.get(ResourceType.BRICK) >= 1 && this.resources.get(ResourceType.LUMBER) >= 1;
     }
-    
 
     public boolean isEnoughResourcesForSettlement() {
-        return this.resources.get(ResourceType.BRICK) >= 1 
-            && this.resources.get(ResourceType.LUMBER) >= 1 
-            && this.resources.get(ResourceType.WOOL) >= 1 
-            && this.resources.get(ResourceType.GRAIN) >= 1;
+        return this.resources.get(ResourceType.BRICK) >= 1
+                && this.resources.get(ResourceType.LUMBER) >= 1
+                && this.resources.get(ResourceType.WOOL) >= 1
+                && this.resources.get(ResourceType.GRAIN) >= 1;
     }
 
     public List<SettlementButton> getOwnedSettlementButtons() {
@@ -101,8 +101,8 @@ public class Player {
     }
 
     public boolean isEnoughResourcesForCity() {
-        return this.resources.get(ResourceType.ORE) >= 3 
-            && this.resources.get(ResourceType.GRAIN) >= 2;
+        return this.resources.get(ResourceType.ORE) >= 3
+                && this.resources.get(ResourceType.GRAIN) >= 2;
     }
 
     public List<RoadButton> getAvaliableRoadButtons() {
@@ -112,24 +112,24 @@ public class Player {
         return avaliableRoadButtons;
     }
 
-    private List<RoadButton> getAvailableRoadButtonsAdjacentToSettlements(){
+    private List<RoadButton> getAvailableRoadButtonsAdjacentToSettlements() {
         List<RoadButton> avaliableRoadButtons = new ArrayList<>();
         List<SettlementButton> ownedSettlementButtons = this.getOwnedSettlementButtons();
         for (SettlementButton settlementButton : ownedSettlementButtons) {
             for (RoadButton roadButton : settlementButton.getAdjacentRoadButtons()) {
-                if(roadButton.getOwner() == null)
+                if (roadButton.getOwner() == null)
                     avaliableRoadButtons.add(roadButton);
             }
         }
         return avaliableRoadButtons;
     }
 
-    private List<RoadButton> getAvailableRoadButtonsAdjacentToRoads(){
+    private List<RoadButton> getAvailableRoadButtonsAdjacentToRoads() {
         List<RoadButton> avaliableRoadButtons = new ArrayList<>();
         List<RoadButton> ownedRoadButtons = this.getOwnedRoadButtons();
-        for(RoadButton rb: ownedRoadButtons){
-            for(RoadButton roadButton : rb.getAdjacentRoadButtonsWithNoOwner()){
-                if(!avaliableRoadButtons.contains(roadButton))
+        for (RoadButton rb : ownedRoadButtons) {
+            for (RoadButton roadButton : rb.getAdjacentRoadButtonsWithNoOwner()) {
+                if (!avaliableRoadButtons.contains(roadButton))
                     avaliableRoadButtons.add(roadButton);
             }
         }
@@ -139,9 +139,9 @@ public class Player {
     public List<SettlementButton> getAvaliableSettlementButtons() {
         List<SettlementButton> avaliableSettlementButtons = new ArrayList<>();
         List<RoadButton> ownedRoadButtons = this.getOwnedRoadButtons();
-        for(RoadButton roadButton : ownedRoadButtons){
-            for(SettlementButton settlementButton : roadButton.getAdjacentSettlementButtonsWithNoOwner()){
-                if(settlementButton.getAdjacentSettlementButtonsWithOwner().isEmpty()){
+        for (RoadButton roadButton : ownedRoadButtons) {
+            for (SettlementButton settlementButton : roadButton.getAdjacentSettlementButtonsWithNoOwner()) {
+                if (settlementButton.getAdjacentSettlementButtonsWithOwner().isEmpty()) {
                     avaliableSettlementButtons.add(settlementButton);
                 }
             }
@@ -160,11 +160,11 @@ public class Player {
         return ownedRoadButtons;
     }
 
-    public List<SettlementButton> getInitialAvailableSettlementButtons(){
+    public List<SettlementButton> getInitialAvailableSettlementButtons() {
         List<SettlementButton> availableSettlementButtons = new ArrayList<>();
         List<SettlementButton> settlementButtons = GameTableController.getInstance().getSettlementButtonsWithNoOwner();
-        for(SettlementButton settlementButton : settlementButtons){
-            if(settlementButton.getAdjacentSettlementButtonsWithOwner().isEmpty()){
+        for (SettlementButton settlementButton : settlementButtons) {
+            if (settlementButton.getAdjacentSettlementButtonsWithOwner().isEmpty()) {
                 availableSettlementButtons.add(settlementButton);
             }
         }
@@ -178,15 +178,12 @@ public class Player {
         totalPointsText.setText("Total Points: " + totalPoints);
         logger.info("Settlement count increased: Player {}", id);
 
-        if (totalPoints == gameEndPoints) {
-            Pane gameTablePane = GameTableController.getInstance().getMainPane();
-            String winningMessage = "Player " + id + " won the game!";
-            FunText.displayFunMessage(gameTablePane, winningMessage);
+        if (this.getTotalPoints() >= Constant.GAME_END_POINTS) {
+            GameTableController.getInstance().endGame();
         }
     }
 
-
-    public void updateCityBuildPoints(){
+    public void updateCityBuildPoints() {
         settlementPoints--;
         cityPoints++;
         totalPoints++;
@@ -195,30 +192,26 @@ public class Player {
         totalPointsText.setText("Total Points: " + totalPoints);
         logger.info("City count increased: Player {}", id);
 
-        if (totalPoints == gameEndPoints) {
-            Pane gameTablePane = GameTableController.getInstance().getMainPane();
-            String winningMessage = "Player " + id + " won the game!";
-            FunText.displayFunMessage(gameTablePane, winningMessage);
+        if (this.getTotalPoints() >= Constant.GAME_END_POINTS) {
+            GameTableController.getInstance().endGame();
         }
     }
 
     public List<SettlementButton> getUpgradableSettlementButtons() {
         List<SettlementButton> upgradablSettlementButtons = new ArrayList<>();
         List<SettlementButton> ownedSettlementButtons = this.getOwnedSettlementButtons();
-        for(SettlementButton settlementButton : ownedSettlementButtons){
-            if(!settlementButton.isCity()){
+        for (SettlementButton settlementButton : ownedSettlementButtons) {
+            if (!settlementButton.isCity()) {
                 upgradablSettlementButtons.add(settlementButton);
             }
         }
         return upgradablSettlementButtons;
     }
 
-    
-
-    public void updateLongestPath(){
+    public void updateLongestPath() {
         List<RoadButton> ownedRoadButtons = this.getOwnedRoadButtons();
         Graph<SettlementButton, DefaultEdge> graph = new DefaultUndirectedGraph<>(DefaultEdge.class);
-        for(RoadButton roadButton : ownedRoadButtons){
+        for (RoadButton roadButton : ownedRoadButtons) {
             List<SettlementButton> adjacentSettlementButtons = roadButton.getAdjacentSettlementButtons();
             graph.addVertex(adjacentSettlementButtons.get(0));
             graph.addVertex(adjacentSettlementButtons.get(1));
@@ -231,7 +224,7 @@ public class Player {
         longestPathText.setText("Longest Path: " + longestPath);
         logger.info(playerName + " longest path: " + longestPath);
 
-        if(longestPath > longestPathOfGame) {
+        if (longestPath > longestPathOfGame) {
             if (longestPathOfGame == 4) {
 
                 totalPoints++;
@@ -240,10 +233,8 @@ public class Player {
                 longestPathOwner = this;
                 longestPathOfGame = longestPath;
 
-                if (totalPoints == gameEndPoints) {
-                    Pane gameTablePane = GameTableController.getInstance().getMainPane();
-                    String winningMessage = "Player " + id + " won the game!";
-                    FunText.displayFunMessage(gameTablePane, winningMessage);
+                if (this.getTotalPoints() >= Constant.GAME_END_POINTS) {
+                    GameTableController.getInstance().endGame();
                 }
             }
 
@@ -257,10 +248,8 @@ public class Player {
                 longestPathOwner = this;
                 longestPathOfGame = longestPath;
 
-                if (totalPoints == gameEndPoints) {
-                    Pane gameTablePane = GameTableController.getInstance().getMainPane();
-                    String winningMessage = "Player " + id + " won the game!";
-                    FunText.displayFunMessage(gameTablePane, winningMessage);
+                if (this.getTotalPoints() >= Constant.GAME_END_POINTS) {
+                    GameTableController.getInstance().endGame();
                 }
             }
 
@@ -269,7 +258,5 @@ public class Player {
             }
         }
     }
-
-
 
 }

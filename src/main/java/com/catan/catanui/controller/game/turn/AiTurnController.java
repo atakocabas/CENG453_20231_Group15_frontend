@@ -3,6 +3,7 @@ package com.catan.catanui.controller.game.turn;
 import java.util.List;
 import java.util.Random;
 
+import com.catan.catanui.constants.Constant;
 import com.catan.catanui.controller.ButtonsController;
 import com.catan.catanui.controller.game.DiceController;
 import com.catan.catanui.controller.game.GameTableController;
@@ -27,6 +28,10 @@ public class AiTurnController extends PlayerTurnController{
         decideBuildRoads();
         decideBuildSettlements();
         decideBuildCities();
+        if(player.getTotalPoints() >= Constant.GAME_END_POINTS) {
+            GameTableController.getInstance().endGame();
+            return;
+        }
         PauseTransition pause = new PauseTransition(Duration.seconds(2));
         pause.setOnFinished(event -> {
             GameTableController.getInstance().endTurn();

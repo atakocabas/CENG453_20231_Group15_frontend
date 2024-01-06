@@ -382,4 +382,9 @@ public class GameTableController implements Initializable {
         }
         return settlementButtonsWithNoOwner;
     }
+
+    public void endGame() {
+        // TODO: Send request to backend.
+        GameEndController.displayFunMessage(mainPane, "Player " + (currentPlayer + 1) + " won the game!");
+    }
 }
