@@ -101,6 +101,7 @@ public class PlayerController implements Initializable {
     }
 
     private void createPlayers(){
+        players.clear();
         players.add(new Player(1, "Player 1", Color.RED));
         players.add(new Player(2, "Player 2", Color.BLUE));
         players.add(new Player(3, "Player 3", Color.PURPLE));
