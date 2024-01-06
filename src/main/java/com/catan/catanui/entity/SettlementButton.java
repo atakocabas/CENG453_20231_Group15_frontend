@@ -145,13 +145,6 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
     }
 
 
-
-    /*public void upgrade(){
-        if(this.getOwner() != null && this.settlement != null){
-            this.settlement.setCity(true);
-        }
-    }*/
-
     public void upgrade(Player owner) {
         if (this.getOwner() != null && this.settlement != null) {
             Player currentPlayer = this.getOwner();
