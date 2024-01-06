@@ -12,6 +12,8 @@ public class HumanTurnController extends PlayerTurnController {
     }
 
     public void startTurn() {
+        enableButtons();
+        EndTurnController.getInstance().disableEndTurnButton();
         return;
     }
 
