@@ -45,4 +45,5 @@ is at least 2 roads away from any other settlement.
 ## AI Strategy
 If AI player has enough resources to build a road, it randomly builds a road. Then,
 if AI player has enough resources to build a settlement, it randomly builds a settlement. Then,
-if AI player has enough resources to build a city, it randomly builds a city.
+if AI player has enough resources to build a city, it randomly builds a city. AI turn ends after this.
+
