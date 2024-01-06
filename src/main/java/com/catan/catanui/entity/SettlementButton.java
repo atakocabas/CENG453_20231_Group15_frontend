@@ -20,6 +20,7 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
     private List<RoadButton> adjacentRoads = new ArrayList<>();
     private List<Tile> adjacentTiles = new ArrayList<>();
     private int index;
+    private Color strokeColor = Color.TRANSPARENT;
 
     public SettlementButton(double radius, double centerX, double centerY, int index) {
         super(centerX, centerY, radius);
@@ -34,7 +35,7 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
             this.setStroke(Color.BLACK);
         });
         this.setOnMouseExited(e -> {
-            this.setStroke(Color.TRANSPARENT);
+            this.setStroke(strokeColor);
         });
     }
 
@@ -146,6 +147,7 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
 
 
     public void upgrade(Player owner) {
+        logger.info("Upgrading Settlement to City");
         if (this.getOwner() != null && this.settlement != null) {
             Player currentPlayer = this.getOwner();
             if (currentPlayer.isEnoughResourcesForCity()) {
@@ -156,6 +158,9 @@ public class SettlementButton extends Circle implements EventHandler<MouseEvent>
 
                 owner.updateCityBuildPoints();
                 // Upgrade the settlement to a city
+                strokeColor = Color.WHITE;
+                this.setStroke(strokeColor);
+                this.setStrokeWidth(4);
                 this.settlement.setCity(true);
             }
         }
