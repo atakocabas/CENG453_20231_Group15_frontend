@@ -228,7 +228,7 @@ public class Player {
         if (longestPath > longestPathOfGame) {
             if (longestPathOfGame == 4) {
 
-                totalPoints++;
+                totalPoints = totalPoints + 2;
                 totalPointsText.setText("Total Points: " + totalPoints);
 
                 longestPathOwner = this;
@@ -240,10 +240,10 @@ public class Player {
             }
 
             else if (longestPathOwner != this) {
-                totalPoints++;
+                totalPoints = totalPoints + 2;
                 totalPointsText.setText("Total Points: " + totalPoints);
 
-                longestPathOwner.totalPoints--;
+                longestPathOwner.totalPoints = longestPathOwner.totalPoints - 2 ;
                 longestPathOwner.totalPointsText.setText("Total Points: " + longestPathOwner.totalPoints);
 
                 longestPathOwner = this;
