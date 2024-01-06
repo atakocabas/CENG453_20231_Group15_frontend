@@ -1,8 +1,13 @@
+// FunText.java
+
 package com.catan.catanui.controller.game;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -13,16 +18,19 @@ import javafx.util.Duration;
 public class FunText {
 
     public static void displayFunMessage(Pane parentPane, String message) {
-        // Create a container for the rainbow text
-        Pane rainbowPane = new Pane();
-        parentPane.getChildren().add(rainbowPane);
+        // Create a container for the grey text
+        Pane greyPane = new Pane();
+        parentPane.getChildren().add(greyPane);
 
         // Set the position to the center of the parent pane
-        rainbowPane.setLayoutX((parentPane.getWidth() - rainbowPane.getWidth()) / 2);
-        rainbowPane.setLayoutY((parentPane.getHeight() - rainbowPane.getHeight()) / 2);
+        greyPane.setLayoutX((parentPane.getWidth() - greyPane.getWidth()) / 2);
+        greyPane.setLayoutY((parentPane.getHeight() - greyPane.getHeight()) / 2);
 
-        // Create a Text node with a rotating rainbow gradient fill
-        createGreyText(rainbowPane, message, 80, FontWeight.BOLD);
+        // Create a Text node with a rotating grey gradient fill
+        createGreyText(greyPane, message, 80, FontWeight.BOLD);
+
+        // Disable the root node of the scene
+        disableSceneRoot(parentPane.getScene());
     }
 
     private static void createGreyText(Pane parentPane, String message, int fontSize, FontWeight fontWeight) {
@@ -51,5 +59,25 @@ public class FunText {
 
         // Add the text to the parent pane
         parentPane.getChildren().add(text);
+
+        // Add a keyframe to the timeline to enable the scene root when finished
+        timeline.setOnFinished(event -> enableSceneRoot(parentPane));
+    }
+
+    private static void disableSceneRoot(Scene scene) {
+        Node root = scene.getRoot();
+        if (root instanceof Parent) {
+            ((Parent) root).setDisable(true);
+        }
+    }
+
+    private static void enableSceneRoot(Pane parentPane) {
+        Scene scene = parentPane.getScene();
+        Node root = scene.getRoot();
+        if (root instanceof Parent) {
+            ((Parent) root).setDisable(false);
+        }
+        // Remove the greyPane when the animation is finished
+        parentPane.getChildren().clear();
     }
 }
