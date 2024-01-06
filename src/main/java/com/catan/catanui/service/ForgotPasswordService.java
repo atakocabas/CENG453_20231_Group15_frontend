@@ -15,7 +15,7 @@ import java.util.Map;
 public class ForgotPasswordService {
     private final String FORGOT_PASSWORD_URL = "http://localhost:8080/api/v1/user/resetPassword";
 
-    public void resetPassword(String username) {
+    public boolean resetPassword(String username) {
         try {
             RestTemplate restTemplate = new RestTemplate();
 
@@ -31,11 +31,14 @@ public class ForgotPasswordService {
 
             if (response.getStatusCode().is2xxSuccessful()) {
                 System.out.println("Password has been reset");
+                return true;
             } else {
                 System.out.println("Password has not been reset");
+                return false;
             }
         } catch (Exception e) {
             System.out.println("An error occurred while resetting the password: " + e.getMessage());
+            return false;
         }
     }
 }

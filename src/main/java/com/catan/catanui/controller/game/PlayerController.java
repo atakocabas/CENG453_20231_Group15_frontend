@@ -1,5 +1,6 @@
 package com.catan.catanui.controller.game;
 
+import com.catan.catanui.config.TokenStore;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -111,8 +112,12 @@ public class PlayerController implements Initializable {
     }
 
     private void createPlayers(){
+        String playerName = TokenStore.getInstance().getUsername();
         players.clear();
-        players.add(new Player(1, "Player 1", Color.RED));
+        if (playerName == null) {
+            playerName = "Player 1";
+        }
+        players.add(new Player(1, playerName, Color.RED));
         players.add(new Player(2, "Player 2", Color.BLUE));
         players.add(new Player(3, "Player 3", Color.PURPLE));
         players.add(new Player(4, "Player 4", Color.ORANGE));
@@ -216,7 +221,29 @@ public class PlayerController implements Initializable {
         return false;
     }
 
+    public boolean buildSettlement() {
+        Player currentPlayer = getCurrentPlayer();
+        if (getCurrentPlayer().isEnoughResourcesForSettlement()) {
+            changePlayerResource(currentPlayer, ResourceType.BRICK, -1);
+            changePlayerResource(currentPlayer, ResourceType.LUMBER, -1);
+            changePlayerResource(currentPlayer, ResourceType.GRAIN, -1);
+            changePlayerResource(currentPlayer, ResourceType.WOOL, -1);
+            updatePlayerInfo(getCurrentPlayer());
+            return true;
+        }
+        return false;
+    }
 
+    public boolean upgradeSettlement() {
+        Player currentPlayer = getCurrentPlayer();
+        if (getCurrentPlayer().isEnoughResourcesForCity()) {
+            changePlayerResource(currentPlayer, ResourceType.GRAIN, -2);
+            changePlayerResource(currentPlayer, ResourceType.ORE, -3);
+            updatePlayerInfo(getCurrentPlayer());
+            return true;
+        }
+        return false;
+    }
 
     public Player getLongestPathOwner() {
         return longestPathOwner;

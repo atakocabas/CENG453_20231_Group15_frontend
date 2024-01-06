@@ -27,6 +27,8 @@ public class ForgotPasswordController {
 
     public void handleSubmitButtonAction(ActionEvent actionEvent) {
         String username = usernameField.getText();
-        forgotPasswordService.resetPassword(username);
+        if(forgotPasswordService.resetPassword(username)){
+            Utility.navigate((Stage) usernameField.getScene().getWindow(), getClass().getResource(Constant.LOGIN));
+        }
     }
 }

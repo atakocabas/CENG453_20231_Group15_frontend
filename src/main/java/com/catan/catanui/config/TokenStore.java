@@ -2,7 +2,8 @@ package com.catan.catanui.config;
 
 public class TokenStore {
     private static TokenStore instance = null;
-    private String token;
+    private String token = null;
+    private String username = null;
 
     private TokenStore() {
     }
@@ -20,5 +21,13 @@ public class TokenStore {
 
     public String getToken() {
         return this.token;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getUsername() {
+        return this.username;
     }
 }
