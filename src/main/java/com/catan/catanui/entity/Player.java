@@ -186,7 +186,7 @@ public class Player {
 
     public void updateCityBuildPoints() {
         settlementPoints--;
-        cityPoints++;
+        cityPoints = cityPoints + 2;
         totalPoints++;
         settlementText.setText("Settlement Points: " + settlementPoints);
         cityText.setText("City Points: " + cityPoints);
