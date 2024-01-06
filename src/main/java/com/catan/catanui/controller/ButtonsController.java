@@ -46,6 +46,13 @@ public class ButtonsController {
         }
     }
 
+    public void enableUpgradableSettlementButtons(Player player){
+        List<SettlementButton> availableSettlementButtons = player.getUpgradableSettlementButtons();
+        for (SettlementButton settlementButton : availableSettlementButtons) {
+            settlementButton.setDisable(false);
+        }
+    }
+
 
     public void enableAllGameTableButtons() {
         enableAllSettlementButtons();

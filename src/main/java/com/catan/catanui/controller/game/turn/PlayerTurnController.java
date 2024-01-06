@@ -64,6 +64,7 @@ public abstract class PlayerTurnController {
         ButtonsController.getInstance().enableAvailableSettlementButtons(this.getPlayer());
         ButtonsController.getInstance().disableAllRoadButtons();
         ButtonsController.getInstance().enableAvailableRoadButtons(this.getPlayer());
+        ButtonsController.getInstance().enableUpgradableSettlementButtons(this.getPlayer());
     }
 
 }
