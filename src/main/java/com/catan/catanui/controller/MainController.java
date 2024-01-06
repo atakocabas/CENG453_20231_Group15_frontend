@@ -18,7 +18,7 @@ public class MainController {
 
 
     public void handlePlayButtonAction(ActionEvent actionEvent) {
-        Utility.navigate((Stage) leaderboardButton.getScene().getWindow(), getClass().getResource(Constant.GAME_TABLE));
+        Utility.startGame((Stage) leaderboardButton.getScene().getWindow(), getClass().getResource(Constant.GAME_TABLE));
     }
 
     public void handleLeaderboardButtonAction() {
