@@ -4,6 +4,7 @@ import java.util.HashSet;
 import org.jgrapht.graph.DefaultUndirectedGraph;
 
 import com.catan.catanui.entity.SettlementButton;
+import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultEdge;
@@ -19,13 +20,12 @@ public class RoadGraph {
 
     public void computeLongestPath(){
         for (SettlementButton vertex : graph.vertexSet()) {
-            HashSet<SettlementButton> visited = new HashSet<>();
+            HashSet<DefaultEdge> visited = new HashSet<>();
             findLongestPath(vertex, visited, 0);
         }
     }
 
-    private void findLongestPath(SettlementButton current, HashSet<SettlementButton> visited, int pathLength) {
-        visited.add(current);
+    private void findLongestPath(SettlementButton current, HashSet<DefaultEdge> visited, int pathLength) {
 
         // Update longest path length if this path is longer
         longestPathLength = Math.max(longestPathLength, pathLength);
@@ -35,7 +35,8 @@ public class RoadGraph {
             if (target.equals(current)) {
                 target = graph.getEdgeSource(edge);
             }
-            if (!visited.contains(target)) {
+            if (!visited.contains(edge)) {
+                visited.add(edge);
                 findLongestPath(target, new HashSet<>(visited), pathLength + 1);
             }
         }
