@@ -22,6 +22,12 @@ import javafx.util.Duration;
 
 public class GameEndController {
 
+    /**
+     * Displays the end game message on the specified parent pane.
+     * 
+     * @param parentPane The parent pane where the end game message will be displayed.
+     * @param message The message to be displayed.
+     */
     public static void displayEndGameMessage(Pane parentPane, String message) {
         // Create a container for the grey text
         Pane greyPane = new Pane();
@@ -40,6 +46,12 @@ public class GameEndController {
         createBackToMainMenuButton(greyPane, parentPane.getScene());
     }
 
+    /**
+     * Creates a back to main menu button and adds it to the parent pane.
+     * 
+     * @param parentPane the parent pane to which the button will be added
+     * @param scene the scene containing the parent pane
+     */
     private static void createBackToMainMenuButton(Pane parentPane, Scene scene) {
         Text backToMainMenuText = new Text("Back to Main Menu");
         backToMainMenuText.setFont(Font.font("Verdana", FontWeight.BOLD, 16));
@@ -59,6 +71,15 @@ public class GameEndController {
         parentPane.getChildren().add(backToMainMenuButton);
     }
 
+    /**
+     * Creates a grey text with rotating colors and adds it to the specified parent pane.
+     * The text is centered within the parent pane.
+     *
+     * @param parentPane  the parent pane to which the grey text will be added
+     * @param message     the text message to be displayed
+     * @param fontSize    the font size of the text
+     * @param fontWeight  the font weight of the text
+     */
     private static void createGreyText(Pane parentPane, String message, int fontSize, FontWeight fontWeight) {
         Text text = new Text(message);
         text.setFont(Font.font("Verdana", fontWeight, fontSize));
@@ -90,6 +111,13 @@ public class GameEndController {
         timeline.setOnFinished(event -> enableSceneRoot(parentPane));
     }
 
+    /**
+     * Creates a "Play Again" button and adds it to the specified parent pane.
+     * When the button is clicked, it triggers the logic to restart the game.
+     *
+     * @param parentPane the parent pane to which the button will be added
+     * @param scene the scene containing the parent pane
+     */
     private static void createPlayAgainButton(Pane parentPane, Scene scene) {
         Button playAgainButton = new Button("Play Again");
         playAgainButton.setFont(Font.font("Verdana", FontWeight.BOLD, 16));
@@ -108,6 +136,11 @@ public class GameEndController {
         parentPane.getChildren().add(playAgainButton);
     }
 
+    /**
+     * Disables the root node of the given scene.
+     *
+     * @param scene the scene whose root node needs to be disabled
+     */
     private static void disableSceneRoot(Scene scene) {
         Node root = scene.getRoot();
         if (root instanceof Parent) {
@@ -115,6 +148,12 @@ public class GameEndController {
         }
     }
 
+    /**
+     * Enables the root of the scene by setting its disable property to false.
+     * Additionally, it clears the children of the parent pane.
+     *
+     * @param parentPane the parent pane containing the scene
+     */
     private static void enableSceneRoot(Pane parentPane) {
         Scene scene = parentPane.getScene();
         Node root = scene.getRoot();
