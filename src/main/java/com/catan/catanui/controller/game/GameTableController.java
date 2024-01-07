@@ -59,6 +59,12 @@ public class GameTableController implements Initializable {
     private boolean isGameEnded = false;
 
 
+    /**
+     * Initializes the game table controller.
+     * 
+     * @param location  the URL location of the FXML file
+     * @param resources the ResourceBundle containing the resources for the FXML file
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;
@@ -73,6 +79,10 @@ public class GameTableController implements Initializable {
         logger.info("Game Table Controller Initialized!");
     }
 
+    /**
+     * Initializes the variables used in the game table.
+     * Resets the current player, clears the settlement buttons, road buttons, tiles, and player turn controllers.
+     */
     private void initializeGameTableVariables() {
         currentPlayer = 0;
         settlementButtons.clear();
@@ -81,6 +91,10 @@ public class GameTableController implements Initializable {
         playerTurnControllers.clear();
     }
 
+    /**
+     * Initializes the hexagon colors and numbers for the game table.
+     * Clears the existing hexagon colors and numbers lists and adds new values.
+     */
     private void initializeHexagonColorsAndNumbers() {
         HEXAGON_COLORS.clear();
         HEXAGON_COLORS.addAll(List.of(
@@ -106,6 +120,10 @@ public class GameTableController implements Initializable {
         return instance;
     }
 
+    /**
+     * Initializes the game by placing initial settlements and roads for each player.
+     * Also creates player turn controllers and disables all buttons at the beginning of the game.
+     */
     private void initalizeGame() {
 
         for(Player player: PlayerController.getInstance().getPlayers()){
@@ -138,6 +156,11 @@ public class GameTableController implements Initializable {
     }
 
 
+    /**
+     * Creates player turn controllers for each player in the game.
+     * The first player is assigned a HumanTurnController, while the rest of the players are assigned AiTurnControllers.
+     * The player turn controllers are added to the playerTurnControllers list.
+     */
     private void createPlayerTurnControllers() {
         List<Player> players = PlayerController.getInstance().getPlayers();
         PlayerTurnController humanPlayerTurnController = new HumanTurnController(players.get(0));
@@ -149,6 +172,9 @@ public class GameTableController implements Initializable {
         }
     }
 
+    /**
+     * Initializes the tiles on the game table.
+     */
     private void initializeTiles() {
         // Shuffle the hexagon colors and numbers lists to randomize the order
         // Remove Color.BURLYWOOD from the list
@@ -200,6 +226,13 @@ public class GameTableController implements Initializable {
         }
     }
 
+    /**
+     * Initializes the settlement buttons on the game table.
+     * Calculates the coordinates for each settlement button based on the tiles.
+     * Creates new settlement buttons if they don't already exist.
+     * Adds the settlement buttons to the list of buttons and assigns adjacent tiles to each button.
+     * Finally, adds the settlement buttons to the pane.
+     */
     private void initiateSettlementButtons() {
         double length = RADIUS;
         int index = 0;
@@ -228,6 +261,13 @@ public class GameTableController implements Initializable {
         pane.getChildren().addAll(this.settlementButtons);
     }
 
+    /**
+     * Finds a SettlementButton by its coordinates.
+     * 
+     * @param x The x-coordinate to search for.
+     * @param y The y-coordinate to search for.
+     * @return The SettlementButton found, or null if not found.
+     */
     private SettlementButton findSettlementButtonByCoordinates(double x, double y) {
         for (SettlementButton sButton : settlementButtons) {
             if (isCloseEnough(sButton.getCenterX(), x) && isCloseEnough(sButton.getCenterY(), y)) {
@@ -237,6 +277,13 @@ public class GameTableController implements Initializable {
         return null;
     }
 
+    /**
+     * Initializes the road buttons on the game table.
+     * Calculates the coordinates for each road button based on the tiles' positions.
+     * Connects the road buttons to the adjacent settlement buttons.
+     * Adds the road buttons to the list of road buttons.
+     * Finally, adds the road buttons to the pane.
+     */
     private void initializeRoadButtons() {
         double length = RADIUS * TILE_COEFFICIENT;
         int index = 0;
@@ -267,6 +314,15 @@ public class GameTableController implements Initializable {
         pane.getChildren().addAll(this.roadButtons);
     }
 
+    /**
+     * Creates a RoadButton with the specified dimensions and position.
+     *
+     * @param x The x-coordinate of the RoadButton's position.
+     * @param y The y-coordinate of the RoadButton's position.
+     * @param index The index of the RoadButton.
+     * @param rectangeleRotation The rotation angle of the RoadButton in degrees.
+     * @return The created RoadButton.
+     */
     private RoadButton createRoadButton(double x, double y, int index, double rectangeleRotation) {
         double width = 2 * RADIUS * (1 - TILE_COEFFICIENT);
         double height = RADIUS * TILE_COEFFICIENT;
@@ -278,6 +334,12 @@ public class GameTableController implements Initializable {
         return roadButton;
     }
 
+    /**
+     * Finds a RoadButton in the list of roadButtons based on its coordinates.
+     *
+     * @param roadButton The RoadButton to find.
+     * @return The found RoadButton, or null if not found.
+     */
     private RoadButton findRoadButtonByCoordinates(RoadButton roadButton) {
         Point2D bottomRightCorner = calculateBottomRightCorner(roadButton);
         for (RoadButton rButton : roadButtons) {
@@ -293,6 +355,13 @@ public class GameTableController implements Initializable {
         return Math.abs(a - b) < TOLERANCE;
     }
 
+    
+    /**
+     * Calculates the coordinates of the bottom right corner of a road button after rotation.
+     *
+     * @param roadButton The road button to calculate the bottom right corner for.
+     * @return The coordinates of the bottom right corner as a Point2D object.
+     */
     private Point2D calculateBottomRightCorner(RoadButton roadButton) {
         // Get the Rotate object from the transforms list
         Rotate rotate = (Rotate) roadButton.getTransforms().get(0);
@@ -312,6 +381,13 @@ public class GameTableController implements Initializable {
         return new Point2D.Double(newX, newY);
     }
 
+    /**
+     * Creates a hexagon shape with the specified fill color and radius.
+     *
+     * @param fill   the fill color of the hexagon
+     * @param RADIUS the radius of the hexagon
+     * @return the created hexagon shape
+     */
     private Polygon createHexagon(Color fill, double RADIUS) {
         Polygon hexagon = new Polygon();
 
@@ -328,13 +404,18 @@ public class GameTableController implements Initializable {
         return hexagon;
     }
 
-    // Start Turn and End Turn methods are for AI players.
-    // Human player's end turn starts this loop, and ends it on human player.
-
+    /**
+     * Starts the turn for the current player.
+     */
     public void startTurn(){
         playerTurnControllers.get(currentPlayer).startTurn();
     }
 
+    /**
+     * Ends the current player's turn and starts the next player's turn.
+     * Resets the dice rolled by the current player.
+     * Updates the player circle to indicate the current player.
+     */
     public void endTurn() {
         PlayerTurnController playerTurnController = playerTurnControllers.get(currentPlayer);
         playerTurnController.resetDiceRolled();
@@ -345,13 +426,6 @@ public class GameTableController implements Initializable {
         startTurn();
     }
 
-    private Player getCurrentPlayer() {
-        return PlayerController.getInstance().getCurrentPlayer();
-    }
-
-    private Player getPlayer(int index) {
-        return PlayerController.getInstance().getPlayer(index);
-    }
 
     public List<SettlementButton> getSettlementButtons() {
         return this.settlementButtons;
@@ -389,6 +463,10 @@ public class GameTableController implements Initializable {
         return settlementButtonsWithNoOwner;
     }
 
+    /**
+     * Ends the game and performs necessary actions such as adding the player's score to the leaderboard
+     * and displaying a message indicating the winner of the game.
+     */
     public void endGame() {
         if(isGameEnded)
             return;
