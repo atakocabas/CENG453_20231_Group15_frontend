@@ -71,6 +71,15 @@ public class DiceController {
         return instance;
     }
 
+    /**
+     * Rolls the dice and updates the display.
+     * If the dice is already rolled in this turn, the method returns without performing any action.
+     * The dice values are simulated using random numbers between 1 and 6 (inclusive).
+     * The display is updated based on the dice values.
+     * If the total of the dice values is 7, no resources are distributed.
+     * Otherwise, the total is displayed and each player's resources are updated accordingly.
+     * Finally, the buttons for the current player's turn are enabled.
+     */
     public void rollDice() {
         // check if the dice is already rolled in this turn
         if (!GameTableController.getInstance().getCurrentPlayerTurnController().rollDice())
