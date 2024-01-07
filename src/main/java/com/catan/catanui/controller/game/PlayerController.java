@@ -94,15 +94,10 @@ public class PlayerController implements Initializable {
 
     private void initalizePlayerResources(){
         for (Player player : players) {
-            changePlayerResource(player, ResourceType.LUMBER, 1000);
-            changePlayerResource(player, ResourceType.BRICK, 10);
-            changePlayerResource(player, ResourceType.GRAIN, 199);
-            changePlayerResource(player, ResourceType.WOOL, 110);
-            changePlayerResource(player, ResourceType.ORE, 11111);
-            // increasePlayerLumber(player, 3);
-            // increasePlayerBrick(player, 3);
-            // increasePlayerGrain(player, 1);
-            // increasePlayerWool(player, 1);
+            changePlayerResource(player, ResourceType.LUMBER, 3);
+            changePlayerResource(player, ResourceType.BRICK, 3);
+            changePlayerResource(player, ResourceType.GRAIN, 1);
+            changePlayerResource(player, ResourceType.WOOL, 1);
         }
     }
 
