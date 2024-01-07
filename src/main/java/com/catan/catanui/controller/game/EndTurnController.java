@@ -21,8 +21,6 @@ public class EndTurnController implements Initializable {
 
     private static Button endTurnButton;
 
-    private EndTurnController() {
-    }
 
     /**
      * Returns the singleton instance of the EndTurnController class.

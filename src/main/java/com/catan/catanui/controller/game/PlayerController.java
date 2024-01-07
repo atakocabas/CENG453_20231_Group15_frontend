@@ -32,8 +32,6 @@ public class PlayerController implements Initializable {
     @FXML
     private VBox layoutVBox;
 
-    private PlayerController() {
-    }
 
     /**
      * Returns the singleton instance of the PlayerController.

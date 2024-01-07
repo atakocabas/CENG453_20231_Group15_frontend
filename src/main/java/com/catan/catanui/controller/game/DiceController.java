@@ -59,17 +59,16 @@ public class DiceController {
     @FXML
     private Text dot26;
 
+    /**
+     * Returns the singleton instance of the DiceController.
+     *
+     * @return the singleton instance of the DiceController
+     */
     public static DiceController getInstance() {
         if (instance == null) {
             instance = new DiceController();
         }
         return instance;
-    }
-
-    public void initialize() {
-        // Initialize your controller logic here
-        // For example, you can set initial values or add event handlers
-        instance = this;
     }
 
     public void rollDice() {
@@ -267,14 +266,13 @@ public class DiceController {
         } else {
             logger.info("Dice total: " + total);
             totalText.setText(String.valueOf(total));
-            List<PlayerTurnController> playerTurnControllers = GameTableController.getInstance().getPlayerTurnControllers();
+            List<PlayerTurnController> playerTurnControllers = GameTableController.getInstance()
+                    .getPlayerTurnControllers();
             for (PlayerTurnController playerTurnController : playerTurnControllers) {
                 playerTurnController.updateResources(total);
             }
         }
         GameTableController.getInstance().getCurrentPlayerTurnController().enableButtons();
     }
-
-
 
 }
