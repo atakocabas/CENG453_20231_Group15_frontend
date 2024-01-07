@@ -48,6 +48,11 @@ If AI player has enough resources to build a road, it randomly builds a road. Th
 if AI player has enough resources to build a settlement, it randomly builds a settlement. Then,
 if AI player has enough resources to build a city, it randomly builds a city. AI turn ends after this.
 
+## ER Diagram
+Below, you can find entity diagram of the project.
+
+![alt text](/docs/img/ERDDiagram1.jpg)
+
 ## TurnControllers
 We created PlayerTurnController abstract class to implement Ai and Human turn implementations.
 AiTurnController implements decision making of Ai players. HumanTurnController implements visibility of available buttons to Human players.
