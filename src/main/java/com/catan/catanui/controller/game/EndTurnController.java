@@ -21,6 +21,28 @@ public class EndTurnController implements Initializable {
 
     private static Button endTurnButton;
 
+    private EndTurnController() {
+    }
+
+    /**
+     * Returns the singleton instance of the EndTurnController class.
+     * If the instance is null, a new instance is created.
+     * 
+     * @return the instance of the EndTurnController class
+     */
+    public static EndTurnController getInstance() {
+        if (instance == null) {
+            instance = new EndTurnController();
+        }
+        return instance;
+    }
+
+    /**
+     * Initializes the EndTurnController.
+     *
+     * @param url            The URL of the FXML file.
+     * @param resourceBundle The ResourceBundle associated with the FXML file.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         createEndTurnButton();
@@ -29,6 +51,9 @@ public class EndTurnController implements Initializable {
         logger.info("EndTurnController initialized");
     }
 
+    /**
+     * Creates the "END TURN" button and adds it to the endTurnVBox.
+     */
     private void createEndTurnButton() {
         endTurnButton = new Button("END TURN");
         endTurnButton.setMinSize(100, 50);
@@ -37,27 +62,36 @@ public class EndTurnController implements Initializable {
         endTurnVBox.getChildren().add(endTurnButton);
     }
 
-    public static EndTurnController getInstance() {
-        if (instance == null) {
-            instance = new EndTurnController();
-        }
-        return instance;
-    }
-
-    private void endTurn(ActionEvent event){
+    /**
+     * Ends the current player's turn.
+     *
+     * @param event the action event triggered by clicking the "End Turn" button
+     */
+    private void endTurn(ActionEvent event) {
         logger.info("End Turn Button Clicked!");
         disableEndTurnButton();
         GameTableController.getInstance().endTurn();
     }
 
+    /**
+     * Disables the end turn button.
+     */
     public void disableEndTurnButton() {
         endTurnButton.setDisable(true);
     }
 
+    /**
+     * Enables the "End Turn" button.
+     */
     public void enableEndTurnButton() {
         endTurnButton.setDisable(false);
     }
-    
+
+    /**
+     * Returns the end turn button.
+     *
+     * @return the end turn button
+     */
     public Button getEndTurnButton() {
         return endTurnButton;
     }
