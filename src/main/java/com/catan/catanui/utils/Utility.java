@@ -17,7 +17,7 @@ public class Utility {
             FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
             Parent root = fxmlLoader.load();
 
-            Scene scene = new Scene(root, 300, 275);
+            Scene scene = new Scene(root, 600, 600);
             stage.setScene(scene);
             stage.show();
         } catch (LoadException e) {
@@ -32,7 +32,7 @@ public class Utility {
             stage.close();
             FXMLLoader fxmlLoader = new FXMLLoader(resourceUrl);
             Parent root = fxmlLoader.load();
-            Scene scene = new Scene(root, 1300, 800);
+            Scene scene = new Scene(root, 1300, 850);
             stage = new Stage();
             stage.setScene(scene);
             stage.show();

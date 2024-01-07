@@ -72,6 +72,13 @@ public class DiceController {
     }
 
     /**
+     * Creates a new DiceController.
+     */
+    public DiceController() {
+        instance = this;
+    }
+
+    /**
      * Rolls the dice and updates the display.
      * If the dice is already rolled in this turn, the method returns without performing any action.
      * The dice values are simulated using random numbers between 1 and 6 (inclusive).
