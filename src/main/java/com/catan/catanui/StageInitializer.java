@@ -1,13 +1,9 @@
 package com.catan.catanui;
 
 import com.catan.catanui.constants.Constant;
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
@@ -22,7 +18,6 @@ public class StageInitializer implements ApplicationListener<ClientApplication.S
         Stage stage = event.getStage();
 
         try {
-            //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(Constant.GAME_TABLE));
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(Constant.LOGIN));
             Parent root = fxmlLoader.load();
 

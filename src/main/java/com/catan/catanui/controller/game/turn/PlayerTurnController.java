@@ -6,8 +6,6 @@ import com.catan.catanui.controller.ButtonsController;
 import com.catan.catanui.controller.game.GameTableController;
 import com.catan.catanui.controller.game.PlayerController;
 import com.catan.catanui.entity.Player;
-import com.catan.catanui.entity.RoadButton;
-import com.catan.catanui.entity.Settlement;
 import com.catan.catanui.entity.SettlementButton;
 import com.catan.catanui.entity.Tile;
 
