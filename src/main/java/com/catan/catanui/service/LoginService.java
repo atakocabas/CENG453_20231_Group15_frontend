@@ -1,5 +1,6 @@
 package com.catan.catanui.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -12,6 +13,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LoginService {
+
+    @Value("${catan.api.url}")
+    private static String API_URL;
+
     /**
      * Sends a login request to the server with the provided username and password.
      * If the login is successful (HTTP status code 2xx), the received token is stored in the TokenStore.
@@ -23,7 +28,7 @@ public class LoginService {
      */
     public ResponseEntity<String> login(String username, String password){
         RestTemplate restTemplate = new RestTemplate();
-        String url = "http://localhost:8080/api/v1/user/login";
+        String userLoginUrl = API_URL + "/user/login";
 
         Map<String, String> body = new HashMap<>();
         body.put("username", username);
@@ -36,7 +41,7 @@ public class LoginService {
 
         try{
             ResponseEntity<String> response = restTemplate.exchange(
-                    url,
+                    userLoginUrl,
                     HttpMethod.POST,
                     entity,
                     String.class
