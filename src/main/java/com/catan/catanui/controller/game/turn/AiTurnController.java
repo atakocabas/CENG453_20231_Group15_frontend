@@ -14,6 +14,10 @@ import com.catan.catanui.entity.SettlementButton;
 import javafx.animation.PauseTransition;
 import javafx.util.Duration;
 
+/**
+ * The AiTurnController class represents a controller for managing the turn of an AI player in the game.
+ * It extends the PlayerTurnController class and provides methods for making decisions on building roads, settlements, and cities.
+ */
 public class AiTurnController extends PlayerTurnController{
     private static Random rand = new Random();
 
@@ -21,6 +25,14 @@ public class AiTurnController extends PlayerTurnController{
         super(player);
     }
 
+    /**
+     * Starts the turn for the AI player.
+     * Enables all game table buttons, updates the buttons, rolls the dice,
+     * decides to build roads, settlements, and cities.
+     * If the player's total points reach the game end points constant,
+     * ends the game.
+     * Pauses for 2 seconds before ending the turn.
+     */
     public void startTurn() {
         ButtonsController.getInstance().enableAllGameTableButtons();
         updateButtons();
@@ -39,6 +51,10 @@ public class AiTurnController extends PlayerTurnController{
         pause.play();
     }
 
+    /**
+     * Makes a decision on building roads for the AI player.
+     * Selects a random road button from the available road buttons and builds it.
+     */
     private void decideBuildRoads() {
         List<RoadButton> avaliableRoadButtons = player.getAvaliableRoadButtons();
         int randomIndex = rand.nextInt(avaliableRoadButtons.size());
@@ -46,6 +62,9 @@ public class AiTurnController extends PlayerTurnController{
         roadButton.buildTurns(player);
     }
 
+    /**
+     * Decides and builds settlements for the AI player.
+     */
     private void decideBuildSettlements() {
         List<SettlementButton> avaliableSettlementButtons = player.getAvaliableSettlementButtons();
         if(avaliableSettlementButtons.isEmpty())
@@ -55,6 +74,11 @@ public class AiTurnController extends PlayerTurnController{
         settlementButton.buildTurns(player);
     }
 
+    /**
+     * Makes a decision to build cities for the AI player.
+     * It selects a random settlement button from the list of available cities
+     * and upgrades it to a city for the player.
+     */
     private void decideBuildCities() {
         List<SettlementButton> availableCities = player.getUpgradableSettlementButtons();
         if(availableCities.isEmpty())
@@ -65,7 +89,6 @@ public class AiTurnController extends PlayerTurnController{
     }
 
     public void enableButtons() {
-        return;
     }
 
 }
