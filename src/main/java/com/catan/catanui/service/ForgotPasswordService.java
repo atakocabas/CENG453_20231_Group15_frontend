@@ -11,10 +11,19 @@ import org.springframework.web.client.RestTemplate;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class represents a service for resetting passwords.
+ */
 @Service
 public class ForgotPasswordService {
     private final String FORGOT_PASSWORD_URL = "http://localhost:8080/api/v1/user/resetPassword";
 
+    /**
+     * Resets the password for the specified username.
+     *
+     * @param username the username for which the password should be reset
+     * @return true if the password was successfully reset, false otherwise
+     */
     public boolean resetPassword(String username) {
         try {
             RestTemplate restTemplate = new RestTemplate();

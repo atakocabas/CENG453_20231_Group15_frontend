@@ -12,6 +12,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LoginService {
+    /**
+     * Sends a login request to the server with the provided username and password.
+     * If the login is successful (HTTP status code 2xx), the received token is stored in the TokenStore.
+     * 
+     * @param username The username for the login request.
+     * @param password The password for the login request.
+     * @return The ResponseEntity<String> object representing the server's response.
+     *         Returns null if the login fails or an exception occurs.
+     */
     public ResponseEntity<String> login(String username, String password){
         RestTemplate restTemplate = new RestTemplate();
         String url = "http://localhost:8080/api/v1/user/login";

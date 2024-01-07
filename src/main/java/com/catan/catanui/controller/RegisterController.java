@@ -11,6 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
+/**
+ * This class represents the controller for the registration functionality.
+ */
 @Controller
 public class RegisterController {
     @FXML
@@ -24,6 +27,13 @@ public class RegisterController {
 
     private final RegisterService registerService = new RegisterService();
 
+    /**
+     * Handles the registration process.
+     * Retrieves the username, password, re-entered password, and email from the input fields.
+     * If the password and re-entered password match, it calls the register service to register the user.
+     * Prints a success message if the registration is successful, otherwise prints an error message.
+     * Prints an error message if the passwords do not match.
+     */
     public void handleRegister() {
         String username = usernameField.getText();
         String password = passwordField.getText();
@@ -42,6 +52,10 @@ public class RegisterController {
         }
     }
 
+    /**
+     * Handles the back button action.
+     * Navigates to the login screen.
+     */
     public void handleBack() {
         Utility.navigate((Stage) usernameField.getScene().getWindow(), getClass().getResource(Constant.LOGIN));
     }

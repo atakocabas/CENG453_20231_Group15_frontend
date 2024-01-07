@@ -13,6 +13,9 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
+/**
+ * The LeaderboardController class is responsible for managing the leaderboard UI and its actions.
+ */
 public class LeaderboardController {
 
 
@@ -30,6 +33,9 @@ public class LeaderboardController {
     public TableColumn<LeaderboardEntry, Long> scoreColumn;
     LeaderboardService leaderboardService = new LeaderboardService();
 
+    /**
+     * Retrieves the weekly scores from the leaderboard service and updates the leaderboard table accordingly.
+     */
     public void weeklyButtonAction() {
         List<LeaderboardEntry> leaderboardEntries = leaderboardService.getWeeklyScores();
 
@@ -41,6 +47,9 @@ public class LeaderboardController {
         leaderboardTable.getItems().addAll(leaderboardEntries);
     }
 
+    /**
+     * Retrieves the monthly scores from the leaderboard service and updates the leaderboard table.
+     */
     public void monthlyButtonAction() {
         List<LeaderboardEntry> leaderboardEntries = leaderboardService.getMonthlyScores();
 
@@ -52,6 +61,9 @@ public class LeaderboardController {
         leaderboardTable.getItems().addAll(leaderboardEntries);
     }
 
+    /**
+     * Retrieves all-time scores from the leaderboard service and updates the leaderboard table accordingly.
+     */
     public void alltimeButtonAction() {
         List<LeaderboardEntry> leaderboardEntries = leaderboardService.getAllTimeScores();
 
@@ -63,6 +75,10 @@ public class LeaderboardController {
         leaderboardTable.getItems().addAll(leaderboardEntries);
     }
 
+    /**
+     * Performs the action when the back button is clicked.
+     * Navigates to the main screen.
+     */
     public void backButtonAction() {
         Utility.navigate((Stage) weeklyButton.getScene().getWindow(), getClass().getResource(Constant.MAIN));
     }

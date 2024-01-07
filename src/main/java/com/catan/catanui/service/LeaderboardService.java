@@ -15,6 +15,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class represents a service for retrieving and adding leaderboard entries.
+ */
 public class LeaderboardService {
 
     public List<LeaderboardEntry> getWeeklyScores() {
@@ -32,6 +35,12 @@ public class LeaderboardService {
         return getLeaderboardEntries(allTimeApiUrl);
     }
 
+    /**
+     * Retrieves the leaderboard entries from the specified API URL.
+     *
+     * @param apiUrl the URL of the API endpoint to fetch the leaderboard entries from
+     * @return a list of leaderboard entries
+     */
     private List<LeaderboardEntry> getLeaderboardEntries(String apiUrl){
         List<LeaderboardEntry> leaderboardEntries = new ArrayList<>();
         try {
@@ -66,6 +75,13 @@ public class LeaderboardService {
         return leaderboardEntries;
     }
 
+    /**
+     * Adds a leaderboard entry for the given username and score.
+     * 
+     * @param username the username of the player
+     * @param score the score achieved by the player
+     * @return true if the leaderboard entry was added successfully, false otherwise
+     */
     public boolean addLeaderboardEntry(String username, int score){
         RestTemplate restTemplate = new RestTemplate();
 

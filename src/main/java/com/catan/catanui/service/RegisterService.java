@@ -11,6 +11,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterService {
+    /**
+     * Registers a new user with the given username, password, and email.
+     * Sends a POST request to the specified URL with the user information in the request body.
+     * Returns the HTTP status of the registration request.
+     *
+     * @param username the username of the user to register
+     * @param password the password of the user to register
+     * @param email the email of the user to register
+     * @return the HTTP status of the registration request
+     */
     public ResponseEntity<HttpStatus> register(String username, String password, String email) {
         RestTemplate restTemplate = new RestTemplate();
         String url = "http://localhost:8080/api/v1/user/register";

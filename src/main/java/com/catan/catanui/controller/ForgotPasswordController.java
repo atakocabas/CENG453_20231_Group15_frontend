@@ -10,6 +10,10 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.springframework.stereotype.Controller;
 
+/**
+ * This class represents the controller for the Forgot Password functionality.
+ * It handles user interactions and actions related to resetting the password.
+ */
 @Controller
 public class ForgotPasswordController {
     @FXML
