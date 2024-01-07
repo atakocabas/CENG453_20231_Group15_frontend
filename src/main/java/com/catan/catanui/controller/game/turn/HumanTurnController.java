@@ -1,6 +1,7 @@
 package com.catan.catanui.controller.game.turn;
 
 
+import com.catan.catanui.controller.ButtonsController;
 import com.catan.catanui.controller.game.EndTurnController;
 import com.catan.catanui.entity.Player;
 
@@ -20,12 +21,12 @@ public class HumanTurnController extends PlayerTurnController {
     }
 
     /**
-     * Starts the turn of the human player by enabling buttons and disabling the end turn button.
+     * Starts the turn for the human player, disables all road and settlement buttons.
      */
     public void startTurn() {
-        enableButtons();
-        EndTurnController.getInstance().disableEndTurnButton();
-        return;
+        // Disable all buttons at the beginning of the game, they will be enabled when dice is rolled
+        ButtonsController.getInstance().disableAllRoadButtons();
+        ButtonsController.getInstance().disableAllSettlementButtons();
     }
 
     /**

@@ -149,10 +149,6 @@ public class GameTableController implements Initializable {
         }
 
         createPlayerTurnControllers();
-
-        // Disable all buttons at the beginning of the game, they will be enabled when dice is rolled
-        ButtonsController.getInstance().disableAllRoadButtons();
-        ButtonsController.getInstance().disableAllSettlementButtons();
     }
 
 
