@@ -481,10 +481,10 @@ public class GameTableController implements Initializable {
             logger.info("Leaderboard entry could not be added");
         }
         if(currentPlayer == 0){
-            GameEndController.displayFunMessage(mainPane, playerName + " won the game!");
+            GameEndController.displayEndGameMessage(mainPane, playerName + " won the game!");
         }
         else{
-            GameEndController.displayFunMessage(mainPane, "Player " + (currentPlayer + 1) + " won the game!");
+            GameEndController.displayEndGameMessage(mainPane, "Player " + (currentPlayer + 1) + " won the game!");
         }
     }
 }

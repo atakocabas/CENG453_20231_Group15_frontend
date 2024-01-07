@@ -5,7 +5,6 @@ package com.catan.catanui.controller.game;
 import com.catan.catanui.constants.Constant;
 import com.catan.catanui.utils.Utility;
 
-import ch.qos.logback.classic.pattern.Util;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -23,7 +22,7 @@ import javafx.util.Duration;
 
 public class GameEndController {
 
-    public static void displayFunMessage(Pane parentPane, String message) {
+    public static void displayEndGameMessage(Pane parentPane, String message) {
         // Create a container for the grey text
         Pane greyPane = new Pane();
         parentPane.getChildren().add(greyPane);
