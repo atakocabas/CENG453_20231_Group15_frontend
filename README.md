@@ -48,3 +48,12 @@ If AI player has enough resources to build a road, it randomly builds a road. Th
 if AI player has enough resources to build a settlement, it randomly builds a settlement. Then,
 if AI player has enough resources to build a city, it randomly builds a city. AI turn ends after this.
 
+## TurnControllers
+We created PlayerTurnController abstract class to implement Ai and Human turn implementations.
+AiTurnController implements decision making of Ai players. HumanTurnController implements visibility of available buttons to Human players.
+
+![alt text](/docs/img/TurnControllers.png)
+
+
+## Singleton Pattern
+Singleton Pattern is used to easily inject controllers between each other. It made our workplace simply controllable and prevented classes from being taught twice.
