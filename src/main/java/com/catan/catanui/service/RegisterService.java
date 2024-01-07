@@ -1,6 +1,5 @@
 package com.catan.catanui.service;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -12,8 +11,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterService {
-    @Value("${catan.api.url}")
-    private String API_URL;
     /**
      * Registers a new user with the given username, password, and email.
      * Sends a POST request to the specified URL with the user information in the request body.
@@ -26,7 +23,7 @@ public class RegisterService {
      */
     public ResponseEntity<HttpStatus> register(String username, String password, String email) {
         RestTemplate restTemplate = new RestTemplate();
-        String userRegisterUrl = API_URL + "/user/register";
+        String url = "http://localhost:8080/api/v1/user/register";
 
         Map<String, String> body = new HashMap<>();
         body.put("username", username);
@@ -40,7 +37,7 @@ public class RegisterService {
 
         try {
             return restTemplate.exchange(
-                    userRegisterUrl,
+                    url,
                     HttpMethod.POST,
                     entity,
                     HttpStatus.class

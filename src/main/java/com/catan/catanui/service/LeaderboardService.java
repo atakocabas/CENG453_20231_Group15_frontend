@@ -2,10 +2,12 @@ package com.catan.catanui.service;
 
 import com.catan.catanui.config.TokenStore;
 import com.catan.catanui.entity.LeaderboardEntry;
-
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,21 +19,19 @@ import java.util.Map;
  * This class represents a service for retrieving and adding leaderboard entries.
  */
 public class LeaderboardService {
-    @Value("${catan.api.url}")
-    private String API_URL;
 
     public List<LeaderboardEntry> getWeeklyScores() {
-        String weeklyApiUrl = API_URL + "/leaderboard/weekly";
+        String weeklyApiUrl = "http://localhost:8080/api/v1/leaderboard/weekly";
         return getLeaderboardEntries(weeklyApiUrl);
     }
 
     public List<LeaderboardEntry> getMonthlyScores(){
-        String monthlyApiUrl = API_URL + "/leaderboard/monthly";
+        String monthlyApiUrl = "http://localhost:8080/api/v1/leaderboard/monthly";
         return getLeaderboardEntries(monthlyApiUrl);
     }
 
     public List<LeaderboardEntry> getAllTimeScores(){
-        String allTimeApiUrl = API_URL + "/leaderboard/all-time";
+        String allTimeApiUrl = "http://localhost:8080/api/v1/leaderboard/all-time";
         return getLeaderboardEntries(allTimeApiUrl);
     }
 
@@ -83,7 +83,6 @@ public class LeaderboardService {
      * @return true if the leaderboard entry was added successfully, false otherwise
      */
     public boolean addLeaderboardEntry(String username, int score){
-        String leaderboardAddApiUrl = API_URL + "/leaderboard/add";
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
@@ -97,7 +96,7 @@ public class LeaderboardService {
 
         try{
             ResponseEntity<List<LinkedHashMap>> response = restTemplate.exchange(
-                    leaderboardAddApiUrl,
+                    "http://localhost:8080/api/v1/leaderboard/add",
                     HttpMethod.POST,
                     entity,
                     new ParameterizedTypeReference<List<LinkedHashMap>>() {}
